@@ -38,14 +38,6 @@ export function TaskManagementContent() {
         <h1 className="text-2xl">Manage your life with ease with our task management tool</h1>
       </div>
       
-      <div className="mb-8">
-        <img 
-          src="/lovable-uploads/937138d9-592f-4f0f-9a5d-53a5778f393e.png" 
-          alt="Task Management Illustration" 
-          className="w-full h-auto rounded-lg"
-        />
-      </div>
-      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
