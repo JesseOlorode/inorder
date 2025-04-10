@@ -282,7 +282,7 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
           <div className="flex items-center justify-between text-xs mb-1">
             <div className="flex items-center">
               <Calendar size={12} className="mr-1 text-gray-400" />
-              <span className="text-gray-400">Expires in {expiryDays} days</span>
+              <span className="text-white">Expires in {expiryDays} days</span>
             </div>
           </div>
           <Progress 
