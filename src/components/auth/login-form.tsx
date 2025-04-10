@@ -33,7 +33,14 @@ export function LoginForm() {
   return (
     <>
       <div className="text-center mb-5">
-        <div className="text-[#00C853] text-8xl font-medium mb-2">I</div>
+        <div className="flex justify-center items-center mb-2">
+          <div className="relative inline-block">
+            <div className="text-[#00C853] text-8xl font-medium">I</div>
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-black overflow-hidden">
+              <div className="text-[#00C853] text-8xl font-medium">I</div>
+            </div>
+          </div>
+        </div>
         <div className="text-white text-3xl font-medium">InOrder</div>
         <div className="text-sm text-gray-400 mt-2">Time is a precious commodity</div>
       </div>
