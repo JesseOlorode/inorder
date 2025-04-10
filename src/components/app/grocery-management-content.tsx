@@ -61,12 +61,12 @@ export function GroceryManagementContent() {
     },
     {
       id: 4,
-      name: "Chia Pudding",
+      name: "Milk",
       category: "dairy",
       items: [
         { 
           id: 5, 
-          name: "Chia Pudding", 
+          name: "Milk", 
           price: "$3.49", 
           image: "https://images.unsplash.com/photo-1604423043492-41e987df0e56?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 5
