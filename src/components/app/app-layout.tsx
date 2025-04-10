@@ -15,7 +15,7 @@ export function AppLayout({ children, className }: AppLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen bg-[#1A1F2C] text-white">
       {showNav && <AppNavbar />}
-      <main className={cn("flex-1 max-w-md mx-auto w-full px-4 pb-16", className)}>
+      <main className={cn("flex-1 max-w-md mx-auto w-full px-4 pb-24", className)}>
         {children}
       </main>
       <AppBottomNav />
