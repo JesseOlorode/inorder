@@ -1,6 +1,6 @@
 
 import { Avatar } from "@/components/ui/avatar";
-import { ChevronRight, Moon, Key, Globe, Info, FileText, Share2, LogOut } from "lucide-react";
+import { ChevronRight, Moon, Key, Globe, Info, FileText, Share2, LogOut, Facebook, Twitter, Instagram, Mail, Link } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/contexts/theme-context";
@@ -36,6 +36,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export function ProfileContent() {
   const { theme, toggleTheme } = useTheme();
@@ -46,6 +56,8 @@ export function ProfileContent() {
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
   const [termsDialogOpen, setTermsDialogOpen] = useState(false);
+  const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
   
   const handleLogout = () => {
     toast({
@@ -57,21 +69,77 @@ export function ProfileContent() {
   };
 
   const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "Check out this amazing app!",
-        text: "I've been using this app and it's great!",
-        url: window.location.origin,
-      }).catch(err => {
-        console.error("Error sharing:", err);
-      });
-    } else {
-      toast({
-        title: t("sharingTitle"),
-        description: t("sharingDescription"),
-      });
-      navigator.clipboard.writeText(window.location.origin);
+    setShareDialogOpen(true);
+  };
+
+  const handleShareVia = (platform) => {
+    let shareUrl;
+    const appUrl = window.location.origin;
+    const shareText = t("shareText");
+    const shareTitle = t("shareTitle");
+    
+    switch (platform) {
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(appUrl)}&quote=${encodeURIComponent(shareText)}`;
+        break;
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
+        break;
+      case 'instagram':
+        // Instagram doesn't have a direct share URL, so we'll just copy to clipboard
+        navigator.clipboard.writeText(`${shareTitle} ${appUrl}`);
+        toast({
+          title: t("instagramShareTitle"),
+          description: t("instagramShareDescription"),
+        });
+        setShareDialogOpen(false);
+        return;
+      case 'message':
+        // For SMS on mobile devices
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          shareUrl = `sms:?&body=${encodeURIComponent(`${shareTitle} ${appUrl}`)}`;
+        } else {
+          navigator.clipboard.writeText(`${shareTitle} ${appUrl}`);
+          toast({
+            title: t("messageShareTitle"),
+            description: t("messageShareDescription"),
+          });
+          setShareDialogOpen(false);
+          return;
+        }
+        break;
+      case 'link':
+        navigator.clipboard.writeText(appUrl);
+        toast({
+          title: t("linkCopiedTitle"),
+          description: t("linkCopiedDescription"),
+        });
+        setShareDialogOpen(false);
+        return;
+      default:
+        if (navigator.share) {
+          navigator.share({
+            title: shareTitle,
+            text: shareText,
+            url: appUrl,
+          }).catch(err => {
+            console.error("Error sharing:", err);
+          });
+        } else {
+          navigator.clipboard.writeText(appUrl);
+          toast({
+            title: t("sharingTitle"),
+            description: t("sharingDescription"),
+          });
+        }
+        setShareDialogOpen(false);
+        return;
     }
+    
+    if (shareUrl) {
+      window.open(shareUrl, '_blank');
+    }
+    setShareDialogOpen(false);
   };
 
   // Password change form
@@ -195,12 +263,7 @@ export function ProfileContent() {
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label={t("privacyPolicy")}
-            onClick={() => {
-              toast({
-                title: t("privacyTitle"),
-                description: t("privacyDescription"),
-              });
-            }}
+            onClick={() => setPrivacyDialogOpen(true)}
           />
         </div>
         
@@ -383,6 +446,101 @@ export function ProfileContent() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Privacy Policy Dialog */}
+      <Dialog open={privacyDialogOpen} onOpenChange={setPrivacyDialogOpen}>
+        <DialogContent className={`${theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'} max-w-3xl max-h-[80vh]`}>
+          <DialogHeader>
+            <DialogTitle>{t("privacyPolicy")}</DialogTitle>
+          </DialogHeader>
+          
+          <ScrollArea className="mt-2 h-[60vh] pr-4 pb-4">
+            <div className={`prose ${theme === 'dark' ? 'prose-invert' : ''} max-w-none`}>
+              <div dangerouslySetInnerHTML={{ 
+                __html: t("privacyPolicyText")
+                  .replace(/# (.*)/g, '<h1 class="text-xl font-bold my-4">$1</h1>')
+                  .replace(/## (.*)/g, '<h2 class="text-lg font-semibold my-3">$1</h2>')
+                  .replace(/\n\n/g, '<p class="my-2"></p>')
+                  .replace(/\n/g, '<br />')
+              }} />
+            </div>
+          </ScrollArea>
+          
+          <DialogFooter className="mt-4">
+            <Button 
+              onClick={() => setPrivacyDialogOpen(false)} 
+              className="bg-[#00C853] hover:bg-[#00B04C] text-black font-medium"
+            >
+              I Accept
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Share App Dialog */}
+      <AlertDialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
+        <AlertDialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("shareThisApp")}</AlertDialogTitle>
+            <AlertDialogDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}>
+              {t("shareDialogDescription")}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          
+          <div className="grid grid-cols-3 gap-3 py-4">
+            <Button 
+              variant="outline" 
+              className={`flex flex-col items-center p-3 h-auto ${theme === 'dark' ? 'hover:bg-[#1A1F2C] border-gray-700' : 'hover:bg-gray-100'}`}
+              onClick={() => handleShareVia('facebook')}
+            >
+              <Facebook className="h-8 w-8 text-[#1877F2] mb-1" />
+              <span className="text-xs">Facebook</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className={`flex flex-col items-center p-3 h-auto ${theme === 'dark' ? 'hover:bg-[#1A1F2C] border-gray-700' : 'hover:bg-gray-100'}`}
+              onClick={() => handleShareVia('twitter')}
+            >
+              <Twitter className="h-8 w-8 text-[#1DA1F2] mb-1" />
+              <span className="text-xs">X</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className={`flex flex-col items-center p-3 h-auto ${theme === 'dark' ? 'hover:bg-[#1A1F2C] border-gray-700' : 'hover:bg-gray-100'}`}
+              onClick={() => handleShareVia('instagram')}
+            >
+              <Instagram className="h-8 w-8 text-[#E4405F] mb-1" />
+              <span className="text-xs">Instagram</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className={`flex flex-col items-center p-3 h-auto ${theme === 'dark' ? 'hover:bg-[#1A1F2C] border-gray-700' : 'hover:bg-gray-100'}`}
+              onClick={() => handleShareVia('message')}
+            >
+              <Mail className="h-8 w-8 text-[#34B7F1] mb-1" />
+              <span className="text-xs">Messages</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className={`flex flex-col items-center p-3 h-auto ${theme === 'dark' ? 'hover:bg-[#1A1F2C] border-gray-700' : 'hover:bg-gray-100'}`}
+              onClick={() => handleShareVia('link')}
+            >
+              <Link className="h-8 w-8 text-[#00C853] mb-1" />
+              <span className="text-xs">Copy Link</span>
+            </Button>
+          </div>
+          
+          <AlertDialogFooter>
+            <AlertDialogCancel className={theme === 'dark' ? 'border-gray-700' : ''}>
+              {t("cancel")}
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

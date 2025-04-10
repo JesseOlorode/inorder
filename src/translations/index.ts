@@ -41,6 +41,17 @@ export const translations = {
     selectLanguage: "Select Language",
     chooseLanguage: "Choose your preferred language for the app.",
     
+    // Sharing Dialog
+    shareDialogDescription: "Share InOrder with your friends and family",
+    shareTitle: "Check out InOrder app!",
+    shareText: "I've been using InOrder app and it's great for staying organized!",
+    instagramShareTitle: "Instagram",
+    instagramShareDescription: "Copy link to clipboard. Open Instagram and paste in your story or message.",
+    messageShareTitle: "Messages",
+    messageShareDescription: "Copy link to clipboard. Open Messages and paste to your friends.",
+    linkCopiedTitle: "Link Copied",
+    linkCopiedDescription: "App link has been copied to your clipboard.",
+    
     // Toast Messages
     passwordChanged: "Password Changed",
     passwordUpdated: "Your password has been updated successfully",
@@ -88,6 +99,58 @@ export const translations = {
     ## CONTACT INFORMATION
     
     Questions about the Terms of Service should be sent to us at legal@olorodecorp.com.
+    
+    Last updated: April 10, 2025
+    `,
+    
+    // Privacy Policy
+    privacyPolicyText: `
+    # PRIVACY POLICY
+
+    ## INTRODUCTION
+    
+    Olorode Corporations LLC ("we", "our", or "us") respects your privacy and is committed to protecting it through our compliance with this privacy policy. This policy describes the types of information we may collect from you or that you may provide when you use the InOrder application ("App") and our practices for collecting, using, maintaining, protecting, and disclosing that information.
+    
+    ## INFORMATION WE COLLECT
+    
+    We collect several types of information from and about users of our App, including:
+    
+    1. Personal Information: This includes information by which you may be personally identified, such as name, email address, and any other information you choose to provide.
+    
+    2. Usage Information: Details of your visits to our App, including traffic data, location data, logs, and other communication data and the resources that you access and use on the App.
+    
+    3. Device Information: Information about your device, internet connection, and mobile operating system.
+    
+    ## HOW WE USE YOUR INFORMATION
+    
+    We use information that we collect about you or that you provide to us, including any personal information:
+    
+    1. To present our App and its contents to you.
+    2. To provide you with information, products, or services that you request from us.
+    3. To fulfill any other purpose for which you provide it.
+    4. To carry out our obligations and enforce our rights.
+    5. To improve our App and user experience.
+    6. In any other way we may describe when you provide the information.
+    
+    ## DATA SECURITY
+    
+    We have implemented measures designed to secure your personal information from accidental loss and from unauthorized access, use, alteration, and disclosure. However, we cannot guarantee that unauthorized third parties will never be able to defeat our security measures.
+    
+    ## DATA RETENTION
+    
+    We will retain your personal information only for as long as is necessary for the purposes set out in this privacy policy.
+    
+    ## CHANGES TO OUR PRIVACY POLICY
+    
+    We may update our privacy policy from time to time. If we make material changes, we will provide notice on the App, such as a pop-up notice or other appropriate means.
+    
+    ## CHILDREN'S PRIVACY
+    
+    Our App is not intended for children under 13 years of age, and we do not knowingly collect personal information from children under 13.
+    
+    ## CONTACT INFORMATION
+    
+    To ask questions or comment about this privacy policy and our privacy practices, contact us at: privacy@olorodecorp.com
     
     Last updated: April 10, 2025
     `,
@@ -184,6 +247,69 @@ export const translations = {
     
     Última actualización: 10 de abril de 2025
     `,
+    
+    // Sharing Dialog
+    shareDialogDescription: "Comparte InOrder con tus amigos y familia",
+    shareTitle: "¡Echa un vistazo a la aplicación InOrder!",
+    shareText: "¡He estado usando la aplicación InOrder y es genial para mantenerme organizado!",
+    instagramShareTitle: "Instagram",
+    instagramShareDescription: "Enlace copiado al portapapeles. Abre Instagram y pégalo en tu historia o mensaje.",
+    messageShareTitle: "Mensajes",
+    messageShareDescription: "Enlace copiado al portapapeles. Abre Mensajes y pégalo a tus amigos.",
+    linkCopiedTitle: "Enlace Copiado",
+    linkCopiedDescription: "El enlace de la aplicación ha sido copiado a tu portapapeles.",
+    
+    // Privacy Policy
+    privacyPolicyText: `
+    # POLÍTICA DE PRIVACIDAD
+
+    ## INTRODUCCIÓN
+    
+    Olorode Corporations LLC ("nosotros", "nuestro" o "nos") respeta su privacidad y se compromete a protegerla mediante el cumplimiento de esta política de privacidad. Esta política describe los tipos de información que podemos recopilar de usted o que usted puede proporcionar cuando utiliza la aplicación InOrder ("Aplicación") y nuestras prácticas para recopilar, utilizar, mantener, proteger y divulgar esa información.
+    
+    ## INFORMACIÓN QUE RECOPILAMOS
+    
+    Recopilamos varios tipos de información de y sobre los usuarios de nuestra Aplicación, incluyendo:
+    
+    1. Información Personal: Esto incluye información mediante la cual puede ser identificado personalmente, como nombre, dirección de correo electrónico y cualquier otra información que elija proporcionar.
+    
+    2. Información de Uso: Detalles de sus visitas a nuestra Aplicación, incluidos datos de tráfico, datos de ubicación, registros y otros datos de comunicación y los recursos a los que accede y utiliza en la Aplicación.
+    
+    3. Información del Dispositivo: Información sobre su dispositivo, conexión a Internet y sistema operativo móvil.
+    
+    ## CÓMO UTILIZAMOS SU INFORMACIÓN
+    
+    Utilizamos la información que recopilamos sobre usted o que usted nos proporciona, incluida cualquier información personal:
+    
+    1. Para presentarle nuestra Aplicación y su contenido.
+    2. Para proporcionarle información, productos o servicios que nos solicite.
+    3. Para cumplir cualquier otro propósito para el que la proporcione.
+    4. Para cumplir con nuestras obligaciones y hacer valer nuestros derechos.
+    5. Para mejorar nuestra Aplicación y la experiencia del usuario.
+    6. De cualquier otra manera que podamos describir cuando usted proporcione la información.
+    
+    ## SEGURIDAD DE DATOS
+    
+    Hemos implementado medidas diseñadas para proteger su información personal contra pérdidas accidentales y contra accesos, usos, alteraciones y divulgaciones no autorizados. Sin embargo, no podemos garantizar que terceros no autorizados nunca podrán vencer nuestras medidas de seguridad.
+    
+    ## RETENCIÓN DE DATOS
+    
+    Conservaremos su información personal solo durante el tiempo que sea necesario para los fines establecidos en esta política de privacidad.
+    
+    ## CAMBIOS EN NUESTRA POLÍTICA DE PRIVACIDAD
+    
+    Podemos actualizar nuestra política de privacidad de vez en cuando. Si realizamos cambios importantes, le proporcionaremos un aviso en la Aplicación, como un aviso emergente u otros medios apropiados.
+    
+    ## PRIVACIDAD DE LOS NIÑOS
+    
+    Nuestra Aplicación no está destinada a niños menores de 13 años, y no recopilamos conscientemente información personal de niños menores de 13 años.
+    
+    ## INFORMACIÓN DE CONTACTO
+    
+    Para hacer preguntas o comentarios sobre esta política de privacidad y nuestras prácticas de privacidad, contáctenos en: privacy@olorodecorp.com
+    
+    Última actualización: 10 de abril de 2025
+    `,
   },
   french: {
     // Navbar
@@ -274,6 +400,69 @@ export const translations = {
     ## INFORMATIONS DE CONTACT
     
     Les questions concernant les Conditions de Service doivent nous être envoyées à l'adresse legal@olorodecorp.com.
+    
+    Dernière mise à jour : 10 avril 2025
+    `,
+    
+    // Sharing Dialog
+    shareDialogDescription: "Partagez InOrder avec vos amis et votre famille",
+    shareTitle: "Découvrez l'application InOrder !",
+    shareText: "J'utilise l'application InOrder et c'est génial pour rester organisé !",
+    instagramShareTitle: "Instagram",
+    instagramShareDescription: "Lien copié dans le presse-papiers. Ouvrez Instagram et collez-le dans votre story ou message.",
+    messageShareTitle: "Messages",
+    messageShareDescription: "Lien copié dans le presse-papiers. Ouvrez Messages et collez-le à vos amis.",
+    linkCopiedTitle: "Lien Copié",
+    linkCopiedDescription: "Le lien de l'application a été copié dans votre presse-papiers.",
+    
+    // Privacy Policy
+    privacyPolicyText: `
+    # POLITIQUE DE CONFIDENTIALITÉ
+
+    ## INTRODUCTION
+    
+    Olorode Corporations LLC ("nous", "notre" ou "nos") respecte votre vie privée et s'engage à la protéger en se conformant à cette politique de confidentialité. Cette politique décrit les types d'informations que nous pouvons collecter auprès de vous ou que vous pouvez fournir lorsque vous utilisez l'application InOrder ("Application") et nos pratiques de collecte, d'utilisation, de maintenance, de protection et de divulgation de ces informations.
+    
+    ## INFORMATIONS QUE NOUS COLLECTONS
+    
+    Nous collectons plusieurs types d'informations auprès des utilisateurs de notre Application et à leur sujet, notamment :
+    
+    1. Informations personnelles : Cela inclut les informations permettant de vous identifier personnellement, comme le nom, l'adresse e-mail et toute autre information que vous choisissez de fournir.
+    
+    2. Informations d'utilisation : Détails de vos visites sur notre Application, y compris les données de trafic, les données de localisation, les journaux et autres données de communication et les ressources auxquelles vous accédez et que vous utilisez sur l'Application.
+    
+    3. Informations sur l'appareil : Informations sur votre appareil, votre connexion Internet et votre système d'exploitation mobile.
+    
+    ## COMMENT NOUS UTILISONS VOS INFORMATIONS
+    
+    Nous utilisons les informations que nous collectons à votre sujet ou que vous nous fournissez, y compris les informations personnelles :
+    
+    1. Pour vous présenter notre Application et son contenu.
+    2. Pour vous fournir des informations, des produits ou des services que vous nous demandez.
+    3. Pour remplir tout autre objectif pour lequel vous la fournissez.
+    4. Pour respecter nos obligations et faire valoir nos droits.
+    5. Pour améliorer notre Application et l'expérience utilisateur.
+    6. De toute autre manière que nous pouvons décrire lorsque vous fournissez les informations.
+    
+    ## SÉCURITÉ DES DONNÉES
+    
+    Nous avons mis en place des mesures conçues pour sécuriser vos informations personnelles contre la perte accidentelle et contre l'accès, l'utilisation, la modification et la divulgation non autorisés. Cependant, nous ne pouvons pas garantir que des tiers non autorisés ne parviendront jamais à contourner nos mesures de sécurité.
+    
+    ## CONSERVATION DES DONNÉES
+    
+    Nous ne conserverons vos informations personnelles que le temps nécessaire aux fins énoncées dans cette politique de confidentialité.
+    
+    ## MODIFICATIONS DE NOTRE POLITIQUE DE CONFIDENTIALITÉ
+    
+    Nous pouvons mettre à jour notre politique de confidentialité de temps à autre. Si nous apportons des modifications importantes, nous vous en informerons sur l'Application, par exemple via une notification contextuelle ou par d'autres moyens appropriés.
+    
+    ## CONFIDENTIALITÉ DES ENFANTS
+    
+    Notre Application n'est pas destinée aux enfants de moins de 13 ans, et nous ne collectons pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans.
+    
+    ## INFORMATIONS DE CONTACT
+    
+    Pour poser des questions ou commenter cette politique de confidentialité et nos pratiques en matière de confidentialité, contactez-nous à : privacy@olorodecorp.com
     
     Dernière mise à jour : 10 avril 2025
     `,
@@ -370,98 +559,51 @@ export const translations = {
     
     Zuletzt aktualisiert: 10. April 2025
     `,
-  },
-  chinese: {
-    // Navbar
-    dashboard: "仪表板",
-    profile: "个人资料",
-    taskManagement: "任务管理",
-    groceryManagement: "购物管理",
-    todaysTask: "今日任务",
-    weather: "天气",
-    search: "搜索",
-    favorites: "收藏",
-    wifiSettings: "WiFi设置",
-    statistics: "统计",
-    soundSettings: "声音设置",
-    alerts: "提醒",
-    devices: "设备",
     
-    // Profile Page
-    accountSettings: "账户设置",
-    preferences: "偏好设置",
-    mode: "模式",
-    darkMode: "暗黑模式",
-    lightMode: "明亮模式",
-    changePassword: "更改密码",
-    language: "语言",
-    aboutApp: "关于应用",
-    termsConditions: "条款和条件",
-    privacyPolicy: "隐私政策",
-    shareThisApp: "分享此应用",
-    logout: "退出登录",
+    // Sharing Dialog
+    shareDialogDescription: "Teilen Sie InOrder mit Ihren Freunden und Ihrer Familie",
+    shareTitle: "Schau dir die InOrder App an!",
+    shareText: "Ich benutze die InOrder App und sie ist großartig, um organisiert zu bleiben!",
+    instagramShareTitle: "Instagram",
+    instagramShareDescription: "Link in die Zwischenablage kopiert. Öffnen Sie Instagram und fügen Sie ihn in Ihre Story oder Nachricht ein.",
+    messageShareTitle: "Nachrichten",
+    messageShareDescription: "Link in die Zwischenablage kopiert. Öffnen Sie Nachrichten und fügen Sie ihn an Ihre Freunde ein.",
+    linkCopiedTitle: "Link Kopiert",
+    linkCopiedDescription: "Der App-Link wurde in Ihre Zwischenablage kopiert.",
     
-    // Password Change Dialog
-    updatePassword: "更新密码以确保账户安全。",
-    currentPassword: "当前密码",
-    newPassword: "新密码",
-    confirmPassword: "确认新密码",
-    cancel: "取消",
-    saveChanges: "保存更改",
-    
-    // Language Dialog
-    selectLanguage: "选择语言",
-    chooseLanguage: "为应用选择您偏好的语言。",
-    
-    // Toast Messages
-    passwordChanged: "密码已更改",
-    passwordUpdated: "您的密码已成功更新",
-    languageChanged: "语言已更改",
-    passwordsDontMatch: "新密码不匹配",
-    loggedOut: "成功退出登录",
-    logoutDescription: "您已退出登录",
-    appInfoTitle: "关于应用",
-    appInfoDescription: "InOrder v1.2.0 - 您的终极生产力伴侣。",
-    termsTitle: "条款和条件",
-    termsDescription: "完整的条款和条件将会显示在这里。",
-    privacyTitle: "隐私政策",
-    privacyDescription: "隐私政策将会显示在这里。",
-    sharingTitle: "分享",
-    sharingDescription: "链接已复制到剪贴板！",
-    
-    // Terms and Conditions
-    termsAndConditionsText: `
-    # 条款和条件
+    // Privacy Policy
+    privacyPolicyText: `
+    # DATENSCHUTZRICHTLINIE
 
-    ## 概述
+    ## EINLEITUNG
     
-    本网站和应用程序（InOrder）由Olorode Corporations LLC运营。在整个网站中，"我们"、"我们的"和"我们的"是指Olorode Corporations LLC。Olorode Corporations LLC向您（用户）提供此应用程序，包括从此应用程序提供的所有信息、工具和服务，条件是您接受此处声明的所有条款、条件、政策和通知。
+    Olorode Corporations LLC ("wir", "unser" oder "uns") respektiert Ihre Privatsphäre und verpflichtet sich, sie durch die Einhaltung dieser Datenschutzrichtlinie zu schützen. Diese Richtlinie beschreibt die Arten von Informationen, die wir von Ihnen sammeln können oder die Sie bereitstellen können, wenn Sie die InOrder-Anwendung ("App") verwenden, sowie unsere Praktiken zum Sammeln, Verwenden, Pflegen, Schützen und Offenlegen dieser Informationen.
     
-    通过访问或使用我们的应用程序，您参与我们的"服务"，并同意受以下条款和条件（"服务条款"，"条款"）的约束，包括此处引用和/或通过超链接提供的那些附加条款和条件以及政策。这些服务条款适用于应用程序的所有用户。
+    ## INFORMATIONEN, DIE WIR SAMMELN
     
-    请在访问或使用我们的应用程序之前仔细阅读这些服务条款。通过访问或使用应用程序的任何部分，您同意受这些服务条款的约束。如果您不同意本协议的所有条款和条件，则您可能无法访问应用程序或使用任何服务。
+    Wir sammeln verschiedene Arten von Informationen von und über Benutzer unserer App, darunter:
     
-    ## 知识产权
+    1. Persönliche Informationen: Dazu gehören Informationen, anhand derer Sie persönlich identifiziert werden können, wie Name, E-Mail-Adresse und andere Informationen, die Sie bereitstellen möchten.
     
-    本应用程序及其全部内容、功能和功能（包括但不限于所有信息、软件、文本、显示、图像、视频和音频，以及其设计、选择和安排）均为Olorode Corporations LLC、其许可方或此类材料的其他提供者所有，并受美国和国际版权、商标、专利、商业秘密和其他知识产权或专有权利法律的保护。
+    2. Nutzungsinformationen: Details Ihrer Besuche in unserer App, einschließlich Verkehrsdaten, Standortdaten, Protokolle und andere Kommunikationsdaten sowie die Ressourcen, auf die Sie in der App zugreifen und die Sie nutzen.
     
-    严禁您：
-    1. 未经我们事先书面同意，出于商业目的复制、重新分发、复制、下载或以其他方式使用本应用程序的任何部分
-    2. 尝试对应用程序的任何部分进行逆向工程
-    3. 删除或更改任何版权、商标或其他专有权利通知
-    4. 将应用程序中的任何材料传输给任何其他人或在任何其他服务器上"镜像"材料
+    3. Geräteinformationen: Informationen über Ihr Gerät, Ihre Internetverbindung und Ihr mobiles Betriebssystem.
     
-    任何未经这些服务条款明确允许的���用程序使用都是违反这些条款的行为，可能违反版权、商标和其他法律。
+    ## WIE WIR IHRE INFORMATIONEN VERWENDEN
     
-    ## 服务条款的修改
+    Wir verwenden Informationen, die wir über Sie sammeln oder die Sie uns zur Verfügung stellen, einschließlich persönlicher Informationen:
     
-    我们保留随时修改这些服务条款的权利，恕不另行通知。通过使用本应用程序，您同意受这些服务条款的当前版本的约束。
+    1. Um Ihnen unsere App und ihre Inhalte zu präsentieren.
+    2. Um Ihnen Informationen, Produkte oder Dienstleistungen bereitzustellen, die Sie von uns anfordern.
+    3. Um jeden anderen Zweck zu erfüllen, für den Sie sie bereitstellen.
+    4. Um unsere Verpflichtungen zu erfüllen und unsere Rechte durchzusetzen.
+    5. Um unsere App und das Benutzererlebnis zu verbessern.
+    6. Auf jede andere Weise, die wir beschreiben, wenn Sie die Informationen bereitstellen.
     
-    ## 联系信息
+    ## DATENSICHERHEIT
     
-    有关服务条款的问题应发送至legal@olorodecorp.com。
+    Wir haben Maßnahmen implementiert, die darauf ausgelegt sind, Ihre persönlichen Informationen vor versehentlichem Verlust und vor unbefugtem Zugriff, Verwendung, Änderung und Offenlegung zu schützen. Wir können jedoch nicht garantieren, dass unbefugte Dritte niemals in der Lage sein werden, unsere Sicherheitsmaßnahmen zu überwinden.
     
-    最后更新日期：2025年4月10日
-    `,
-  }
-};
+    ## DATENSPEICHERUNG
+    
+    Wir werden Ihre persönlichen
