@@ -59,7 +59,7 @@ export function SplashScreen() {
   if (!isInitialized) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-black">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00A16C]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00FF41]"></div>
       </div>
     );
   }
@@ -77,11 +77,11 @@ export function SplashScreen() {
           KEEP YOUR LIFE
         </div>
         
-        <div className="text-[#00A16C] text-6xl font-bold mb-8">InOrder</div>
+        <div className="text-[#00FF41] text-6xl font-bold mb-8">InOrder</div>
         
         <Button 
           onClick={handleEnter}
-          className="bg-[#00A16C] hover:bg-[#00C853] text-black font-medium py-2 px-8 rounded text-lg"
+          className="bg-[#00FF41] hover:bg-[#00FF41]/90 text-black font-medium py-2 px-8 rounded text-lg"
         >
           ENTER
         </Button>
