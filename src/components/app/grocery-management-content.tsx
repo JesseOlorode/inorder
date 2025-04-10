@@ -40,7 +40,7 @@ export function GroceryManagementContent() {
           id: 3, 
           name: "Coconut Croissant", 
           price: "$5.99", 
-          image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 3
         },
       ]
@@ -54,7 +54,7 @@ export function GroceryManagementContent() {
           id: 4, 
           name: "Pumpkin Latte", 
           price: "$6.99", 
-          image: "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1571745639466-53acb8ae1b22?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 60
         },
       ]
@@ -68,7 +68,7 @@ export function GroceryManagementContent() {
           id: 5, 
           name: "Chia Pudding", 
           price: "$3.49", 
-          image: "https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1604423043492-41e987df0e56?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 5
         },
       ]
