@@ -15,7 +15,7 @@ export function MatrixLoading() {
   } = useMatrixNavigation();
 
   return (
-    <div className="flex flex-col min-h-screen h-full bg-black text-[#00FF41] font-mono p-4 relative overflow-hidden">
+    <div className="flex flex-col min-h-screen h-full bg-black text-[#00A16C] font-mono p-4 relative overflow-hidden">
       {!showAccessGranted ? (
         <>
           <div className="text-center pb-4 text-xl">Initializing System</div>

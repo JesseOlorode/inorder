@@ -20,8 +20,8 @@ export function AccessGranted() {
         }}
         className="text-center"
       >
-        <div className="text-4xl font-bold text-[#00FF41] mb-4">ACCESS GRANTED</div>
-        <div className="text-sm text-[#00FF41]/80">
+        <div className="text-4xl font-bold text-[#00A16C] mb-4">ACCESS GRANTED</div>
+        <div className="text-sm text-[#00A16C]/80">
           Welcome to InOrder System
         </div>
       </motion.div>
