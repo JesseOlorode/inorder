@@ -16,7 +16,7 @@ export function GroceryAddContent() {
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
-  const [expiryDays, setExpiryDays] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   
   const categories = [
     "Chocolates", "Croissant", "Protein Bar", "Chia Pudding", "Cookies", 
@@ -26,7 +26,7 @@ export function GroceryAddContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!itemName || !category || !price || !expiryDays) {
+    if (!itemName || !category || !price || !expiryDate) {
       toast({
         title: "Missing information",
         description: "Please fill all required fields",
@@ -43,6 +43,52 @@ export function GroceryAddContent() {
     });
     
     navigate("/grocery-management");
+  };
+  
+  // Handle date input formatting
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    value = value.replace(/\D/g, ''); // Remove non-digits
+    
+    if (value.length > 4) {
+      value = value.slice(0, 4);
+    }
+    
+    // Format as MM/DD
+    if (value.length > 2) {
+      value = value.slice(0, 2) + '/' + value.slice(2);
+    }
+
+    // Validate month
+    if (value.length >= 2) {
+      const month = parseInt(value.slice(0, 2));
+      if (month < 1) {
+        value = '01' + value.slice(2);
+      } else if (month > 12) {
+        value = '12' + value.slice(2);
+      }
+    }
+
+    // Validate day if complete
+    if (value.length === 5) {
+      const month = parseInt(value.slice(0, 2));
+      const day = parseInt(value.slice(3, 5));
+      
+      let maxDay = 31;
+      if ([4, 6, 9, 11].includes(month)) {
+        maxDay = 30;
+      } else if (month === 2) {
+        maxDay = 29; // Simplified, not accounting for leap years
+      }
+      
+      if (day < 1) {
+        value = value.slice(0, 3) + '01';
+      } else if (day > maxDay) {
+        value = value.slice(0, 3) + maxDay.toString();
+      }
+    }
+    
+    setExpiryDate(value);
   };
   
   return (
@@ -93,17 +139,16 @@ export function GroceryAddContent() {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="expiry" className="text-[#1A1F2C]">Expiry (Days)</Label>
+          <Label htmlFor="expiry" className="text-[#1A1F2C]">Expiry Date (MM/DD)</Label>
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" size={16} />
             <Input
               id="expiry"
-              value={expiryDays}
-              onChange={(e) => setExpiryDays(e.target.value)}
-              placeholder="Days until expiry"
-              type="number"
-              min="1"
+              value={expiryDate}
+              onChange={handleDateChange}
+              placeholder="MM/DD"
               className="bg-white border-[#3A3F4B] text-[#1A1F2C] pl-10"
+              maxLength={5}
             />
           </div>
         </div>
