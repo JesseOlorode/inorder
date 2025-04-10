@@ -7,10 +7,41 @@ import { useTheme } from "@/contexts/theme-context";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function ProfileContent() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  
+  // State for dialogs
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
+  const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
   
   const handleLogout = () => {
     toast({
@@ -37,6 +68,55 @@ export function ProfileContent() {
       });
       navigator.clipboard.writeText(window.location.origin);
     }
+  };
+
+  // Password change form
+  const passwordForm = useForm({
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
+
+  const onPasswordSubmit = (data) => {
+    // Check if passwords match
+    if (data.newPassword !== data.confirmPassword) {
+      toast({
+        title: "Error",
+        description: "New passwords don't match",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Here you would normally call an API to change the password
+    console.log("Password change data:", data);
+    toast({
+      title: "Password Changed",
+      description: "Your password has been updated successfully",
+    });
+    setPasswordDialogOpen(false);
+    passwordForm.reset();
+  };
+
+  // Language selection
+  const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const languages = [
+    { value: "english", label: "English" },
+    { value: "spanish", label: "Spanish" },
+    { value: "french", label: "French" },
+    { value: "german", label: "German" },
+    { value: "chinese", label: "Chinese" },
+  ];
+
+  const handleLanguageChange = (value) => {
+    setSelectedLanguage(value);
+    toast({
+      title: "Language Changed",
+      description: `Language has been set to ${languages.find(lang => lang.value === value)?.label}`,
+    });
+    setLanguageDialogOpen(false);
   };
 
   return (
@@ -68,12 +148,7 @@ export function ProfileContent() {
           <ProfileSettingLink
             icon={<Key size={18} />}
             label="Change Password"
-            onClick={() => {
-              toast({
-                title: "Change Password",
-                description: "Password change functionality would open here",
-              });
-            }}
+            onClick={() => setPasswordDialogOpen(true)}
           />
         </div>
         
@@ -81,12 +156,7 @@ export function ProfileContent() {
           <ProfileSettingLink
             icon={<Globe size={18} />}
             label="Language"
-            onClick={() => {
-              toast({
-                title: "Language Settings",
-                description: "Language settings would open here",
-              });
-            }}
+            onClick={() => setLanguageDialogOpen(true)}
           />
         </div>
       </div>
@@ -102,7 +172,7 @@ export function ProfileContent() {
             onClick={() => {
               toast({
                 title: "About App",
-                description: "App information would show here",
+                description: "TaskMaster v1.2.0 - Your ultimate productivity companion.",
               });
             }}
           />
@@ -115,7 +185,7 @@ export function ProfileContent() {
             onClick={() => {
               toast({
                 title: "Terms & Conditions",
-                description: "Terms and conditions would show here",
+                description: "The full terms and conditions would appear in a modal here.",
               });
             }}
           />
@@ -128,7 +198,7 @@ export function ProfileContent() {
             onClick={() => {
               toast({
                 title: "Privacy Policy",
-                description: "Privacy policy would show here",
+                description: "The privacy policy would appear in a modal here.",
               });
             }}
           />
@@ -151,6 +221,138 @@ export function ProfileContent() {
         <LogOut size={18} />
         <span>Logout</span>
       </Button>
+
+      {/* Password Change Dialog */}
+      <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
+        <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
+          <DialogHeader>
+            <DialogTitle>Change Password</DialogTitle>
+            <DialogDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}>
+              Update your password to keep your account secure.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...passwordForm}>
+            <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-4">
+              <FormField
+                control={passwordForm.control}
+                name="currentPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Current Password</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="password" 
+                        placeholder="Enter current password" 
+                        {...field} 
+                        className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={passwordForm.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Password</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="password" 
+                        placeholder="Enter new password" 
+                        {...field} 
+                        className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={passwordForm.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm New Password</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="password" 
+                        placeholder="Confirm new password" 
+                        {...field} 
+                        className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <DialogFooter className="pt-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setPasswordDialogOpen(false)}
+                  className={theme === 'dark' ? 'border-gray-700' : ''}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" className="bg-[#00C853] hover:bg-[#00B04C] text-black">
+                  Save Changes
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Language Selection Dialog */}
+      <Dialog open={languageDialogOpen} onOpenChange={setLanguageDialogOpen}>
+        <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
+          <DialogHeader>
+            <DialogTitle>Select Language</DialogTitle>
+            <DialogDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}>
+              Choose your preferred language for the app.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4">
+            <Select 
+              value={selectedLanguage} 
+              onValueChange={handleLanguageChange}
+            >
+              <SelectTrigger className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''}>
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : ''}>
+                {languages.map((lang) => (
+                  <SelectItem 
+                    key={lang.value} 
+                    value={lang.value}
+                    className={theme === 'dark' ? 'focus:bg-[#1A1F2C] focus:text-white' : ''}
+                  >
+                    {lang.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <DialogFooter>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={() => setLanguageDialogOpen(false)}
+              className={theme === 'dark' ? 'border-gray-700' : ''}
+            >
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
