@@ -28,19 +28,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Update localStorage when theme changes
     localStorage.setItem("theme", theme);
     
-    // Update the document class for tailwind dark mode
+    // Update document classes for global dark mode
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
-      document.body.classList.remove("bg-[#F5EFE0]");
-      document.body.classList.remove("text-[#1A1F2C]");
-      document.body.classList.add("bg-[#1A1F2C]");
-      document.body.classList.add("text-[#F5EFE0]");
+      document.body.className = "bg-[#1A1F2C] text-[#F5EFE0]";
     } else {
       document.documentElement.classList.remove("dark");
-      document.body.classList.remove("bg-[#1A1F2C]");
-      document.body.classList.remove("text-[#F5EFE0]");
-      document.body.classList.add("bg-[#F5EFE0]");
-      document.body.classList.add("text-[#1A1F2C]");
+      document.body.className = "bg-[#F5EFE0] text-[#1A1F2C]";
     }
   }, [theme]);
 

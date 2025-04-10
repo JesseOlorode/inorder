@@ -1,10 +1,12 @@
 
 import { ArrowLeft, Bell, MoreVertical, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTheme } from "@/contexts/theme-context";
 
 export function AppNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme } = useTheme();
   
   // Get page title based on current route
   const getPageTitle = () => {

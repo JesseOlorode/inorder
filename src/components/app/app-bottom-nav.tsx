@@ -1,16 +1,18 @@
 
 import { Home, Search, Heart, Plus, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "@/contexts/theme-context";
 
 export function AppBottomNav() {
   const location = useLocation();
+  const { theme } = useTheme();
   
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[#252A37] border-t border-gray-800 py-2 shadow-lg z-50">
+    <nav className={`fixed bottom-0 left-0 right-0 ${theme === "dark" ? "bg-[#252A37]" : "bg-[#252A37]"} border-t border-gray-800 py-2 shadow-lg z-50`}>
       <div className="flex justify-around items-center max-w-md mx-auto">
         <Link to="/dashboard" className={`flex flex-col items-center p-2 ${isActive("/dashboard") ? "text-[#00A16C]" : "text-gray-400"}`}>
           <Home size={24} />
