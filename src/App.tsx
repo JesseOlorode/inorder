@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -33,44 +34,64 @@ import MatrixLoading from "./pages/MatrixLoading";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// Create a wrapper component to handle redirects
+// Create a wrapper component to handle redirects and page refreshes
 const RouteGuard = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
   
   useEffect(() => {
-    // Check if this is a page refresh by looking at performance navigation type
-    const isPageRefresh = window.performance && 
-      window.performance.navigation && 
-      window.performance.navigation.type === 1;
+    // On component mount, check if this is a fresh page load
+    const handlePageRefresh = () => {
+      // We use both localStorage (persists across browser sessions) 
+      // and a timestamp check to detect page reloads reliably
       
-    // Alternative method for newer browsers
-    const isPageRefreshNew = sessionStorage.getItem("app_loaded") !== "true";
+      const lastRenderTime = localStorage.getItem('lastRenderTime');
+      const currentTime = Date.now();
+      
+      // If there's no timestamp or it's been more than 2 seconds, consider it a page refresh
+      if (!lastRenderTime || (currentTime - parseInt(lastRenderTime, 10)) > 2000) {
+        // Clear visited flag on refresh
+        sessionStorage.removeItem("visited");
+        
+        // If not already on splash screen, redirect there
+        if (location.pathname !== "/") {
+          navigate("/");
+          return;
+        }
+      }
+      
+      // Update the timestamp for next check
+      localStorage.setItem('lastRenderTime', currentTime.toString());
+    };
     
-    // Set a flag that we've loaded the app
-    sessionStorage.setItem("app_loaded", "true");
+    // Run the refresh check when component mounts
+    handlePageRefresh();
     
-    // If it's a refresh or new session and we're not on splash or matrix loading
-    if ((isPageRefresh || isPageRefreshNew) && 
-        location.pathname !== "/" && 
-        location.pathname !== "/matrix-loading") {
-      // Clear visited flag
-      sessionStorage.removeItem("visited");
-      // Redirect to splash screen
-      navigate("/");
-      return;
-    }
-    
-    // Normal navigation checks (keep the existing behavior)
+    // Normal navigation logic (non-refresh case)
     if (
       location.pathname !== "/" && 
       location.pathname !== "/index" && 
       location.pathname !== "/matrix-loading" && 
       sessionStorage.getItem("visited") !== "true"
     ) {
-      // Redirect to splash screen
+      // Redirect to splash screen if not visited
       navigate("/");
     }
+    
+    // Add page visibility change listener to detect tab focus changes
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // When tab becomes visible again, update timestamp
+        localStorage.setItem('lastRenderTime', Date.now().toString());
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Clean up
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [navigate, location]);
   
   return <>{children}</>;
