@@ -1,12 +1,9 @@
 
-import { AppLayout } from "@/components/app/app-layout";
-import { TaskManagementContent } from "@/components/app/task-management-content";
+import { CalendarContent } from "@/components/app/calendar-content";
 
 const TaskManagement = () => {
   return (
-    <AppLayout>
-      <TaskManagementContent />
-    </AppLayout>
+    <CalendarContent />
   );
 };
 
