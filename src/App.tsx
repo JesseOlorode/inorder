@@ -31,6 +31,26 @@ import Alerts from "./pages/Alerts";
 import Devices from "./pages/Devices";
 import SplashScreen from "./pages/SplashScreen";
 import MatrixLoading from "./pages/MatrixLoading";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+// Create a wrapper component to handle redirects
+const RouteGuard = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  useEffect(() => {
+    // If the user refreshes on any page other than the splash screen, redirect to splash
+    if (location.pathname !== "/" && location.pathname !== "/index" && sessionStorage.getItem("visited") !== "true") {
+      navigate("/");
+    }
+    
+    // Set visited flag in sessionStorage
+    sessionStorage.setItem("visited", "true");
+  }, [navigate, location]);
+  
+  return <>{children}</>;
+};
 
 const queryClient = new QueryClient();
 
@@ -44,30 +64,32 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<SplashScreen />} />
-              <Route path="/matrix-loading" element={<MatrixLoading />} />
-              <Route path="/index" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/login-loading" element={<LoginLoading />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/create-task" element={<CreateTask />} />
-              <Route path="/task-management" element={<TaskManagement />} />
-              <Route path="/grocery-management" element={<GroceryManagement />} />
-              <Route path="/grocery-edit" element={<GroceryEdit />} />
-              <Route path="/grocery-add" element={<GroceryAdd />} />
-              <Route path="/grocery-receipt" element={<GroceryReceipt />} />
-              <Route path="/task-complete" element={<TaskComplete />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/weather" element={<Weather />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/wifi" element={<WiFi />} />
-              <Route path="/statistics" element={<Statistics />} />
-              <Route path="/sound" element={<Sound />} />
-              <Route path="/alerts" element={<Alerts />} />
-              <Route path="/devices" element={<Devices />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/index" element={<Navigate to="/" replace />} />
+              <Route element={<RouteGuard><></></RouteGuard>}>
+                <Route path="/matrix-loading" element={<MatrixLoading />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/login-loading" element={<LoginLoading />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/create-task" element={<CreateTask />} />
+                <Route path="/task-management" element={<TaskManagement />} />
+                <Route path="/grocery-management" element={<GroceryManagement />} />
+                <Route path="/grocery-edit" element={<GroceryEdit />} />
+                <Route path="/grocery-add" element={<GroceryAdd />} />
+                <Route path="/grocery-receipt" element={<GroceryReceipt />} />
+                <Route path="/task-complete" element={<TaskComplete />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/weather" element={<Weather />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/wifi" element={<WiFi />} />
+                <Route path="/statistics" element={<Statistics />} />
+                <Route path="/sound" element={<Sound />} />
+                <Route path="/alerts" element={<Alerts />} />
+                <Route path="/devices" element={<Devices />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
