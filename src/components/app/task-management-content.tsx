@@ -1,11 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { useState } from "react";
 import { Check, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -23,14 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/contexts/theme-context";
 import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
-
-const formSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
-  dueDate: z.string().min(1, "Due date is required"),
-  notes: z.string().optional(),
-  category: z.string().min(1, "Category is required"),
-  remindMe: z.boolean().default(false),
-});
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // Task interface for type safety
 interface Task {
@@ -76,33 +63,6 @@ export function TaskManagementContent() {
     }
   ]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      dueDate: "",
-      notes: "",
-      category: "",
-      remindMe: false,
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const newTask: Task = {
-      id: tasks.length + 1,
-      title: values.title,
-      dueDate: values.dueDate,
-      notes: values.notes,
-      category: values.category,
-      remindMe: values.remindMe,
-      completed: false
-    };
-    
-    setTasks([...tasks, newTask]);
-    
-    form.reset();
-  }
-
   const completeTask = (taskId: number) => {
     const updatedTasks = tasks.map(task => 
       task.id === taskId ? {...task, completed: true} : task
@@ -131,7 +91,16 @@ export function TaskManagementContent() {
       </div>
       
       <div className="mb-8">
-        <h2 className={`text-lg ${theme === "dark" ? "font-medium" : "font-semibold"} mb-4`}>Your Tasks</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className={`text-lg ${theme === "dark" ? "font-medium" : "font-semibold"}`}>Your Tasks</h2>
+          <Link to="/create-task">
+            <Button
+              className={`bg-[#00A16C] text-white ${theme === "dark" ? "font-medium" : "font-semibold"} py-2 px-4 rounded`}
+            >
+              Add New Task
+            </Button>
+          </Link>
+        </div>
         <div className="space-y-3">
           {tasks.map(task => (
             <ContextMenu key={task.id}>
@@ -238,114 +207,6 @@ export function TaskManagementContent() {
           ))}
         </div>
       </div>
-      
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Task Title</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter task title"
-                    className={`bg-white text-black border-none ${theme === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500"}`}
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="dueDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Due Date</FormLabel>
-                <FormControl>
-                  <Input
-                    type="date"
-                    className="bg-white text-black border-none"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="notes"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Notes</FormLabel>
-                <FormControl>
-                  <div className="bg-white rounded-md border">
-                    <textarea
-                      className={`w-full min-h-[100px] bg-transparent p-3 text-black outline-none ${theme === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500"}`}
-                      placeholder="Add notes"
-                      {...field}
-                    />
-                  </div>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Category</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="bg-white text-black border-none">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="work">Work</SelectItem>
-                    <SelectItem value="personal">Personal</SelectItem>
-                    <SelectItem value="shopping">Shopping</SelectItem>
-                    <SelectItem value="health">Health</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="remindMe"
-            render={({ field }) => (
-              <FormItem className="flex items-center space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    className="border-gray-400 data-[state=checked]:bg-[#00A16C] data-[state=checked]:border-[#00A16C]"
-                  />
-                </FormControl>
-                <FormLabel className={`text-sm ${theme === "dark" ? "font-light" : "font-medium"}`}>Remind me about this task</FormLabel>
-              </FormItem>
-            )}
-          />
-          
-          <Button
-            type="submit"
-            className={`w-full bg-[#00A16C] text-white ${theme === "dark" ? "font-medium" : "font-semibold"} py-6 rounded`}
-          >
-            Add Task
-          </Button>
-        </form>
-      </Form>
     </div>
   );
 }
