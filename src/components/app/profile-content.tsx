@@ -47,14 +47,14 @@ export function ProfileContent() {
           <img src="https://github.com/shadcn.png" alt="Profile" />
         </Avatar>
         <h1 className="text-xl font-medium">Jonathan Peterson</h1>
-        <p className="text-sm text-gray-400 dark:text-gray-300">hello@reallygreatsite.com</p>
+        <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>hello@reallygreatsite.com</p>
       </div>
 
       {/* Account Settings */}
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">Account Settings</h2>
         
-        <div className="border-b border-gray-700 dark:border-gray-600">
+        <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingSwitch
             icon={<Moon size={18} />}
             label="Mode"
@@ -64,7 +64,7 @@ export function ProfileContent() {
           />
         </div>
         
-        <div className="border-b border-gray-700 dark:border-gray-600">
+        <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<Key size={18} />}
             label="Change Password"
@@ -95,7 +95,7 @@ export function ProfileContent() {
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">Preferences</h2>
         
-        <div className="border-b border-gray-700 dark:border-gray-600">
+        <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<Info size={18} />}
             label="About App"
@@ -108,7 +108,7 @@ export function ProfileContent() {
           />
         </div>
         
-        <div className="border-b border-gray-700 dark:border-gray-600">
+        <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label="Terms & Conditions"
@@ -121,7 +121,7 @@ export function ProfileContent() {
           />
         </div>
         
-        <div className="border-b border-gray-700 dark:border-gray-600">
+        <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label="Privacy Policy"
@@ -179,7 +179,7 @@ function ProfileSettingLink({
         <div className="text-[#00C853]">{icon}</div>
         <span className="text-sm">{label}</span>
       </div>
-      <ChevronRight size={18} className="text-gray-400" />
+      <ChevronRight size={18} className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
     </div>
   );
 }
@@ -209,7 +209,7 @@ function ProfileSettingSwitch({
         <div className="text-[#00C853]">{icon}</div>
         <div>
           <div className="text-sm">{label}</div>
-          <div className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-400'}`}>{description}</div>
+          <div className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>{description}</div>
         </div>
       </div>
       <Switch 
