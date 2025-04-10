@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Edit, Plus, Receipt, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -89,17 +90,17 @@ export function GroceryManagementContent() {
       {/* Quick Actions */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <ActionCard 
-          icon={<Edit size={18} />} 
+          icon={<Edit size={18} className="text-white" />} 
           title="Edit Items" 
           onClick={() => navigate("/grocery-edit")}
         />
         <ActionCard 
-          icon={<Plus size={18} />} 
+          icon={<Plus size={18} className="text-white" />} 
           title="Add Item" 
           onClick={() => navigate("/grocery-add")}
         />
         <ActionCard 
-          icon={<Receipt size={18} />} 
+          icon={<Receipt size={18} className="text-white" />} 
           title="Scan Receipt" 
           onClick={() => navigate("/grocery-receipt")}
         />
@@ -235,10 +236,10 @@ function ActionCard({ icon, title, onClick }: { icon: React.ReactNode; title: st
       className="bg-[#252A37] border-none p-3 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-[#2A3040] transition-colors"
       onClick={onClick}
     >
-      <div className="bg-[#1A1F2C] rounded-full p-3 mb-2">
+      <div className="bg-[#1A1F2C] rounded-full p-3 mb-2 text-white">
         {icon}
       </div>
-      <span className="text-xs">{title}</span>
+      <span className="text-xs text-white">{title}</span>
     </Card>
   );
 }
