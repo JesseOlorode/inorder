@@ -57,7 +57,17 @@ export function AppNavbar() {
           >
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-lg font-medium truncate">{getPageTitle()}</h1>
+          
+          <div className="flex items-center">
+            <div 
+              className="font-bold text-lg mr-2"
+              onClick={() => navigate('/dashboard')}
+              style={{ cursor: 'pointer' }}
+            >
+              InOrder
+            </div>
+            <h1 className="text-lg font-medium truncate">| {getPageTitle()}</h1>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <button onClick={handleSearchClick} aria-label="Search">
