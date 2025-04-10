@@ -1,7 +1,7 @@
-
 import { Avatar } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare } from "lucide-react";
+import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function DashboardContent() {
   return (
@@ -26,6 +26,33 @@ export function DashboardContent() {
         <Card className="bg-[#252A37] border-none p-3 rounded-lg">
           <div className="text-xl font-bold">60%</div>
           <div className="text-xs text-gray-400">Productivity</div>
+        </Card>
+      </div>
+
+      {/* Grocery Management Section */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-medium">Grocery Management</h2>
+          <Link to="/grocery-management" className="text-xs text-[#00C853]">See All</Link>
+        </div>
+        <Card className="bg-[#252A37] border-none p-4 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#00C853] rounded-full p-2">
+                <ShoppingCart size={20} className="text-white" />
+              </div>
+              <div>
+                <h3 className="font-medium">Grocery List</h3>
+                <p className="text-xs text-gray-400">8 items in your cart</p>
+              </div>
+            </div>
+            <Link 
+              to="/grocery-management" 
+              className="bg-[#1A1F2C] hover:bg-[#23293A] transition-colors text-[#00C853] text-sm px-4 py-2 rounded-lg"
+            >
+              Open
+            </Link>
+          </div>
         </Card>
       </div>
 
