@@ -8,11 +8,8 @@ export function TaskCompleteScreen() {
   return (
     <div className="flex flex-col items-center justify-center h-[80vh] text-center">
       <div className="relative mb-10">
-        {/* Main text with shadow effect */}
+        {/* Main text without shadow effect */}
         <div className="relative">
-          <div className="text-[#1a3520] text-6xl font-bold absolute top-2 left-2 z-0">you did</div>
-          <div className="text-[#1a3520] text-6xl font-bold absolute top-2 left-2 mt-14 z-0">great</div>
-          
           <div className="text-[#5ad67d] text-6xl font-bold relative z-10">you did</div>
           <div className="text-[#5ad67d] text-6xl font-bold relative z-10">great</div>
         </div>
