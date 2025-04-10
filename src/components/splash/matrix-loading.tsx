@@ -2,10 +2,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Progress } from "@/components/ui/progress";
+import { motion } from "framer-motion";
 
 export function MatrixLoading() {
   const [progress, setProgress] = useState(0);
   const [matrixText, setMatrixText] = useState<string[]>([]);
+  const [showAccessGranted, setShowAccessGranted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   
@@ -80,10 +82,14 @@ export function MatrixLoading() {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          // Show "Access Granted" message before navigating
+          setShowAccessGranted(true);
+          
+          // Navigate to login page after showing access granted message
           setTimeout(() => {
-            // Force redirect to login page after animation completes
             navigate('/login');
-          }, 500);
+          }, 2000); // Give 2 seconds to show the access granted message
+          
           return 100;
         }
         return prev + 1;
@@ -94,44 +100,72 @@ export function MatrixLoading() {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-[#00FF41] font-mono p-4">
-      <div 
-        ref={containerRef}
-        className="flex-1 overflow-y-auto mb-4 scrollbar-hide"
-      >
-        <div className="text-center pb-4 text-xl">Initializing System</div>
-        {matrixText.map((text, index) => (
-          <div key={index} className="text-xs sm:text-sm opacity-80">
-            {text}
+    <div className="flex flex-col min-h-screen bg-black text-[#00FF41] font-mono p-4 relative">
+      {!showAccessGranted ? (
+        <>
+          <div 
+            ref={containerRef}
+            className="flex-1 overflow-y-auto mb-4 scrollbar-hide"
+          >
+            <div className="text-center pb-4 text-xl">Initializing System</div>
+            {matrixText.map((text, index) => (
+              <div key={index} className="text-xs sm:text-sm opacity-80">
+                {text}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      
-      <div className="mb-4">
-        <div className="text-xs mb-2">System Initialization: {progress}%</div>
-        <Progress 
-          value={progress} 
-          className="h-2 bg-gray-800"
-          indicatorClassName="bg-[#00FF41]"
-        />
-      </div>
-      
-      {progress > 30 && (
-        <div className="mt-2 text-xs animate-pulse">
-          Loading system components...
-        </div>
-      )}
-      
-      {progress > 60 && (
-        <div className="mt-2 text-xs animate-pulse">
-          Preparing interface modules...
-        </div>
-      )}
-      
-      {progress > 90 && (
-        <div className="mt-2 text-xs animate-pulse">
-          System ready...
-        </div>
+          
+          <div className="mb-4">
+            <div className="text-xs mb-2">System Initialization: {progress}%</div>
+            <Progress 
+              value={progress} 
+              className="h-2 bg-gray-800"
+              indicatorClassName="bg-[#00FF41]"
+            />
+          </div>
+          
+          {progress > 30 && (
+            <div className="mt-2 text-xs animate-pulse">
+              Loading system components...
+            </div>
+          )}
+          
+          {progress > 60 && (
+            <div className="mt-2 text-xs animate-pulse">
+              Preparing interface modules...
+            </div>
+          )}
+          
+          {progress > 90 && (
+            <div className="mt-2 text-xs animate-pulse">
+              System ready...
+            </div>
+          )}
+        </>
+      ) : (
+        <motion.div 
+          className="absolute inset-0 flex flex-col items-center justify-center bg-black"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ 
+              duration: 0.5,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 100
+            }}
+            className="text-center"
+          >
+            <div className="text-4xl font-bold text-[#00FF41] mb-4">ACCESS GRANTED</div>
+            <div className="text-sm text-[#00FF41]/80">
+              Welcome to InOrder System
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
