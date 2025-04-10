@@ -16,6 +16,8 @@ import GroceryManagement from "./pages/GroceryManagement";
 import TaskComplete from "./pages/TaskComplete";
 import Calendar from "./pages/Calendar";
 import NotFound from "./pages/NotFound";
+import Search from "./pages/Search";
+import Favorites from "./pages/Favorites";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +39,8 @@ const App = () => (
           <Route path="/grocery-management" element={<GroceryManagement />} />
           <Route path="/task-complete" element={<TaskComplete />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/favorites" element={<Favorites />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
