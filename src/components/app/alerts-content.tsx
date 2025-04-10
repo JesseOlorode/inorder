@@ -1,173 +1,168 @@
 
-import { Button } from "@/components/ui/button";
+import { Bell, Check, Clock, Trash2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Bell, BellOff, Clock, Info, MessageSquare, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 export function AlertsContent() {
-  const [alertsEnabled, setAlertsEnabled] = useState(true);
-  const [alertSettings, setAlertSettings] = useState({
-    messages: true,
-    calendar: true,
-    system: true,
-    security: true
-  });
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [vibrationEnabled, setVibrationEnabled] = useState(true);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "Meeting Reminder", description: "Meeting with design team in 30 minutes", time: "10:00 AM", read: false },
+    { id: 2, title: "Task Completed", description: "Project proposal has been approved", time: "Yesterday", read: true },
+    { id: 3, title: "New Message", description: "You have a new message from Sarah", time: "Yesterday", read: false },
+    { id: 4, title: "System Update", description: "System update available. Tap to install", time: "2 days ago", read: true },
+  ]);
+  
   const { toast } = useToast();
 
-  const toggleAlerts = () => {
-    setAlertsEnabled(!alertsEnabled);
+  const markAsRead = (id: number) => {
+    setNotifications(notifications.map(notification => 
+      notification.id === id ? { ...notification, read: true } : notification
+    ));
     toast({
-      title: alertsEnabled ? "Alerts Disabled" : "Alerts Enabled",
-      description: alertsEnabled 
-        ? "You will not receive any notifications" 
-        : "You will now receive notifications",
+      title: "Notification marked as read",
+      description: "The notification has been marked as read",
     });
   };
-
-  const toggleAlertType = (type: keyof typeof alertSettings) => {
-    setAlertSettings({
-      ...alertSettings,
-      [type]: !alertSettings[type]
-    });
-    
+  
+  const deleteNotification = (id: number) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
     toast({
-      title: `${type.charAt(0).toUpperCase() + type.slice(1)} Alerts ${alertSettings[type] ? 'Disabled' : 'Enabled'}`,
-      description: `You will ${alertSettings[type] ? 'no longer' : 'now'} receive ${type} alerts`,
+      title: "Notification deleted",
+      description: "The notification has been removed",
     });
   };
-
-  const recentAlerts = [
-    { id: 1, type: "message", title: "New Message", description: "John sent you a message", time: "5 min ago" },
-    { id: 2, type: "calendar", title: "Meeting Reminder", description: "Team meeting in 30 minutes", time: "10 min ago" },
-    { id: 3, type: "system", title: "System Update", description: "New update available", time: "1 hour ago" },
-    { id: 4, type: "security", title: "Security Alert", description: "New login from unknown device", time: "2 hours ago" },
-  ];
-
-  const getAlertIcon = (type: string) => {
-    switch (type) {
-      case "message": return <MessageSquare className="text-blue-400" />;
-      case "calendar": return <Clock className="text-amber-400" />;
-      case "system": return <Info className="text-purple-400" />;
-      case "security": return <Shield className="text-red-400" />;
-      default: return <Bell className="text-gray-400" />;
-    }
+  
+  const clearAll = () => {
+    setNotifications([]);
+    toast({
+      title: "All notifications cleared",
+      description: "All notifications have been removed",
+    });
   };
 
   return (
     <div className="space-y-6 pt-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-medium">Alerts & Notifications</h1>
+        <h1 className="text-xl font-medium">Notifications</h1>
         <div className="flex items-center space-x-2">
-          <span className="text-gray-400">{alertsEnabled ? "On" : "Off"}</span>
-          <Switch checked={alertsEnabled} onCheckedChange={toggleAlerts} />
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h2 className="text-sm font-medium">Alert Types</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <AlertTypeCard 
-            icon={<MessageSquare />}
-            title="Messages"
-            description="Alerts for new messages and comments"
-            enabled={alertsEnabled && alertSettings.messages}
-            onToggle={() => toggleAlertType("messages")}
-            disabled={!alertsEnabled}
-          />
-          <AlertTypeCard 
-            icon={<Clock />}
-            title="Calendar"
-            description="Reminders for events and deadlines"
-            enabled={alertsEnabled && alertSettings.calendar}
-            onToggle={() => toggleAlertType("calendar")}
-            disabled={!alertsEnabled}
-          />
-          <AlertTypeCard 
-            icon={<Info />}
-            title="System"
-            description="System updates and information"
-            enabled={alertsEnabled && alertSettings.system}
-            onToggle={() => toggleAlertType("system")}
-            disabled={!alertsEnabled}
-          />
-          <AlertTypeCard 
-            icon={<Shield />}
-            title="Security"
-            description="Security alerts and warnings"
-            enabled={alertsEnabled && alertSettings.security}
-            onToggle={() => toggleAlertType("security")}
-            disabled={!alertsEnabled}
+          <span className="text-gray-400">{notificationsEnabled ? "On" : "Off"}</span>
+          <Switch 
+            checked={notificationsEnabled} 
+            onCheckedChange={setNotificationsEnabled} 
           />
         </div>
       </div>
 
-      {alertsEnabled ? (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-medium">Recent Alerts</h2>
-            <Button variant="link" className="text-[#00A16C] p-0 h-auto">Clear All</Button>
-          </div>
-          <div className="space-y-3">
-            {recentAlerts.map((alert) => (
-              <Card key={alert.id} className="bg-[#252A37] border-none p-4 rounded-lg text-white">
-                <div className="flex items-start gap-3">
-                  <div className="bg-[#1A1F2C] p-2 rounded-full mt-1">
-                    {getAlertIcon(alert.type)}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium">{alert.title}</h3>
-                    <p className="text-sm text-gray-400">{alert.description}</p>
-                    <p className="text-xs text-gray-500 mt-1">{alert.time}</p>
-                  </div>
-                  <Button variant="ghost" size="sm" className="h-7 w-7 p-0 rounded-full">
-                    <Info className="h-4 w-4" />
-                  </Button>
+      {notificationsEnabled && (
+        <>
+          <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
+            <h2 className="text-sm font-medium mb-4">Settings</h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Bell size={18} />
+                  <span>Sound</span>
                 </div>
-              </Card>
-            ))}
+                <Switch 
+                  checked={soundEnabled} 
+                  onCheckedChange={setSoundEnabled} 
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Bell size={18} />
+                  <span>Vibration</span>
+                </div>
+                <Switch 
+                  checked={vibrationEnabled} 
+                  onCheckedChange={setVibrationEnabled} 
+                />
+              </div>
+            </div>
+          </Card>
+
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-sm font-medium">Recent Notifications</h2>
+            {notifications.length > 0 && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-xs text-[#00A16C] hover:text-[#00A16C]/90"
+                onClick={clearAll}
+              >
+                Clear All
+              </Button>
+            )}
           </div>
-        </div>
-      ) : (
+
+          {notifications.length === 0 ? (
+            <div className="h-40 flex flex-col items-center justify-center text-gray-400">
+              <Bell size={48} className="mb-2" />
+              <p>No notifications</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {notifications.map((notification) => (
+                <Card 
+                  key={notification.id} 
+                  className={`bg-[#252A37] border-none p-3 rounded-lg ${notification.read ? 'text-gray-300' : 'text-white border-l-4 border-[#00A16C]'}`}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex gap-3">
+                      <div className="bg-[#1A1F2C] p-2 rounded-full">
+                        <Bell size={16} className={notification.read ? 'text-gray-400' : 'text-[#00A16C]'} />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-medium">{notification.title}</h3>
+                        <p className="text-xs text-gray-400 mt-1">{notification.description}</p>
+                        <div className="flex items-center text-xs text-gray-400 mt-2">
+                          <Clock size={12} className="mr-1" />
+                          {notification.time}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      {!notification.read && (
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-7 w-7 text-gray-400 hover:text-[#00A16C] hover:bg-transparent"
+                          onClick={() => markAsRead(notification.id)}
+                        >
+                          <Check size={16} />
+                        </Button>
+                      )}
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-7 w-7 text-gray-400 hover:text-red-400 hover:bg-transparent"
+                        onClick={() => deleteNotification(notification.id)}
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+      
+      {!notificationsEnabled && (
         <div className="h-40 flex flex-col items-center justify-center text-gray-400">
-          <BellOff size={48} className="mb-2" />
-          <p>All alerts are currently disabled</p>
-          <Button className="mt-4 bg-[#00A16C]" onClick={toggleAlerts}>
-            Enable Alerts
+          <Bell size={48} className="mb-2" />
+          <p>Notifications are turned off</p>
+          <Button className="mt-4 bg-[#00A16C]" onClick={() => setNotificationsEnabled(true)}>
+            Turn On Notifications
           </Button>
         </div>
       )}
     </div>
-  );
-}
-
-interface AlertTypeCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  enabled: boolean;
-  onToggle: () => void;
-  disabled?: boolean;
-}
-
-function AlertTypeCard({ icon, title, description, enabled, onToggle, disabled }: AlertTypeCardProps) {
-  return (
-    <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
-      <div className="flex items-start gap-3">
-        <div className={`p-2 rounded-full ${enabled ? "bg-[#00A16C]" : "bg-[#1A1F2C]"}`}>
-          {icon}
-        </div>
-        <div className="flex-1">
-          <h3 className="font-medium">{title}</h3>
-          <p className="text-xs text-gray-400">{description}</p>
-        </div>
-        <Switch 
-          checked={enabled} 
-          onCheckedChange={onToggle}
-          disabled={disabled}
-        />
-      </div>
-    </Card>
   );
 }

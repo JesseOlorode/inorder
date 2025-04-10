@@ -1,7 +1,8 @@
 
 import { Avatar } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare, ShoppingCart, CloudSun } from "lucide-react";
+import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, MessageSquare, ShoppingCart, CloudSun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 export function DashboardContent() {
@@ -13,9 +14,11 @@ export function DashboardContent() {
           <h2 className="text-gray-400">Good Morning</h2>
           <h1 className="text-xl font-medium">Username</h1>
         </div>
-        <Avatar className="h-10 w-10 rounded-full border-2 border-[#00A16C]">
-          <img src="https://github.com/shadcn.png" alt="@shadcn" />
-        </Avatar>
+        <Link to="/profile">
+          <Avatar className="h-10 w-10 rounded-full border-2 border-[#00A16C] cursor-pointer">
+            <img src="https://github.com/shadcn.png" alt="@shadcn" />
+          </Avatar>
+        </Link>
       </div>
 
       {/* Weather & Stats Section */}
@@ -152,21 +155,27 @@ export function DashboardContent() {
           <Link to="/task-management" className="text-xs text-[#00A16C]">See All</Link>
         </div>
         <div className="space-y-3">
-          <TaskItem 
-            title="Meeting with Client" 
-            time="10:30 AM" 
-            completed={false} 
-          />
-          <TaskItem 
-            title="Check Emails" 
-            time="12:00 PM" 
-            completed={true} 
-          />
-          <TaskItem 
-            title="Lunch with Team" 
-            time="1:30 PM" 
-            completed={false} 
-          />
+          <Link to="/task-management">
+            <TaskItem 
+              title="Meeting with Client" 
+              time="10:30 AM" 
+              completed={false} 
+            />
+          </Link>
+          <Link to="/task-management">
+            <TaskItem 
+              title="Check Emails" 
+              time="12:00 PM" 
+              completed={true} 
+            />
+          </Link>
+          <Link to="/task-management">
+            <TaskItem 
+              title="Lunch with Team" 
+              time="1:30 PM" 
+              completed={false} 
+            />
+          </Link>
         </div>
       </div>
     </div>
@@ -198,7 +207,7 @@ function DeviceItem({ icon, label, status }: { icon: React.ReactNode; label: str
 
 function TaskItem({ title, time, completed }: { title: string; time: string; completed: boolean }) {
   return (
-    <div className="bg-[#252A37] rounded-lg p-3 flex items-center justify-between text-white">
+    <div className="bg-[#252A37] rounded-lg p-3 flex items-center justify-between text-white hover:bg-[#2c3241] transition-colors">
       <div className="flex items-center gap-3">
         <div className={`h-3 w-3 rounded-full ${completed ? "bg-[#00A16C]" : "bg-[#FFC107]"}`}></div>
         <div>

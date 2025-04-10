@@ -35,7 +35,7 @@ export function StatisticsContent() {
   const statsCards = [
     { title: "Avg. Productivity", value: "62%", icon: <Activity className="text-[#00A16C]" /> },
     { title: "Total Tasks", value: "267", icon: <Clock className="text-[#00A16C]" /> },
-    { title: "Productivity Growth", value: "+12%", icon: <TrendingUp className="text-[#00A16C]" /> },
+    { title: "Growth", value: "+12%", icon: <TrendingUp className="text-[#00A16C]" /> },
   ];
 
   return (
