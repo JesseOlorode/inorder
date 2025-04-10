@@ -37,20 +37,55 @@ export function AppBottomNav() {
             </div>
             <span className="text-xs mt-1 text-gray-400">Add</span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="center" className="mb-16 bg-white">
-            <DropdownMenuItem onClick={() => navigate("/create-task")}>
+          <DropdownMenuContent 
+            align="center" 
+            className={`mb-16 ${
+              theme === "dark" 
+                ? "bg-[#252A37] text-[#F5EFE0] border border-gray-700" 
+                : "bg-white text-[#1A1F2C] border border-gray-200"
+            }`}
+          >
+            <DropdownMenuItem 
+              onClick={() => navigate("/create-task")}
+              className={`${
+                theme === "dark" 
+                  ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                  : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+              }`}
+            >
               <Calendar className="mr-2 h-4 w-4" />
               <span>Add Task</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/grocery-add")}>
+            <DropdownMenuItem 
+              onClick={() => navigate("/grocery-add")}
+              className={`${
+                theme === "dark" 
+                  ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                  : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+              }`}
+            >
               <ShoppingCart className="mr-2 h-4 w-4" />
               <span>Add Grocery</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/grocery-receipt")}>
+            <DropdownMenuItem 
+              onClick={() => navigate("/grocery-receipt")}
+              className={`${
+                theme === "dark" 
+                  ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                  : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+              }`}
+            >
               <Receipt className="mr-2 h-4 w-4" />
               <span>Scan Receipt</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/devices")}>
+            <DropdownMenuItem 
+              onClick={() => navigate("/devices")}
+              className={`${
+                theme === "dark" 
+                  ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                  : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+              }`}
+            >
               <Smartphone className="mr-2 h-4 w-4" />
               <span>Manage Devices</span>
             </DropdownMenuItem>
