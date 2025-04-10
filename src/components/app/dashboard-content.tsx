@@ -1,7 +1,7 @@
 
 import { Avatar } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare, ShoppingCart } from "lucide-react";
+import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare, ShoppingCart, CloudSun } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function DashboardContent() {
@@ -20,10 +20,19 @@ export function DashboardContent() {
 
       {/* Weather & Stats Section */}
       <div className="grid grid-cols-2 gap-4">
-        <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white">
-          <div className="text-xl font-bold">29°C</div>
-          <div className="text-xs text-gray-400">Los Angeles, USA</div>
-        </Card>
+        <Link to="/weather">
+          <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white hover:bg-[#2c3241] transition-colors">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-xl font-bold">29°C</div>
+                <div className="text-xs text-gray-400">Los Angeles, USA</div>
+              </div>
+              <div className="text-[#FFD639]">
+                <CloudSun size={24} />
+              </div>
+            </div>
+          </Card>
+        </Link>
         <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white">
           <div className="text-xl font-bold">60%</div>
           <div className="text-xs text-gray-400">Productivity</div>

@@ -18,6 +18,7 @@ import GroceryAdd from "./pages/GroceryAdd";
 import GroceryReceipt from "./pages/GroceryReceipt";
 import TaskComplete from "./pages/TaskComplete";
 import Calendar from "./pages/Calendar";
+import Weather from "./pages/Weather";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/grocery-receipt" element={<GroceryReceipt />} />
           <Route path="/task-complete" element={<TaskComplete />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/weather" element={<Weather />} />
           <Route path="/search" element={<Search />} />
           <Route path="/favorites" element={<Favorites />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
