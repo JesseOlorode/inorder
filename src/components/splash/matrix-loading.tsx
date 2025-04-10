@@ -8,6 +8,7 @@ export function MatrixLoading() {
   const [progress, setProgress] = useState(0);
   const [matrixText, setMatrixText] = useState<string[]>([]);
   const [showAccessGranted, setShowAccessGranted] = useState(false);
+  const [hasNavigated, setHasNavigated] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [loadingComplete, setLoadingComplete] = useState(false);
@@ -40,6 +41,9 @@ export function MatrixLoading() {
   // Generate coding-like text
   useEffect(() => {
     try {
+      // Only generate text if we're still on the loading page (not navigated away)
+      if (hasNavigated) return;
+      
       const interval = setInterval(() => {
         if (matrixText.length < 50) {
           // Randomly select a code snippet or generate a new one
@@ -74,7 +78,7 @@ export function MatrixLoading() {
     } catch (error) {
       console.error("Error in matrix text generation:", error);
     }
-  }, [matrixText.length, codingSnippets]);
+  }, [matrixText.length, codingSnippets, hasNavigated]);
   
   // Progress bar and navigation
   useEffect(() => {
@@ -83,6 +87,7 @@ export function MatrixLoading() {
       sessionStorage.setItem("visited", "true");
       // Update the timestamp
       localStorage.setItem('lastRenderTime', Date.now().toString());
+      localStorage.setItem('matrixLoadingStarted', 'true');
       
       const interval = setInterval(() => {
         setProgress(prev => {
@@ -92,17 +97,6 @@ export function MatrixLoading() {
             setLoadingComplete(true);
             // Show "Access Granted" message before navigating
             setShowAccessGranted(true);
-            
-            // Navigate to login page after showing access granted message
-            setTimeout(() => {
-              try {
-                navigate('/login');
-              } catch (navError) {
-                console.error("Navigation error:", navError);
-                // Force redirect as fallback
-                window.location.href = '/login';
-              }
-            }, 2000); // Give 2 seconds to show the access granted message
             
             return 100;
           }
@@ -114,25 +108,50 @@ export function MatrixLoading() {
     } catch (error) {
       console.error("Error in progress handling:", error);
       // Force navigate as fallback
-      setTimeout(() => window.location.href = '/login', 3000);
+      setTimeout(() => {
+        navigateToLogin();
+      }, 3000);
     }
-  }, [navigate]);
+  }, []);
+
+  // Navigation effect
+  useEffect(() => {
+    if (loadingComplete && showAccessGranted && !hasNavigated) {
+      // Navigate to login page after showing access granted message
+      const timer = setTimeout(() => {
+        navigateToLogin();
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [loadingComplete, showAccessGranted, hasNavigated]);
 
   // Fallback navigation if we get stuck
   useEffect(() => {
     const failsafeTimer = setTimeout(() => {
-      if (loadingComplete && showAccessGranted) {
-        try {
-          navigate('/login');
-        } catch (error) {
-          console.error("Fallback navigation error:", error);
-          window.location.href = '/login';
-        }
+      if (!hasNavigated) {
+        navigateToLogin();
       }
-    }, 5000); // 5 second failsafe
+    }, 6000); // 6 second failsafe
     
     return () => clearTimeout(failsafeTimer);
-  }, [loadingComplete, showAccessGranted, navigate]);
+  }, [hasNavigated]);
+
+  // Safe navigation function to prevent duplicate navigations
+  const navigateToLogin = () => {
+    if (hasNavigated) return;
+    
+    try {
+      setHasNavigated(true);
+      // Set another marker to confirm we've completed matrix loading
+      localStorage.setItem('matrixLoadingComplete', 'true');
+      navigate('/login');
+    } catch (navError) {
+      console.error("Navigation error:", navError);
+      // Force redirect as fallback
+      window.location.href = '/login';
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-[#00FF41] font-mono p-4 relative">
@@ -201,6 +220,16 @@ export function MatrixLoading() {
             </div>
           </motion.div>
         </motion.div>
+      )}
+
+      {/* Invisible emergency button that appears after 8 seconds if we're stuck */}
+      {progress >= 100 && !hasNavigated && (
+        <button 
+          onClick={navigateToLogin}
+          className="absolute bottom-4 right-4 text-xs opacity-50 hover:opacity-100"
+        >
+          Continue to Login
+        </button>
       )}
     </div>
   );
