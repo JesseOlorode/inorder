@@ -1,12 +1,13 @@
-
 import { useState } from "react";
 import { Search, Edit, Plus, Receipt, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useNavigate } from "react-router-dom";
 
 export function GroceryManagementContent() {
   const [activeTab, setActiveTab] = useState("all");
+  const navigate = useNavigate();
   
   const groceryCategories = [
     {
@@ -87,9 +88,21 @@ export function GroceryManagementContent() {
     <div className="py-4 pb-20">
       {/* Quick Actions */}
       <div className="grid grid-cols-3 gap-3 mb-6">
-        <ActionCard icon={<Edit size={18} />} title="Edit Items" />
-        <ActionCard icon={<Plus size={18} />} title="Add Item" />
-        <ActionCard icon={<Receipt size={18} />} title="Scan Receipt" />
+        <ActionCard 
+          icon={<Edit size={18} />} 
+          title="Edit Items" 
+          onClick={() => navigate("/grocery-edit")}
+        />
+        <ActionCard 
+          icon={<Plus size={18} />} 
+          title="Add Item" 
+          onClick={() => navigate("/grocery-add")}
+        />
+        <ActionCard 
+          icon={<Receipt size={18} />} 
+          title="Scan Receipt" 
+          onClick={() => navigate("/grocery-receipt")}
+        />
       </div>
 
       {/* Search Bar */}
@@ -165,7 +178,6 @@ export function GroceryManagementContent() {
 }
 
 function GroceryItem({ name, price, image, expiryDays }: { name: string; price: string; image: string; expiryDays: number }) {
-  // Calculate expiry progress (100% = fresh, 0% = expired)
   const getExpiryProgress = (days: number) => {
     if (days <= 0) return 0;
     if (days >= 60) return 100;
@@ -174,11 +186,10 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
 
   const expiryProgress = getExpiryProgress(expiryDays);
   
-  // Get color based on expiry days left
   const getExpiryColor = (days: number) => {
-    if (days <= 3) return "bg-red-500"; // Almost expired or expired
-    if (days <= 7) return "bg-orange-400"; // Getting close to expiry
-    return "bg-[#00A16C]"; // Fresh
+    if (days <= 3) return "bg-red-500";
+    if (days <= 7) return "bg-orange-400";
+    return "bg-[#00A16C]";
   };
 
   return (
@@ -189,7 +200,6 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
       <div className="p-3">
         <h3 className="text-sm font-medium">{name}</h3>
         
-        {/* Expiration Tracker */}
         <div className="mt-2 mb-2">
           <div className="flex items-center justify-between text-xs mb-1">
             <div className="flex items-center">
@@ -219,9 +229,12 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
   );
 }
 
-function ActionCard({ icon, title }: { icon: React.ReactNode; title: string }) {
+function ActionCard({ icon, title, onClick }: { icon: React.ReactNode; title: string; onClick?: () => void }) {
   return (
-    <Card className="bg-[#252A37] border-none p-3 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-[#2A3040] transition-colors">
+    <Card 
+      className="bg-[#252A37] border-none p-3 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-[#2A3040] transition-colors"
+      onClick={onClick}
+    >
       <div className="bg-[#1A1F2C] rounded-full p-3 mb-2">
         {icon}
       </div>

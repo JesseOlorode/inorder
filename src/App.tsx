@@ -13,6 +13,9 @@ import Profile from "./pages/Profile";
 import CreateTask from "./pages/CreateTask";
 import TaskManagement from "./pages/TaskManagement";
 import GroceryManagement from "./pages/GroceryManagement";
+import GroceryEdit from "./pages/GroceryEdit";
+import GroceryAdd from "./pages/GroceryAdd";
+import GroceryReceipt from "./pages/GroceryReceipt";
 import TaskComplete from "./pages/TaskComplete";
 import Calendar from "./pages/Calendar";
 import NotFound from "./pages/NotFound";
@@ -37,6 +40,9 @@ const App = () => (
           <Route path="/create-task" element={<CreateTask />} />
           <Route path="/task-management" element={<TaskManagement />} />
           <Route path="/grocery-management" element={<GroceryManagement />} />
+          <Route path="/grocery-edit" element={<GroceryEdit />} />
+          <Route path="/grocery-add" element={<GroceryAdd />} />
+          <Route path="/grocery-receipt" element={<GroceryReceipt />} />
           <Route path="/task-complete" element={<TaskComplete />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/search" element={<Search />} />
