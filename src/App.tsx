@@ -40,8 +40,14 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   
   useEffect(() => {
-    // If the user refreshes on any page other than the splash screen, redirect to splash
-    if (location.pathname !== "/" && location.pathname !== "/index" && location.pathname !== "/matrix-loading" && sessionStorage.getItem("visited") !== "true") {
+    // Check if the user is on a page other than splash or matrix, and hasn't visited
+    if (
+      location.pathname !== "/" && 
+      location.pathname !== "/index" && 
+      location.pathname !== "/matrix-loading" && 
+      sessionStorage.getItem("visited") !== "true"
+    ) {
+      // Redirect to splash screen
       navigate("/");
     }
   }, [navigate, location]);
@@ -62,8 +68,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<SplashScreen />} />
               <Route path="/index" element={<Navigate to="/" replace />} />
+              <Route path="/matrix-loading" element={<MatrixLoading />} />
               <Route element={<RouteGuard><></></RouteGuard>}>
-                <Route path="/matrix-loading" element={<MatrixLoading />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/login-loading" element={<LoginLoading />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />

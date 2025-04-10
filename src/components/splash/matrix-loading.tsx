@@ -35,6 +35,9 @@ export function MatrixLoading() {
   
   // Progress bar
   useEffect(() => {
+    // Set visited flag when matrix loading starts
+    sessionStorage.setItem("visited", "true");
+    
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
