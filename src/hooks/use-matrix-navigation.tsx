@@ -24,9 +24,10 @@ export function useMatrixNavigation() {
             setLoadingComplete(true);
             return 100;
           }
-          return prev + 0.5;
+          // Increase speed by incrementing by 2 instead of 0.5
+          return prev + 2;
         });
-      }, 100);
+      }, 50); // Decreased interval from 100ms to 50ms
       
       return () => clearInterval(interval);
     } catch (error) {
