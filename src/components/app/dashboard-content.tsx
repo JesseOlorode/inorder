@@ -20,11 +20,11 @@ export function DashboardContent() {
 
       {/* Weather & Stats Section */}
       <div className="grid grid-cols-2 gap-4">
-        <Card className="bg-[#252A37] border-none p-3 rounded-lg">
+        <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white">
           <div className="text-xl font-bold">29°C</div>
           <div className="text-xs text-gray-400">Los Angeles, USA</div>
         </Card>
-        <Card className="bg-[#252A37] border-none p-3 rounded-lg">
+        <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white">
           <div className="text-xl font-bold">60%</div>
           <div className="text-xs text-gray-400">Productivity</div>
         </Card>
@@ -36,7 +36,7 @@ export function DashboardContent() {
           <h2 className="text-sm font-medium">Grocery Management</h2>
           <Link to="/grocery-management" className="text-xs text-[#00A16C]">See All</Link>
         </div>
-        <Card className="bg-[#252A37] border-none p-4 rounded-lg">
+        <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-[#00A16C] rounded-full p-2">
@@ -63,7 +63,7 @@ export function DashboardContent() {
           <h2 className="text-sm font-medium">Task Calendar</h2>
           <Link to="/calendar" className="text-xs text-[#00A16C]">See All</Link>
         </div>
-        <Card className="bg-[#252A37] border-none p-4 rounded-lg">
+        <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-[#00A16C] rounded-full p-2">
@@ -148,7 +148,7 @@ export function DashboardContent() {
 function QuickAccessItem({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-[#252A37] rounded-full p-3 mb-1">
+      <div className="bg-[#252A37] rounded-full p-3 mb-1 text-white">
         {icon}
       </div>
       <span className="text-xs text-gray-400">{label}</span>
@@ -158,7 +158,7 @@ function QuickAccessItem({ icon, label }: { icon: React.ReactNode; label: string
 
 function DeviceItem({ icon, label, status }: { icon: React.ReactNode; label: string; status: string }) {
   return (
-    <div className="bg-[#252A37] rounded-lg p-3 flex flex-col items-center">
+    <div className="bg-[#252A37] rounded-lg p-3 flex flex-col items-center text-white">
       <div className="bg-[#00A16C] rounded-full p-2 mb-2">
         {icon}
       </div>
@@ -170,7 +170,7 @@ function DeviceItem({ icon, label, status }: { icon: React.ReactNode; label: str
 
 function TaskItem({ title, time, completed }: { title: string; time: string; completed: boolean }) {
   return (
-    <div className="bg-[#252A37] rounded-lg p-3 flex items-center justify-between">
+    <div className="bg-[#252A37] rounded-lg p-3 flex items-center justify-between text-white">
       <div className="flex items-center gap-3">
         <div className={`h-3 w-3 rounded-full ${completed ? "bg-[#00A16C]" : "bg-[#FFC107]"}`}></div>
         <div>

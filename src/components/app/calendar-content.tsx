@@ -33,11 +33,11 @@ export function CalendarContent() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-medium">Today's Task</h1>
         <div className="flex items-center gap-1">
-          <button className="bg-[#252A37] rounded-full p-1">
+          <button className="bg-[#252A37] rounded-full p-1 text-white">
             <ChevronLeft size={16} />
           </button>
           <span className="text-sm font-medium">{currentMonth}</span>
-          <button className="bg-[#252A37] rounded-full p-1">
+          <button className="bg-[#252A37] rounded-full p-1 text-white">
             <ChevronRight size={16} />
           </button>
         </div>
@@ -70,7 +70,7 @@ export function CalendarContent() {
             </div>
             
             {/* Task Column */}
-            <div className="flex-1 bg-[#252A37] rounded-lg p-3 relative">
+            <div className="flex-1 bg-[#252A37] rounded-lg p-3 relative text-white">
               {/* Colored indicator */}
               <div className={`absolute left-0 top-0 bottom-0 w-1 ${task.color} rounded-l-lg`}></div>
               

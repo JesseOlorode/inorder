@@ -17,7 +17,7 @@ export function ProfileContent() {
       </div>
 
       {/* Account Settings */}
-      <div className="bg-[#252A37] rounded-lg overflow-hidden">
+      <div className="bg-[#252A37] rounded-lg overflow-hidden text-white">
         <h2 className="text-sm font-medium p-4 pb-2">Account Settings</h2>
         
         <div className="border-b border-gray-700">
@@ -44,7 +44,7 @@ export function ProfileContent() {
       </div>
 
       {/* Preferences */}
-      <div className="bg-[#252A37] rounded-lg overflow-hidden">
+      <div className="bg-[#252A37] rounded-lg overflow-hidden text-white">
         <h2 className="text-sm font-medium p-4 pb-2">Preferences</h2>
         
         <div className="border-b border-gray-700">

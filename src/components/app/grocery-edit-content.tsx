@@ -70,7 +70,7 @@ export function GroceryEditContent() {
         <input
           type="text"
           placeholder="Search products"
-          className="w-full bg-[#252A37] border-none rounded-full pl-10 pr-4 py-2 text-sm"
+          className="w-full bg-[#252A37] border-none rounded-full pl-10 pr-4 py-2 text-sm text-white"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -79,7 +79,7 @@ export function GroceryEditContent() {
       {/* Item List */}
       <div className="space-y-4 mb-8">
         {filteredItems.map((item) => (
-          <Card key={item.id} className="bg-[#252A37] border-none p-3 flex items-center">
+          <Card key={item.id} className="bg-[#252A37] border-none p-3 flex items-center text-white">
             <Checkbox 
               checked={item.selected}
               onCheckedChange={() => handleToggleSelect(item.id)}

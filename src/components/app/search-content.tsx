@@ -10,7 +10,7 @@ export function SearchContent() {
       <div className="relative">
         <Input
           placeholder="Search for tasks, groceries, etc."
-          className="pl-10 bg-[#252A37] border-none h-12"
+          className="pl-10 bg-[#252A37] border-none h-12 text-white"
         />
         <SearchIcon className="absolute left-3 top-3 text-gray-400" size={20} />
       </div>
