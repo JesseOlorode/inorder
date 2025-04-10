@@ -31,7 +31,6 @@ import Alerts from "./pages/Alerts";
 import Devices from "./pages/Devices";
 import SplashScreen from "./pages/SplashScreen";
 import MatrixLoading from "./pages/MatrixLoading";
-import DoorTransition from "./pages/DoorTransition";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -113,7 +112,6 @@ const App = () => (
                 <Route path="/" element={<SplashScreen />} />
                 <Route path="/index" element={<Navigate to="/" replace />} />
                 <Route path="/matrix-loading" element={<MatrixLoading />} />
-                <Route path="/door-transition" element={<DoorTransition />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/login-loading" element={<LoginLoading />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />

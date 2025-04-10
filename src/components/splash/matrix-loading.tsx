@@ -81,7 +81,7 @@ export function MatrixLoading() {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            navigate('/door-transition');
+            navigate('/login'); // Changed to navigate directly to login
           }, 500);
           return 100;
         }
