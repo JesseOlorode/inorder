@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Check, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Check, Edit, Heart, MoreHorizontal, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { 
   ContextMenu,
@@ -18,6 +18,7 @@ import { useTheme } from "@/contexts/theme-context";
 import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 // Task interface for type safety
 interface Task {
@@ -28,6 +29,7 @@ interface Task {
   category: string;
   remindMe: boolean;
   completed: boolean;
+  favorite: boolean;
 }
 
 export function TaskManagementContent() {
@@ -41,7 +43,8 @@ export function TaskManagementContent() {
       notes: "Discuss project roadmap",
       category: "work",
       remindMe: true,
-      completed: false
+      completed: false,
+      favorite: false
     },
     {
       id: 2,
@@ -50,7 +53,8 @@ export function TaskManagementContent() {
       notes: "Buy vegetables and fruits",
       category: "personal",
       remindMe: true,
-      completed: false
+      completed: false,
+      favorite: false
     },
     {
       id: 3,
@@ -59,7 +63,8 @@ export function TaskManagementContent() {
       notes: "Annual checkup",
       category: "health",
       remindMe: false,
-      completed: false
+      completed: false,
+      favorite: false
     }
   ]);
 
@@ -80,6 +85,23 @@ export function TaskManagementContent() {
 
   const deleteTask = (taskId: number) => {
     setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const toggleFavorite = (taskId: number) => {
+    const updatedTasks = tasks.map(task => 
+      task.id === taskId ? {...task, favorite: !task.favorite} : task
+    );
+    setTasks(updatedTasks);
+    
+    const task = tasks.find(task => task.id === taskId);
+    if (task) {
+      toast(`${task.title} ${task.favorite ? 'removed from' : 'added to'} favorites`);
+    }
+
+    // Store in localStorage for persistence
+    localStorage.setItem('favoriteTasks', JSON.stringify(
+      updatedTasks.filter(task => task.favorite)
+    ));
   };
 
   return (
@@ -132,44 +154,76 @@ export function TaskManagementContent() {
                     </div>
                   </div>
                   
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="focus:outline-none">
-                      <div className={`${theme === "dark" ? "hover:bg-[#1A1F2C]" : "hover:bg-gray-100"} rounded-full p-1`}>
-                        <MoreHorizontal size={16} />
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent 
-                      className={`${
-                        theme === "dark" 
-                          ? "bg-[#252A37] text-[#F5EFE0] border border-gray-700" 
-                          : "bg-white text-[#1A1F2C] border border-gray-200"
+                  <div className="flex items-center">
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(task.id);
+                      }}
+                      className={`mr-2 p-1.5 rounded-full transition-colors ${
+                        task.favorite 
+                          ? 'text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30' 
+                          : 'text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-800/50'
                       }`}
                     >
-                      <DropdownMenuItem 
-                        onClick={() => completeTask(task.id)}
+                      <Heart 
+                        size={16} 
+                        className={task.favorite ? 'fill-red-500' : ''} 
+                      />
+                    </button>
+                    
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="focus:outline-none">
+                        <div className={`${theme === "dark" ? "hover:bg-[#1A1F2C]" : "hover:bg-gray-100"} rounded-full p-1`}>
+                          <MoreHorizontal size={16} />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent 
                         className={`${
                           theme === "dark" 
-                            ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
-                            : "focus:bg-gray-100 focus:text-[#1A1F2C]"
-                        }`}
-                        disabled={task.completed}
-                      >
-                        <Check className="mr-2 h-4 w-4" />
-                        <span>Complete Task</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => deleteTask(task.id)}
-                        className={`${
-                          theme === "dark" 
-                            ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
-                            : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+                            ? "bg-[#252A37] text-[#F5EFE0] border border-gray-700" 
+                            : "bg-white text-[#1A1F2C] border border-gray-200"
                         }`}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        <span>Delete Task</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                        <DropdownMenuItem 
+                          onClick={() => completeTask(task.id)}
+                          className={`${
+                            theme === "dark" 
+                              ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                              : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+                          }`}
+                          disabled={task.completed}
+                        >
+                          <Check className="mr-2 h-4 w-4" />
+                          <span>Complete Task</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem 
+                          onClick={() => toggleFavorite(task.id)}
+                          className={`${
+                            theme === "dark" 
+                              ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                              : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+                          }`}
+                        >
+                          <Heart 
+                            className={`mr-2 h-4 w-4 ${task.favorite ? 'fill-red-500' : ''}`} 
+                          />
+                          <span>{task.favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem 
+                          onClick={() => deleteTask(task.id)}
+                          className={`${
+                            theme === "dark" 
+                              ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                              : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+                          }`}
+                        >
+                          <Trash className="mr-2 h-4 w-4" />
+                          <span>Delete Task</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               </ContextMenuTrigger>
               <ContextMenuContent
@@ -190,6 +244,19 @@ export function TaskManagementContent() {
                 >
                   <Check className="mr-2 h-4 w-4" />
                   <span>Complete Task</span>
+                </ContextMenuItem>
+                <ContextMenuItem 
+                  onClick={() => toggleFavorite(task.id)}
+                  className={`${
+                    theme === "dark" 
+                      ? "focus:bg-[#1A1F2C] focus:text-[#F5EFE0]" 
+                      : "focus:bg-gray-100 focus:text-[#1A1F2C]"
+                  }`}
+                >
+                  <Heart 
+                    className={`mr-2 h-4 w-4 ${task.favorite ? 'fill-red-500' : ''}`} 
+                  />
+                  <span>{task.favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
                 </ContextMenuItem>
                 <ContextMenuItem 
                   onClick={() => deleteTask(task.id)}
