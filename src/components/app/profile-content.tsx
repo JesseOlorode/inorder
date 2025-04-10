@@ -1,4 +1,3 @@
-
 import { Avatar } from "@/components/ui/avatar";
 import { ChevronRight, Moon, Key, Globe, Info, FileText, Share2, LogOut, Facebook, Twitter, Instagram, Mail, Link } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -52,7 +51,6 @@ export function ProfileContent() {
   const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
   
-  // State for dialogs
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
   const [termsDialogOpen, setTermsDialogOpen] = useState(false);
@@ -64,7 +62,6 @@ export function ProfileContent() {
       title: t("loggedOut"),
       description: t("logoutDescription"),
     });
-    // In a real app, we would clear auth state here
     setTimeout(() => navigate("/login"), 1500);
   };
 
@@ -86,7 +83,6 @@ export function ProfileContent() {
         shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
         break;
       case 'instagram':
-        // Instagram doesn't have a direct share URL, so we'll just copy to clipboard
         navigator.clipboard.writeText(`${shareTitle} ${appUrl}`);
         toast({
           title: t("instagramShareTitle"),
@@ -95,7 +91,6 @@ export function ProfileContent() {
         setShareDialogOpen(false);
         return;
       case 'message':
-        // For SMS on mobile devices
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
           shareUrl = `sms:?&body=${encodeURIComponent(`${shareTitle} ${appUrl}`)}`;
         } else {
@@ -142,7 +137,6 @@ export function ProfileContent() {
     setShareDialogOpen(false);
   };
 
-  // Password change form
   const passwordForm = useForm({
     defaultValues: {
       currentPassword: "",
@@ -152,7 +146,6 @@ export function ProfileContent() {
   });
 
   const onPasswordSubmit = (data) => {
-    // Check if passwords match
     if (data.newPassword !== data.confirmPassword) {
       toast({
         title: "Error",
@@ -162,7 +155,6 @@ export function ProfileContent() {
       return;
     }
 
-    // Here you would normally call an API to change the password
     console.log("Password change data:", data);
     toast({
       title: t("passwordChanged"),
@@ -172,7 +164,6 @@ export function ProfileContent() {
     passwordForm.reset();
   };
 
-  // Language selection
   const [selectedLanguage, setSelectedLanguage] = useState(language);
   const languages = [
     { value: "english", label: "English" },
@@ -194,16 +185,14 @@ export function ProfileContent() {
 
   return (
     <div className="space-y-6 py-4">
-      {/* Profile Header */}
       <div className="flex flex-col items-center text-center space-y-2">
         <Avatar className="h-20 w-20 rounded-full border-2 border-[#00C853]">
           <img src="https://github.com/shadcn.png" alt="Profile" />
         </Avatar>
         <h1 className="text-xl font-medium">Jonathan Peterson</h1>
-        <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>hello@reallygreatsite.com</p>
+        <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>User ID: JP12345</p>
       </div>
 
-      {/* Account Settings */}
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">{t("accountSettings")}</h2>
         
@@ -234,7 +223,6 @@ export function ProfileContent() {
         </div>
       </div>
 
-      {/* Preferences */}
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">{t("preferences")}</h2>
         
@@ -276,7 +264,6 @@ export function ProfileContent() {
         </div>
       </div>
 
-      {/* Logout Button */}
       <Button 
         className="bg-[#00C853] hover:bg-[#00B04C] text-black font-medium w-full py-6 h-auto rounded-lg flex justify-center items-center gap-2" 
         onClick={handleLogout}
@@ -285,7 +272,6 @@ export function ProfileContent() {
         <span>{t("logout")}</span>
       </Button>
 
-      {/* Password Change Dialog */}
       <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
         <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
           <DialogHeader>
@@ -372,7 +358,6 @@ export function ProfileContent() {
         </DialogContent>
       </Dialog>
 
-      {/* Language Selection Dialog */}
       <Dialog open={languageDialogOpen} onOpenChange={setLanguageDialogOpen}>
         <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
           <DialogHeader>
@@ -417,7 +402,6 @@ export function ProfileContent() {
         </DialogContent>
       </Dialog>
 
-      {/* Terms and Conditions Dialog */}
       <Dialog open={termsDialogOpen} onOpenChange={setTermsDialogOpen}>
         <DialogContent className={`${theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'} max-w-3xl max-h-[80vh]`}>
           <DialogHeader>
@@ -447,7 +431,6 @@ export function ProfileContent() {
         </DialogContent>
       </Dialog>
 
-      {/* Privacy Policy Dialog */}
       <Dialog open={privacyDialogOpen} onOpenChange={setPrivacyDialogOpen}>
         <DialogContent className={`${theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'} max-w-3xl max-h-[80vh]`}>
           <DialogHeader>
@@ -477,7 +460,6 @@ export function ProfileContent() {
         </DialogContent>
       </Dialog>
 
-      {/* Share App Dialog */}
       <AlertDialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
         <AlertDialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
           <AlertDialogHeader>

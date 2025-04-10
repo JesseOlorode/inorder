@@ -144,10 +144,6 @@ export const translations = {
     
     Our App is not intended for children under 13 years of age, and we do not knowingly collect personal information from children under 13.
     
-    ## CONTACT INFORMATION
-    
-    To ask questions or comment about this privacy policy and our privacy practices, contact us at: privacy@olorodecorp.com
-    
     Last updated: April 10, 2025
     `,
   },
@@ -296,10 +292,6 @@ export const translations = {
     
     Nuestra Aplicación no está destinada a niños menores de 13 años, y no recopilamos conscientemente información personal de niños menores de 13.
     
-    ## INFORMACIÓN DE CONTACTO
-    
-    Para hacer preguntas o comentarios sobre esta política de privacidad y nuestras prácticas de privacidad, contactenos en: privacy@olorodecorp.com
-    
     Última actualización: 10 de abril de 2025
     `,
   },
@@ -407,9 +399,9 @@ export const translations = {
     privacyPolicyText: `
     # POLITIQUE DE CONFIDENTIALITÉ
 
-    ## INTRODUCCIÓN
+    ## INTRODUCTION
     
-    Olorode Corporations LLC ("nous", "nous" ou "nos") respecte votre vie privée et s'engage à la protéger en se conformant à cette politique de confidentialité. Cette politique décrit les types d'informations que nous pouvons collecter auprès de vous ou que vous pouvez fournir lorsque vous utilisez l'application InOrder ("Application") et nos pratiques de collecte, d'utilisation, de maintenance, de protection et de divulgation de ces informations.
+    Olorode Corporations LLC ("nous", "notre" ou "nos") respecte votre vie privée et s'engage à la protéger en se conformant à cette politique de confidentialité. Cette politique décrit les types d'informations que nous pouvons collecter auprès de vous ou que vous pouvez fournir lorsque vous utilisez l'application InOrder ("Application") et nos pratiques de collecte, d'utilisation, de maintenance, de protection et de divulgation de ces informations.
     
     ## INFORMATIONS QUE NOUS COLLECTONS
     
@@ -428,7 +420,7 @@ export const translations = {
     1. Pour vous présenter notre Application et son contenu.
     2. Pour vous fournir des informations, des produits ou des services que vous nous demandez.
     3. Pour remplir tout autre objectif pour lequel vous la fournissez.
-    4. Pour respecter nos obligations et faire valer nos droits.
+    4. Pour respecter nos obligations et faire valoir nos droits.
     5. Pour améliorer notre Application et l'expérience utilisateur.
     6. De toute autre manière que nous pouvons décrire lorsque vous fournissez les informations.
     
@@ -447,10 +439,6 @@ export const translations = {
     ## CONFIDENTIALITÉ DES ENFANTS
     
     Notre Application n'est pas destinée aux enfants de moins de 13 ans, et nous ne collectons pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans.
-    
-    ## INFORMATIONS DE CONTACT
-    
-    Pour poser des questions ou commenter cette politique de confidentialité et nos pratiques en matière de confidentialité, contactez-nous en : privacy@olorodecorp.com
     
     Dernière mise à jour : 10 avril 2025
     `,
@@ -599,10 +587,6 @@ export const translations = {
     ## DATENSCHUTZ VON KINDERN
     
     Unsere App ist nicht für Kinder unter 13 Jahren bestimmt, und wir sammeln wissentlich keine persönlichen Informationen von Kindern unter 13 Jahren.
-    
-    ## KONTAKTINFORMATIONEN
-    
-    Um Fragen zu stellen oder Kommentare zu dieser Datenschutzrichtlinie und unseren Datenschutzpraktiken abzugeben, kontaktieren Sie uns unter: privacy@olorodecorp.com
     
     Zuletzt aktualisiert: 10. April 2025
     `,
