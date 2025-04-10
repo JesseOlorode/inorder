@@ -142,9 +142,9 @@ export function MatrixLoading() {
   // Navigation effect - with longer delay
   useEffect(() => {
     if (loadingComplete && showAccessGranted && !hasNavigated) {
-      // Navigate to login page after showing access granted message - increased from 2000ms to 3000ms
+      // Navigate to black screen buffer instead of login - increased from 2000ms to 3000ms
       const timer = setTimeout(() => {
-        navigateToLogin();
+        navigateToBufferScreen();
       }, 3000);
       
       return () => clearTimeout(timer);
@@ -163,6 +163,21 @@ export function MatrixLoading() {
   }, [hasNavigated]);
 
   // Safe navigation function to prevent duplicate navigations
+  const navigateToBufferScreen = () => {
+    if (hasNavigated) return;
+    
+    try {
+      setHasNavigated(true);
+      // Set another marker to confirm we've completed matrix loading
+      localStorage.setItem('matrixLoadingComplete', 'true');
+      navigate('/black-screen-buffer');
+    } catch (navError) {
+      console.error("Navigation error:", navError);
+      // Force redirect as fallback
+      window.location.href = '/black-screen-buffer';
+    }
+  };
+
   const navigateToLogin = () => {
     if (hasNavigated) return;
     
