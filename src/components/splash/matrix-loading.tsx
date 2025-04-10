@@ -79,7 +79,7 @@ export function MatrixLoading() {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            navigate('/login');
+            navigate('/door-transition');
           }, 500);
           return 100;
         }
