@@ -214,7 +214,7 @@ export function CalendarContent() {
         </div>
       </div>
 
-      {/* Bottom message */}
+      {/* Motivational message - moved directly under the tasks */}
       <div className="mt-[370px] bg-neutral-800 rounded-lg p-4 text-center">
         <h3 className="text-sm font-bold">One step at a time. You'll get there.</h3>
         <p className="text-xs text-neutral-400 mt-1">Break down large tasks into smaller, manageable steps for better progress.</p>
@@ -222,3 +222,4 @@ export function CalendarContent() {
     </div>
   );
 }
+
