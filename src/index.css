@@ -35,7 +35,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -114,6 +114,32 @@
   }
 }
 
+/* Custom animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+/* Glass effect for cards */
+.glass-card {
+  @apply bg-opacity-80 backdrop-blur-sm border border-opacity-30;
+}
+
 /* Utility class for scrollbar hiding */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -122,4 +148,14 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Button hover effects */
+.button-hover-effect {
+  @apply transition-all duration-300 ease-in-out transform hover:scale-105;
+}
+
+/* Card hover effects */
+.card-hover-effect {
+  @apply transition-all duration-300 ease-in-out hover:shadow-lg;
 }
