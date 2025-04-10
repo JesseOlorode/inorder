@@ -8,6 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
+import { useNavigate } from "react-router-dom";
 
 export function CalendarContent() {
   const navigate = useNavigate();
@@ -91,8 +93,17 @@ export function CalendarContent() {
     );
     setTodayTasks(updatedTasks);
     
-    // Navigate to the task complete screen
-    navigate("/task-complete");
+    // Get the completed task title
+    const completedTask = todayTasks.find(task => task.id === taskId);
+    const taskTitle = completedTask ? completedTask.title : "";
+    
+    // Navigate to the task complete screen with a random message
+    navigate("/task-complete", { 
+      state: { 
+        message: getRandomMotivationalMessage(),
+        taskTitle: taskTitle
+      }
+    });
   };
   
   // Handle task deletion

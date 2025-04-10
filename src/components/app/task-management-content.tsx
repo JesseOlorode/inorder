@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -23,6 +22,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/contexts/theme-context";
+import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
 
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
@@ -88,7 +88,6 @@ export function TaskManagementContent() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Add task to the list
     const newTask: Task = {
       id: tasks.length + 1,
       title: values.title,
@@ -101,19 +100,22 @@ export function TaskManagementContent() {
     
     setTasks([...tasks, newTask]);
     
-    // Reset form
     form.reset();
   }
 
   const completeTask = (taskId: number) => {
-    // Mark task as completed
     const updatedTasks = tasks.map(task => 
       task.id === taskId ? {...task, completed: true} : task
     );
     setTasks(updatedTasks);
     
-    // Navigate to the task complete screen
-    navigate("/task-complete");
+    const completedTaskTitle = tasks.find(task => task.id === taskId)?.title || "";
+    navigate("/task-complete", { 
+      state: { 
+        message: getRandomMotivationalMessage(),
+        taskTitle: completedTaskTitle
+      }
+    });
   };
 
   const deleteTask = (taskId: number) => {
@@ -128,7 +130,6 @@ export function TaskManagementContent() {
         </h1>
       </div>
       
-      {/* Tasks section */}
       <div className="mb-8">
         <h2 className={`text-lg ${theme === "dark" ? "font-medium" : "font-semibold"} mb-4`}>Your Tasks</h2>
         <div className="space-y-3">

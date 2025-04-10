@@ -2,7 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-export function TaskCompleteScreen() {
+interface TaskCompleteScreenProps {
+  message: string;
+  taskTitle?: string;
+}
+
+export function TaskCompleteScreen({ message, taskTitle }: TaskCompleteScreenProps) {
   const navigate = useNavigate();
   
   return (
@@ -30,7 +35,8 @@ export function TaskCompleteScreen() {
       </div>
       
       <div className="bg-[#252A37] rounded-lg p-6 w-full max-w-md mb-8">
-        <p className="text-lg mb-4">"Awesome work! Let's tackle the next one."</p>
+        <p className="text-lg mb-4">"{message}"</p>
+        {taskTitle && <p className="text-sm text-gray-400">Task: {taskTitle}</p>}
       </div>
       
       <Button
