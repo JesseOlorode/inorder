@@ -7,14 +7,37 @@ import { motion } from "framer-motion";
 export function SplashScreen() {
   const navigate = useNavigate();
   
+  // Set up safety checks when component mounts
+  useEffect(() => {
+    try {
+      // Check if we should skip the splash screen
+      const visited = sessionStorage.getItem("visited") === "true";
+      const lastRenderTime = localStorage.getItem('lastRenderTime');
+      const currentTime = Date.now();
+      
+      // If user has already visited and it's within a reasonable time window, redirect to dashboard
+      if (visited && lastRenderTime && (currentTime - parseInt(lastRenderTime, 10)) < 3600000) {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error("Error in SplashScreen initialization:", error);
+    }
+  }, [navigate]);
+  
   // Make sure visited flag is set correctly when Enter is clicked
   const handleEnter = () => {
-    // Set visited flag to prevent automatic redirect back to splash
-    sessionStorage.setItem("visited", "true");
-    // Update lastRenderTime to prevent refresh detection from triggering
-    localStorage.setItem('lastRenderTime', Date.now().toString());
-    // Navigate to matrix loading screen
-    navigate('/matrix-loading');
+    try {
+      // Set visited flag to prevent automatic redirect back to splash
+      sessionStorage.setItem("visited", "true");
+      // Update lastRenderTime to prevent refresh detection from triggering
+      localStorage.setItem('lastRenderTime', Date.now().toString());
+      // Navigate to matrix loading screen
+      navigate('/matrix-loading');
+    } catch (error) {
+      console.error("Error in handleEnter:", error);
+      // Fallback: try to navigate anyway
+      navigate('/matrix-loading');
+    }
   };
 
   return (

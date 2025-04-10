@@ -10,6 +10,7 @@ export function MatrixLoading() {
   const [showAccessGranted, setShowAccessGranted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [loadingComplete, setLoadingComplete] = useState(false);
   
   // Coding language snippets
   const codingSnippets = [
@@ -38,66 +39,100 @@ export function MatrixLoading() {
   
   // Generate coding-like text
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (matrixText.length < 50) {
-        // Randomly select a code snippet or generate a new one
-        const useSnippet = Math.random() > 0.3;
-        
-        let text = '';
-        if (useSnippet && codingSnippets.length > 0) {
-          // Use a predefined code snippet
-          const snippetIndex = Math.floor(Math.random() * codingSnippets.length);
-          text = codingSnippets[snippetIndex];
-        } else {
-          // Generate code-like text
-          const codePatterns = [
-            "const ", "let ", "function ", "if(", "return ", "await ", "async ", 
-            "import ", "export ", "class ", "interface ", "type ", "for(", "while("
-          ];
+    try {
+      const interval = setInterval(() => {
+        if (matrixText.length < 50) {
+          // Randomly select a code snippet or generate a new one
+          const useSnippet = Math.random() > 0.3;
           
-          const startPattern = codePatterns[Math.floor(Math.random() * codePatterns.length)];
-          text = startPattern + Math.random().toString(36).substring(2, 10) + ";";
+          let text = '';
+          if (useSnippet && codingSnippets.length > 0) {
+            // Use a predefined code snippet
+            const snippetIndex = Math.floor(Math.random() * codingSnippets.length);
+            text = codingSnippets[snippetIndex];
+          } else {
+            // Generate code-like text
+            const codePatterns = [
+              "const ", "let ", "function ", "if(", "return ", "await ", "async ", 
+              "import ", "export ", "class ", "interface ", "type ", "for(", "while("
+            ];
+            
+            const startPattern = codePatterns[Math.floor(Math.random() * codePatterns.length)];
+            text = startPattern + Math.random().toString(36).substring(2, 10) + ";";
+          }
+          
+          setMatrixText(prev => [...prev, text]);
+          
+          // Auto scroll to the bottom
+          if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+          }
         }
-        
-        setMatrixText(prev => [...prev, text]);
-        
-        // Auto scroll to the bottom
-        if (containerRef.current) {
-          containerRef.current.scrollTop = containerRef.current.scrollHeight;
-        }
-      }
-    }, 150);
-    
-    return () => clearInterval(interval);
-  }, [matrixText.length]);
+      }, 150);
+      
+      return () => clearInterval(interval);
+    } catch (error) {
+      console.error("Error in matrix text generation:", error);
+    }
+  }, [matrixText.length, codingSnippets]);
   
   // Progress bar and navigation
   useEffect(() => {
-    // This is CRITICAL: Ensure the visited flag is set when matrix loading starts
-    sessionStorage.setItem("visited", "true");
-    // Update the timestamp
-    localStorage.setItem('lastRenderTime', Date.now().toString());
-    
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          // Show "Access Granted" message before navigating
-          setShowAccessGranted(true);
-          
-          // Navigate to login page after showing access granted message
-          setTimeout(() => {
-            navigate('/login');
-          }, 2000); // Give 2 seconds to show the access granted message
-          
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 50);
-    
-    return () => clearInterval(interval);
+    try {
+      // This is CRITICAL: Ensure the visited flag is set when matrix loading starts
+      sessionStorage.setItem("visited", "true");
+      // Update the timestamp
+      localStorage.setItem('lastRenderTime', Date.now().toString());
+      
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            // Mark loading as complete
+            setLoadingComplete(true);
+            // Show "Access Granted" message before navigating
+            setShowAccessGranted(true);
+            
+            // Navigate to login page after showing access granted message
+            setTimeout(() => {
+              try {
+                navigate('/login');
+              } catch (navError) {
+                console.error("Navigation error:", navError);
+                // Force redirect as fallback
+                window.location.href = '/login';
+              }
+            }, 2000); // Give 2 seconds to show the access granted message
+            
+            return 100;
+          }
+          return prev + 1;
+        });
+      }, 50);
+      
+      return () => clearInterval(interval);
+    } catch (error) {
+      console.error("Error in progress handling:", error);
+      // Force navigate as fallback
+      setTimeout(() => window.location.href = '/login', 3000);
+    }
   }, [navigate]);
+
+  // Fallback navigation if we get stuck
+  useEffect(() => {
+    const failsafeTimer = setTimeout(() => {
+      if (loadingComplete && showAccessGranted) {
+        try {
+          navigate('/login');
+        } catch (error) {
+          console.error("Fallback navigation error:", error);
+          window.location.href = '/login';
+        }
+      }
+    }, 5000); // 5 second failsafe
+    
+    return () => clearTimeout(failsafeTimer);
+  }, [loadingComplete, showAccessGranted, navigate]);
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-[#00FF41] font-mono p-4 relative">
