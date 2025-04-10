@@ -14,7 +14,7 @@ const Login = () => {
         <Button 
           variant="outline" 
           onClick={() => navigate("/dashboard")}
-          className="border-[#00C853] text-[#00C853] hover:bg-[#00C853]/10"
+          className="border-[#00A16C] text-[#00A16C] hover:bg-[#00A16C]/10"
         >
           Go directly to Dashboard
         </Button>

@@ -1,3 +1,4 @@
+
 import { Avatar } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { BellRing, Calendar, Clock, Home, Mic, Volume2, Wifi, BarChart2, Settings, MessageSquare, ShoppingCart } from "lucide-react";
@@ -12,7 +13,7 @@ export function DashboardContent() {
           <h2 className="text-gray-400">Good Morning</h2>
           <h1 className="text-xl font-medium">Username</h1>
         </div>
-        <Avatar className="h-10 w-10 rounded-full border-2 border-[#00C853]">
+        <Avatar className="h-10 w-10 rounded-full border-2 border-[#00A16C]">
           <img src="https://github.com/shadcn.png" alt="@shadcn" />
         </Avatar>
       </div>
@@ -33,12 +34,12 @@ export function DashboardContent() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-medium">Grocery Management</h2>
-          <Link to="/grocery-management" className="text-xs text-[#00C853]">See All</Link>
+          <Link to="/grocery-management" className="text-xs text-[#00A16C]">See All</Link>
         </div>
         <Card className="bg-[#252A37] border-none p-4 rounded-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="bg-[#00C853] rounded-full p-2">
+              <div className="bg-[#00A16C] rounded-full p-2">
                 <ShoppingCart size={20} className="text-white" />
               </div>
               <div>
@@ -48,7 +49,34 @@ export function DashboardContent() {
             </div>
             <Link 
               to="/grocery-management" 
-              className="bg-[#1A1F2C] hover:bg-[#23293A] transition-colors text-[#00C853] text-sm px-4 py-2 rounded-lg"
+              className="bg-[#1A1F2C] hover:bg-[#23293A] transition-colors text-[#00A16C] text-sm px-4 py-2 rounded-lg"
+            >
+              Open
+            </Link>
+          </div>
+        </Card>
+      </div>
+
+      {/* Calendar Task Management Section */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-medium">Task Calendar</h2>
+          <Link to="/calendar" className="text-xs text-[#00A16C]">See All</Link>
+        </div>
+        <Card className="bg-[#252A37] border-none p-4 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#00A16C] rounded-full p-2">
+                <Calendar size={20} className="text-white" />
+              </div>
+              <div>
+                <h3 className="font-medium">Today's Tasks</h3>
+                <p className="text-xs text-gray-400">3 tasks scheduled today</p>
+              </div>
+            </div>
+            <Link 
+              to="/calendar" 
+              className="bg-[#1A1F2C] hover:bg-[#23293A] transition-colors text-[#00A16C] text-sm px-4 py-2 rounded-lg"
             >
               Open
             </Link>
@@ -93,7 +121,7 @@ export function DashboardContent() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-medium">Today's Tasks</h2>
-          <button className="text-xs text-[#00C853]">See All</button>
+          <button className="text-xs text-[#00A16C]">See All</button>
         </div>
         <div className="space-y-3">
           <TaskItem 
@@ -131,7 +159,7 @@ function QuickAccessItem({ icon, label }: { icon: React.ReactNode; label: string
 function DeviceItem({ icon, label, status }: { icon: React.ReactNode; label: string; status: string }) {
   return (
     <div className="bg-[#252A37] rounded-lg p-3 flex flex-col items-center">
-      <div className="bg-[#00C853] rounded-full p-2 mb-2">
+      <div className="bg-[#00A16C] rounded-full p-2 mb-2">
         {icon}
       </div>
       <span className="text-sm font-medium">{label}</span>
@@ -144,7 +172,7 @@ function TaskItem({ title, time, completed }: { title: string; time: string; com
   return (
     <div className="bg-[#252A37] rounded-lg p-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className={`h-3 w-3 rounded-full ${completed ? "bg-[#00C853]" : "bg-[#FFC107]"}`}></div>
+        <div className={`h-3 w-3 rounded-full ${completed ? "bg-[#00A16C]" : "bg-[#FFC107]"}`}></div>
         <div>
           <div className="text-sm font-medium">{title}</div>
           <div className="flex items-center text-xs text-gray-400">

@@ -106,35 +106,35 @@ export function GroceryManagementContent() {
       <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
         <Button 
           variant="outline" 
-          className={`${activeTab === "all" ? "bg-[#00C853] text-black" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "all" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("all")}
         >
           All
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "vegetables" ? "bg-[#00C853] text-black" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "vegetables" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("vegetables")}
         >
           Vegetables
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "fruits" ? "bg-[#00C853] text-black" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "fruits" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("fruits")}
         >
           Fruits
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "dairy" ? "bg-[#00C853] text-black" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "dairy" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("dairy")}
         >
           Dairy
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "snacks" ? "bg-[#00C853] text-black" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "snacks" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("snacks")}
         >
           Snacks
@@ -178,7 +178,7 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
   const getExpiryColor = (days: number) => {
     if (days <= 3) return "bg-red-500"; // Almost expired or expired
     if (days <= 7) return "bg-orange-400"; // Getting close to expiry
-    return "bg-[#00C853]"; // Fresh
+    return "bg-[#00A16C]"; // Fresh
   };
 
   return (
@@ -209,8 +209,8 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
         </div>
         
         <div className="flex items-center justify-between mt-2">
-          <span className="text-sm text-[#00C853]">{price}</span>
-          <button className="bg-[#00C853] text-xs text-black px-3 py-1 rounded-full">
+          <span className="text-sm text-[#00A16C]">{price}</span>
+          <button className="bg-[#00A16C] text-xs text-white px-3 py-1 rounded-full">
             Add
           </button>
         </div>

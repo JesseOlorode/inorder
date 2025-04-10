@@ -18,7 +18,7 @@ export function AppNavbar() {
   };
 
   return (
-    <header className="bg-[#00674A] text-white p-4">
+    <header className="bg-[#00A16C] text-white p-4">
       <div className="flex items-center justify-between max-w-md mx-auto">
         <div className="flex items-center">
           <button 

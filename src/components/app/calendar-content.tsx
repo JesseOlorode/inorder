@@ -50,7 +50,7 @@ export function CalendarContent() {
             key={index}
             className={`flex flex-col items-center ${
               day.isActive 
-                ? "bg-[#00C853] text-black" 
+                ? "bg-[#00A16C] text-white" 
                 : "bg-[#252A37] text-white"
             } rounded-lg px-3 py-2 min-w-[40px]`}
           >

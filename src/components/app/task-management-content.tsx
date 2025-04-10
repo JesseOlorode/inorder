@@ -137,7 +137,7 @@ export function TaskManagementContent() {
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="border-gray-400 data-[state=checked]:bg-[#00C853] data-[state=checked]:border-[#00C853]"
+                    className="border-gray-400 data-[state=checked]:bg-[#00A16C] data-[state=checked]:border-[#00A16C]"
                   />
                 </FormControl>
                 <FormLabel className="text-sm">Remind me about this task</FormLabel>
@@ -147,7 +147,7 @@ export function TaskManagementContent() {
           
           <Button
             type="submit"
-            className="w-full bg-[#00C853] text-black font-medium py-6 rounded"
+            className="w-full bg-[#00A16C] text-white font-medium py-6 rounded"
           >
             Create Task
           </Button>
