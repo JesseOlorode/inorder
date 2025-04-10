@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { BarChart, LineChart } from "recharts";
 import { Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Activity, BarChart2, Clock, TrendingUp } from "lucide-react";
+import { Activity, Clock, TrendingUp } from "lucide-react";
 
 export function StatisticsContent() {
   const dailyData = [
@@ -33,7 +33,7 @@ export function StatisticsContent() {
   ];
 
   const statsCards = [
-    { title: "Average Productivity", value: "62%", icon: <Activity className="text-[#00A16C]" /> },
+    { title: "Avg. Productivity", value: "62%", icon: <Activity className="text-[#00A16C]" /> },
     { title: "Total Tasks", value: "267", icon: <Clock className="text-[#00A16C]" /> },
     { title: "Productivity Growth", value: "+12%", icon: <TrendingUp className="text-[#00A16C]" /> },
   ];
@@ -46,14 +46,14 @@ export function StatisticsContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {statsCards.map((card, index) => (
-          <Card key={index} className="bg-[#252A37] border-none p-4 rounded-lg text-white">
-            <div className="flex items-center gap-3">
-              <div className="bg-[#1A1F2C] p-3 rounded-full">
+          <Card key={index} className="bg-[#252A37] border-none p-3 rounded-lg text-white">
+            <div className="flex items-center gap-2">
+              <div className="bg-[#1A1F2C] p-2 rounded-full flex-shrink-0">
                 {card.icon}
               </div>
-              <div>
-                <h3 className="text-sm text-gray-400">{card.title}</h3>
-                <p className="text-xl font-bold">{card.value}</p>
+              <div className="min-w-0">
+                <h3 className="text-xs text-gray-400 truncate">{card.title}</h3>
+                <p className="text-lg font-bold">{card.value}</p>
               </div>
             </div>
           </Card>
@@ -63,59 +63,59 @@ export function StatisticsContent() {
       <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
         <h2 className="text-lg font-medium mb-4">Productivity Overview</h2>
         <Tabs defaultValue="daily">
-          <TabsList className="mb-4 bg-[#1A1F2C]">
-            <TabsTrigger value="daily">Daily</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
+          <TabsList className="mb-4 bg-[#1A1F2C] w-full justify-start">
+            <TabsTrigger value="daily" className="text-sm px-3">Daily</TabsTrigger>
+            <TabsTrigger value="weekly" className="text-sm px-3">Weekly</TabsTrigger>
+            <TabsTrigger value="monthly" className="text-sm px-3">Monthly</TabsTrigger>
           </TabsList>
 
           <TabsContent value="daily" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={dailyData}>
+              <BarChart data={dailyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" />
-                <YAxis stroke="#999" />
+                <XAxis dataKey="name" stroke="#999" fontSize={12} />
+                <YAxis stroke="#999" fontSize={12} width={30} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
                   labelStyle={{ color: 'white' }}
                 />
-                <Legend />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Bar dataKey="productivity" name="Productivity %" fill="#00A16C" />
-                <Bar dataKey="tasks" name="Tasks Completed" fill="#4E7BFF" />
+                <Bar dataKey="tasks" name="Tasks" fill="#4E7BFF" />
               </BarChart>
             </ResponsiveContainer>
           </TabsContent>
 
           <TabsContent value="weekly" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={weeklyData}>
+              <LineChart data={weeklyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" />
-                <YAxis stroke="#999" />
+                <XAxis dataKey="name" stroke="#999" fontSize={12} />
+                <YAxis stroke="#999" fontSize={12} width={30} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
                   labelStyle={{ color: 'white' }}
                 />
-                <Legend />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Line type="monotone" dataKey="productivity" name="Productivity %" stroke="#00A16C" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="tasks" name="Tasks Completed" stroke="#4E7BFF" />
+                <Line type="monotone" dataKey="tasks" name="Tasks" stroke="#4E7BFF" />
               </LineChart>
             </ResponsiveContainer>
           </TabsContent>
 
           <TabsContent value="monthly" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={monthlyData}>
+              <LineChart data={monthlyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" />
-                <YAxis stroke="#999" />
+                <XAxis dataKey="name" stroke="#999" fontSize={12} />
+                <YAxis stroke="#999" fontSize={12} width={30} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
                   labelStyle={{ color: 'white' }}
                 />
-                <Legend />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Line type="monotone" dataKey="productivity" name="Productivity %" stroke="#00A16C" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="tasks" name="Tasks Completed" stroke="#4E7BFF" />
+                <Line type="monotone" dataKey="tasks" name="Tasks" stroke="#4E7BFF" />
               </LineChart>
             </ResponsiveContainer>
           </TabsContent>
