@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 export function BlackScreenBuffer() {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(2);
+  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
     // Mark as visited for routing purposes
     sessionStorage.setItem("visited", "true");
     
-    // Set a countdown from 2 seconds
+    // Set a countdown from 5 seconds
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
