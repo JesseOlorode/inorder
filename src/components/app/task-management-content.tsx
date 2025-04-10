@@ -7,6 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { ShoppingCart, Receipt, Smartphone, Plus, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
@@ -17,6 +25,7 @@ const formSchema = z.object({
 });
 
 export function TaskManagementContent() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -137,12 +146,35 @@ export function TaskManagementContent() {
             )}
           />
           
-          <Button
-            type="submit"
-            className="w-full bg-[#00A16C] text-white font-medium py-6 rounded"
-          >
-            Create Task
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                className="w-full bg-[#00A16C] text-white font-medium py-6 rounded"
+              >
+                <Plus className="mr-1" size={18} />
+                Add
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={() => form.handleSubmit(onSubmit)()}>
+                <Calendar className="mr-2 h-4 w-4" />
+                <span>Add Task</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/grocery-add")}>
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                <span>Add Grocery</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/grocery-receipt")}>
+                <Receipt className="mr-2 h-4 w-4" />
+                <span>Scan Receipt</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/devices")}>
+                <Smartphone className="mr-2 h-4 w-4" />
+                <span>Manage Devices</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </form>
       </Form>
     </div>
