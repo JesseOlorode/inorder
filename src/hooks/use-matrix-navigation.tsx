@@ -41,7 +41,7 @@ export function useMatrixNavigation() {
   useEffect(() => {
     if (loadingComplete && showAccessGranted && !hasNavigated) {
       const timer = setTimeout(() => {
-        navigateToBufferScreen();
+        navigateToLogin();
       }, 3000);
       
       return () => clearTimeout(timer);
@@ -57,19 +57,6 @@ export function useMatrixNavigation() {
     
     return () => clearTimeout(failsafeTimer);
   }, [hasNavigated]);
-
-  const navigateToBufferScreen = () => {
-    if (hasNavigated) return;
-    
-    try {
-      setHasNavigated(true);
-      localStorage.setItem('matrixLoadingComplete', 'true');
-      navigate('/black-screen-buffer');
-    } catch (navError) {
-      console.error("Navigation error:", navError);
-      window.location.href = '/black-screen-buffer';
-    }
-  };
 
   const navigateToLogin = () => {
     if (hasNavigated) return;
@@ -88,7 +75,6 @@ export function useMatrixNavigation() {
     progress,
     showAccessGranted,
     hasNavigated,
-    loadingComplete,
-    navigateToLogin
+    loadingComplete
   };
 }

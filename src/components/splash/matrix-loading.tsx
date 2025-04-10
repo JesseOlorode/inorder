@@ -1,5 +1,4 @@
 
-import { Button } from "@/components/ui/button";
 import { MatrixText } from "./matrix-text";
 import { ProgressIndicator } from "./progress-indicator";
 import { AccessGranted } from "./access-granted";
@@ -10,8 +9,7 @@ export function MatrixLoading() {
     progress,
     showAccessGranted,
     hasNavigated,
-    loadingComplete,
-    navigateToLogin
+    loadingComplete
   } = useMatrixNavigation();
 
   return (
@@ -24,15 +22,6 @@ export function MatrixLoading() {
         </>
       ) : (
         <AccessGranted />
-      )}
-
-      {progress >= 100 && !hasNavigated && (
-        <Button 
-          onClick={navigateToLogin}
-          className="absolute bottom-4 right-4 text-xs opacity-50 hover:opacity-100"
-        >
-          Continue to Login
-        </Button>
       )}
     </div>
   );
