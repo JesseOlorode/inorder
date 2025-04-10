@@ -47,24 +47,24 @@ export function ProfileContent() {
           <img src="https://github.com/shadcn.png" alt="Profile" />
         </Avatar>
         <h1 className="text-xl font-medium">Jonathan Peterson</h1>
-        <p className="text-sm text-gray-400">hello@reallygreatsite.com</p>
+        <p className="text-sm text-gray-400 dark:text-gray-300">hello@reallygreatsite.com</p>
       </div>
 
       {/* Account Settings */}
-      <div className="bg-[#252A37] dark:bg-[#1A1F2C] rounded-lg overflow-hidden text-white">
+      <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">Account Settings</h2>
         
-        <div className="border-b border-gray-700">
+        <div className="border-b border-gray-700 dark:border-gray-600">
           <ProfileSettingSwitch
             icon={<Moon size={18} />}
             label="Mode"
-            description="Dark mode"
+            description={theme === 'dark' ? "Dark mode" : "Light mode"}
             checked={theme === "dark"}
             onCheckedChange={toggleTheme}
           />
         </div>
         
-        <div className="border-b border-gray-700">
+        <div className="border-b border-gray-700 dark:border-gray-600">
           <ProfileSettingLink
             icon={<Key size={18} />}
             label="Change Password"
@@ -92,10 +92,10 @@ export function ProfileContent() {
       </div>
 
       {/* Preferences */}
-      <div className="bg-[#252A37] dark:bg-[#1A1F2C] rounded-lg overflow-hidden text-white">
+      <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
         <h2 className="text-sm font-medium p-4 pb-2">Preferences</h2>
         
-        <div className="border-b border-gray-700">
+        <div className="border-b border-gray-700 dark:border-gray-600">
           <ProfileSettingLink
             icon={<Info size={18} />}
             label="About App"
@@ -108,7 +108,7 @@ export function ProfileContent() {
           />
         </div>
         
-        <div className="border-b border-gray-700">
+        <div className="border-b border-gray-700 dark:border-gray-600">
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label="Terms & Conditions"
@@ -121,7 +121,7 @@ export function ProfileContent() {
           />
         </div>
         
-        <div className="border-b border-gray-700">
+        <div className="border-b border-gray-700 dark:border-gray-600">
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label="Privacy Policy"
@@ -164,9 +164,15 @@ function ProfileSettingLink({
   label: string; 
   onClick?: () => void;
 }) {
+  const { theme } = useTheme();
+  
   return (
     <div 
-      className="flex items-center justify-between p-4 hover:bg-[#2A303D] dark:hover:bg-[#222631] cursor-pointer" 
+      className={`flex items-center justify-between p-4 ${
+        theme === 'dark' 
+          ? 'hover:bg-[#2A303D] text-white' 
+          : 'hover:bg-gray-100 text-[#1A1F2C]'
+      } cursor-pointer`}
       onClick={onClick}
     >
       <div className="flex items-center gap-4">
@@ -191,13 +197,19 @@ function ProfileSettingSwitch({
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }) {
+  const { theme } = useTheme();
+  
   return (
-    <div className="flex items-center justify-between p-4 hover:bg-[#2A303D] dark:hover:bg-[#222631]">
+    <div className={`flex items-center justify-between p-4 ${
+      theme === 'dark' 
+        ? 'hover:bg-[#2A303D] text-white' 
+        : 'hover:bg-gray-100 text-[#1A1F2C]'
+    }`}>
       <div className="flex items-center gap-4">
         <div className="text-[#00C853]">{icon}</div>
         <div>
           <div className="text-sm">{label}</div>
-          <div className="text-xs text-gray-400">{description}</div>
+          <div className={`text-xs ${theme === 'dark' ? 'text-gray-300' : 'text-gray-400'}`}>{description}</div>
         </div>
       </div>
       <Switch 
