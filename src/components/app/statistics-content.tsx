@@ -4,8 +4,11 @@ import { BarChart, LineChart } from "recharts";
 import { Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, Clock, TrendingUp } from "lucide-react";
+import { useTheme } from "@/contexts/theme-context";
 
 export function StatisticsContent() {
+  const { theme } = useTheme();
+  
   const dailyData = [
     { name: "Mon", productivity: 65, tasks: 4 },
     { name: "Tue", productivity: 59, tasks: 3 },
@@ -46,13 +49,13 @@ export function StatisticsContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {statsCards.map((card, index) => (
-          <Card key={index} className="bg-[#252A37] border-none p-3 rounded-lg text-white">
+          <Card key={index} className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none p-3 rounded-lg ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>
             <div className="flex items-center gap-2">
-              <div className="bg-[#1A1F2C] p-2 rounded-full flex-shrink-0">
+              <div className={`${theme === "dark" ? "bg-[#1A1F2C]" : "bg-gray-100"} p-2 rounded-full flex-shrink-0`}>
                 {card.icon}
               </div>
               <div className="min-w-0">
-                <h3 className="text-xs text-gray-400 truncate">{card.title}</h3>
+                <h3 className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"} truncate`}>{card.title}</h3>
                 <p className="text-lg font-bold">{card.value}</p>
               </div>
             </div>
@@ -60,10 +63,10 @@ export function StatisticsContent() {
         ))}
       </div>
 
-      <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
+      <Card className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none p-4 rounded-lg ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>
         <h2 className="text-lg font-medium mb-4">Productivity Overview</h2>
         <Tabs defaultValue="daily">
-          <TabsList className="mb-4 bg-[#1A1F2C] w-full justify-start">
+          <TabsList className={`mb-4 ${theme === "dark" ? "bg-[#1A1F2C]" : "bg-gray-100"} w-full justify-start`}>
             <TabsTrigger value="daily" className="text-sm px-3">Daily</TabsTrigger>
             <TabsTrigger value="weekly" className="text-sm px-3">Weekly</TabsTrigger>
             <TabsTrigger value="monthly" className="text-sm px-3">Monthly</TabsTrigger>
@@ -72,12 +75,18 @@ export function StatisticsContent() {
           <TabsContent value="daily" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dailyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" fontSize={12} />
-                <YAxis stroke="#999" fontSize={12} width={30} />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#333" : "#e5e5e5"} />
+                <XAxis dataKey="name" stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} />
+                <YAxis stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} width={30} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
-                  labelStyle={{ color: 'white' }}
+                  contentStyle={{ 
+                    backgroundColor: theme === "dark" ? '#1A1F2C' : '#ffffff', 
+                    border: 'none',
+                    color: theme === "dark" ? '#ffffff' : '#1A1F2C'
+                  }}
+                  labelStyle={{ 
+                    color: theme === "dark" ? 'white' : 'black' 
+                  }}
                 />
                 <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Bar dataKey="productivity" name="Productivity %" fill="#00A16C" />
@@ -89,12 +98,18 @@ export function StatisticsContent() {
           <TabsContent value="weekly" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={weeklyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" fontSize={12} />
-                <YAxis stroke="#999" fontSize={12} width={30} />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#333" : "#e5e5e5"} />
+                <XAxis dataKey="name" stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} />
+                <YAxis stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} width={30} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
-                  labelStyle={{ color: 'white' }}
+                  contentStyle={{ 
+                    backgroundColor: theme === "dark" ? '#1A1F2C' : '#ffffff', 
+                    border: 'none',
+                    color: theme === "dark" ? '#ffffff' : '#1A1F2C'
+                  }}
+                  labelStyle={{ 
+                    color: theme === "dark" ? 'white' : 'black' 
+                  }}
                 />
                 <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Line type="monotone" dataKey="productivity" name="Productivity %" stroke="#00A16C" activeDot={{ r: 8 }} />
@@ -106,12 +121,18 @@ export function StatisticsContent() {
           <TabsContent value="monthly" className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={monthlyData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis dataKey="name" stroke="#999" fontSize={12} />
-                <YAxis stroke="#999" fontSize={12} width={30} />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme === "dark" ? "#333" : "#e5e5e5"} />
+                <XAxis dataKey="name" stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} />
+                <YAxis stroke={theme === "dark" ? "#999" : "#666"} fontSize={12} width={30} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1A1F2C', border: 'none' }}
-                  labelStyle={{ color: 'white' }}
+                  contentStyle={{ 
+                    backgroundColor: theme === "dark" ? '#1A1F2C' : '#ffffff', 
+                    border: 'none',
+                    color: theme === "dark" ? '#ffffff' : '#1A1F2C'
+                  }}
+                  labelStyle={{ 
+                    color: theme === "dark" ? 'white' : 'black' 
+                  }}
                 />
                 <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Line type="monotone" dataKey="productivity" name="Productivity %" stroke="#00A16C" activeDot={{ r: 8 }} />

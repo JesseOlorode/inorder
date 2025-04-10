@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,11 +17,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { useTheme } from "@/contexts/theme-context";
 
 export function WeatherMapContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<string | null>(null);
+  const { theme } = useTheme();
+  
   const [savedLocations, setSavedLocations] = useState<string[]>([
     "New York, USA",
     "London, UK",
@@ -32,7 +34,6 @@ export function WeatherMapContent() {
   ]);
 
   useEffect(() => {
-    // Simulate loading of weather data
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -43,7 +44,6 @@ export function WeatherMapContent() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Simulate weather data fetch for the searched city
       setSearchResults(searchQuery);
       setSearchQuery("");
     }
@@ -73,7 +73,6 @@ export function WeatherMapContent() {
     });
   };
 
-  // Helper function to get a random weather icon based on location name
   const getWeatherIcon = (location: string) => {
     const icons = [
       <Sun className="text-yellow-400" key="sun" />,
@@ -85,19 +84,15 @@ export function WeatherMapContent() {
       <CloudLightning className="text-purple-400" key="lightning" />
     ];
     
-    // Use the string to deterministically pick an icon
     const index = location.length % icons.length;
     return icons[index];
   };
 
-  // Generate a random temperature for demo purposes
   const getRandomTemperature = (location: string) => {
-    // Create a deterministic "random" temperature based on the location name
     const base = location.charCodeAt(0) % 35;
     return `${base + 5}°C`;
   };
 
-  // Generate a random weather condition for demo purposes
   const getWeatherCondition = (location: string) => {
     const conditions = ["Sunny", "Cloudy", "Rainy", "Windy", "Snowy", "Stormy", "Clear"];
     const index = location.charCodeAt(0) % conditions.length;
@@ -126,11 +121,11 @@ export function WeatherMapContent() {
         </form>
 
         {searchResults && (
-          <Card className="bg-[#252A37] border-none p-4 rounded-lg text-white">
+          <Card className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none p-4 rounded-lg ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h2 className="text-lg font-medium">{searchResults}</h2>
-                <p className="text-sm text-gray-300">{getWeatherCondition(searchResults)}</p>
+                <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-500"}`}>{getWeatherCondition(searchResults)}</p>
               </div>
               <div className="flex items-center gap-2">
                 {getWeatherIcon(searchResults)}
@@ -138,20 +133,20 @@ export function WeatherMapContent() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
-                <p className="text-gray-400 text-xs">Humidity</p>
+              <div className={`${theme === "dark" ? "bg-[#1A1F2C]/80" : "bg-gray-100"} p-2 rounded-lg`}>
+                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-xs`}>Humidity</p>
                 <p className="text-lg font-medium">{40 + (searchResults.length % 30)}%</p>
               </div>
-              <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
-                <p className="text-gray-400 text-xs">Wind</p>
+              <div className={`${theme === "dark" ? "bg-[#1A1F2C]/80" : "bg-gray-100"} p-2 rounded-lg`}>
+                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-xs`}>Wind</p>
                 <p className="text-lg font-medium">{5 + (searchResults.length % 15)} km/h</p>
               </div>
-              <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
-                <p className="text-gray-400 text-xs">Pressure</p>
+              <div className={`${theme === "dark" ? "bg-[#1A1F2C]/80" : "bg-gray-100"} p-2 rounded-lg`}>
+                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-xs`}>Pressure</p>
                 <p className="text-lg font-medium">{1000 + (searchResults.length % 30)} hPa</p>
               </div>
-              <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
-                <p className="text-gray-400 text-xs">UV Index</p>
+              <div className={`${theme === "dark" ? "bg-[#1A1F2C]/80" : "bg-gray-100"} p-2 rounded-lg`}>
+                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-xs`}>UV Index</p>
                 <p className="text-lg font-medium">
                   {["Low", "Medium", "High"][searchResults.length % 3]}
                 </p>
@@ -169,11 +164,11 @@ export function WeatherMapContent() {
           </Card>
         )}
 
-        <h2 className="text-lg font-medium text-white mt-6">Saved Locations</h2>
+        <h2 className={`text-lg font-medium ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"} mt-6`}>Saved Locations</h2>
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4, 5].map((i) => (
-              <Skeleton key={i} className="h-16 w-full bg-[#1A1F2C]" />
+              <Skeleton key={i} className={`h-16 w-full ${theme === "dark" ? "bg-[#1A1F2C]" : "bg-gray-100"}`} />
             ))}
           </div>
         ) : (
@@ -200,9 +195,9 @@ export function WeatherMapContent() {
         )}
       </div>
 
-      <div className="p-4 bg-[#252A37] rounded-lg">
-        <h2 className="text-lg font-medium text-white mb-2">Weather Updates</h2>
-        <p className="text-gray-400 text-sm">
+      <div className={`p-4 ${theme === "dark" ? "bg-[#252A37]" : "bg-white"} rounded-lg`}>
+        <h2 className={`text-lg font-medium ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"} mb-2`}>Weather Updates</h2>
+        <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}>
           The global weather system is currently showing normal patterns with some precipitation expected in 
           Northern Europe and Eastern Asia. Temperature gradients are within seasonal norms.
         </p>
@@ -224,12 +219,14 @@ function WeatherDetail({
   icon: React.ReactNode;
   onRemove: () => void;
 }) {
+  const { theme } = useTheme();
+  
   return (
-    <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white hover:bg-[#2A3042] transition-colors">
+    <Card className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none p-3 rounded-lg ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"} hover:${theme === "dark" ? "bg-[#2A3042]" : "bg-gray-50"} transition-colors`}>
       <div className="flex items-center justify-between">
         <div>
           <div className="text-sm font-medium">{location}</div>
-          <div className="text-xs text-gray-400">{condition}</div>
+          <div className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{condition}</div>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">

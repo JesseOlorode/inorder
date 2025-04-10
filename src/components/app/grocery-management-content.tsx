@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@/contexts/theme-context";
 
 export function GroceryManagementContent() {
   const [activeTab, setActiveTab] = useState("all");
   const navigate = useNavigate();
+  const { theme } = useTheme();
   
   const groceryCategories = [
     {
@@ -160,49 +162,49 @@ export function GroceryManagementContent() {
         <input
           type="text"
           placeholder="Search products"
-          className="w-full bg-[#252A37] border-none rounded-full pl-10 pr-4 py-2 text-sm"
+          className={`w-full ${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none rounded-full pl-10 pr-4 py-2 text-sm`}
         />
       </div>
       
       <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
         <Button 
           variant="outline" 
-          className={`${activeTab === "all" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "all" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("all")}
         >
           All
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "vegetables" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "vegetables" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("vegetables")}
         >
           Vegetables
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "fruits" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "fruits" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("fruits")}
         >
           Fruits
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "dairy" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "dairy" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("dairy")}
         >
           Dairy
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "snacks" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "snacks" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("snacks")}
         >
           Snacks
         </Button>
         <Button 
           variant="outline" 
-          className={`${activeTab === "bakery" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          className={`${activeTab === "bakery" ? "bg-[#00A16C] text-white" : theme === "dark" ? "bg-[#252A37] text-white" : "bg-white text-[#1A1F2C]"} rounded-full text-xs px-4 whitespace-nowrap`}
           onClick={() => setActiveTab("bakery")}
         >
           Bakery
@@ -238,6 +240,8 @@ export function GroceryManagementContent() {
 }
 
 function GroceryItem({ name, price, image, expiryDays }: { name: string; price: string; image: string; expiryDays: number }) {
+  const { theme } = useTheme();
+  
   const getExpiryProgress = (days: number) => {
     if (days <= 0) return 0;
     if (days >= 60) return 100;
@@ -259,7 +263,7 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
   };
 
   return (
-    <div className="bg-[#252A37] rounded-lg overflow-hidden">
+    <div className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} rounded-lg overflow-hidden`}>
       <div className="h-28 overflow-hidden">
         {!imageError ? (
           <img 
@@ -276,18 +280,18 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
         )}
       </div>
       <div className="p-3">
-        <h3 className="text-sm font-medium text-white">{name}</h3>
+        <h3 className={`text-sm font-medium ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>{name}</h3>
         
         <div className="mt-2 mb-2">
           <div className="flex items-center justify-between text-xs mb-1">
             <div className="flex items-center">
-              <Calendar size={12} className="mr-1 text-gray-400" />
-              <span className="text-white">Expires in {expiryDays} days</span>
+              <Calendar size={12} className={`mr-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`} />
+              <span className={`${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>Expires in {expiryDays} days</span>
             </div>
           </div>
           <Progress 
             value={expiryProgress} 
-            className="h-1.5 bg-gray-700"
+            className={`h-1.5 ${theme === "dark" ? "bg-gray-700" : "bg-gray-200"}`}
           >
             <div 
               className={`h-full ${getExpiryColor(expiryDays)}`} 
@@ -308,15 +312,17 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
 }
 
 function ActionCard({ icon, title, onClick }: { icon: React.ReactNode; title: string; onClick?: () => void }) {
+  const { theme } = useTheme();
+  
   return (
     <Card 
-      className="bg-[#252A37] border-none p-3 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-[#2A3040] transition-colors"
+      className={`${theme === "dark" ? "bg-[#252A37]" : "bg-white"} border-none p-3 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:${theme === "dark" ? "bg-[#2A3040]" : "bg-gray-50"} transition-colors`}
       onClick={onClick}
     >
-      <div className="bg-[#1A1F2C] rounded-full p-3 mb-2 text-white">
+      <div className={`${theme === "dark" ? "bg-[#1A1F2C]" : "bg-gray-100"} rounded-full p-3 mb-2 text-white`}>
         {icon}
       </div>
-      <span className="text-xs text-white">{title}</span>
+      <span className={`text-xs ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}`}>{title}</span>
     </Card>
   );
 }
