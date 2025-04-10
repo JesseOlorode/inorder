@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@/contexts/theme-context";
 
 interface TaskCompleteScreenProps {
   message: string;
@@ -9,6 +10,7 @@ interface TaskCompleteScreenProps {
 
 export function TaskCompleteScreen({ message, taskTitle }: TaskCompleteScreenProps) {
   const navigate = useNavigate();
+  const { theme } = useTheme();
   
   return (
     <div className="flex flex-col items-center justify-center h-[80vh] text-center">
@@ -34,9 +36,13 @@ export function TaskCompleteScreen({ message, taskTitle }: TaskCompleteScreenPro
         </div>
       </div>
       
-      <div className="bg-[#252A37] rounded-lg p-6 w-full max-w-md mb-8">
+      <div className={`${
+        theme === "dark" 
+          ? "bg-[#252A37] text-[#F5EFE0]" 
+          : "bg-[#F5EFE0] text-[#1A1F2C] border border-[#1A1F2C]/10"
+        } rounded-lg p-6 w-full max-w-md mb-8 shadow-md`}>
         <p className="text-lg mb-4">"{message}"</p>
-        {taskTitle && <p className="text-sm text-gray-400">Task: {taskTitle}</p>}
+        {taskTitle && <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Task: {taskTitle}</p>}
       </div>
       
       <Button
@@ -46,7 +52,7 @@ export function TaskCompleteScreen({ message, taskTitle }: TaskCompleteScreenPro
         Create Another Task
       </Button>
       
-      <div className="text-xs text-gray-400 mt-6 max-w-xs">
+      <div className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-600"} mt-6 max-w-xs`}>
         One step at a time. You'll get there.
         <br />
         Remember: Small progress is still progress!
