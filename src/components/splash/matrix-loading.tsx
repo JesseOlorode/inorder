@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Progress } from "@/components/ui/progress";
@@ -13,7 +12,6 @@ export function MatrixLoading() {
   const navigate = useNavigate();
   const [loadingComplete, setLoadingComplete] = useState(false);
   
-  // Coding language snippets
   const codingSnippets = [
     "function initialize() { return 'system ready'; }",
     "import React from 'react';",
@@ -37,15 +35,11 @@ export function MatrixLoading() {
     "const theme = window.matchMedia('(prefers-color-scheme: dark)').matches;",
     "const socket = new WebSocket('wss://server.example.com');"
   ];
-  
-  // Generate enough matrix text to fill the screen
+
   useEffect(() => {
-    // Only generate text if we're still on the loading page (not navigated away)
     if (hasNavigated) return;
     
-    // Generate a lot more matrix text to fill the screen
     const generateInitialMatrixText = () => {
-      // Create initial set of matrix text to fill screen
       const initialTexts = [];
       for (let i = 0; i < 30; i++) {
         let text = '';
@@ -68,22 +62,17 @@ export function MatrixLoading() {
       return initialTexts;
     };
     
-    // Set initial texts that fill the screen
     setMatrixText(generateInitialMatrixText());
     
-    // Then keep adding more at a slower rate (increased from 150ms to 300ms)
     const interval = setInterval(() => {
-      if (matrixText.length < 100) { // Increase max number of lines
-        // Randomly select a code snippet or generate a new one
+      if (matrixText.length < 100) {
         const useSnippet = Math.random() > 0.3;
         
         let text = '';
         if (useSnippet && codingSnippets.length > 0) {
-          // Use a predefined code snippet
           const snippetIndex = Math.floor(Math.random() * codingSnippets.length);
           text = codingSnippets[snippetIndex];
         } else {
-          // Generate code-like text
           const codePatterns = [
             "const ", "let ", "function ", "if(", "return ", "await ", "async ", 
             "import ", "export ", "class ", "interface ", "type ", "for(", "while("
@@ -95,39 +84,30 @@ export function MatrixLoading() {
         
         setMatrixText(prev => [...prev, text]);
         
-        // Auto scroll to the bottom - with smooth behavior
         if (containerRef.current) {
           containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
       }
-    }, 300); // Slowed down from 150ms to 300ms
+    }, 300);
     
     return () => clearInterval(interval);
   }, [hasNavigated]);
-  
-  // Progress bar and navigation - ENSURE FULL COMPLETION
+
   useEffect(() => {
     try {
-      // This is CRITICAL: Ensure the visited flag is set when matrix loading starts
       sessionStorage.setItem("visited", "true");
-      // Update the timestamp
       localStorage.setItem('lastRenderTime', Date.now().toString());
       localStorage.setItem('matrixLoadingStarted', 'true');
       
       const interval = setInterval(() => {
         setProgress(prev => {
-          // Only set loading complete when we actually reach 100
           if (prev >= 99.5) {
             clearInterval(interval);
-            // Mark loading as complete ONLY when we've actually reached 100%
             setProgress(100);
-            setLoadingComplete(true);
-            // Show "Access Granted" message before navigating
             setShowAccessGranted(true);
-            
+            setLoadingComplete(true);
             return 100;
           }
-          // Slow down progress increment
           return prev + 0.5;
         });
       }, 100);
@@ -135,17 +115,14 @@ export function MatrixLoading() {
       return () => clearInterval(interval);
     } catch (error) {
       console.error("Error in progress handling:", error);
-      // Force navigate as fallback
       setTimeout(() => {
         navigateToLogin();
       }, 3000);
     }
   }, []);
 
-  // Navigation effect - ONLY after fully reaching 100%
   useEffect(() => {
     if (loadingComplete && showAccessGranted && !hasNavigated) {
-      // Ensure the "ACCESS GRANTED" message stays visible for a moment
       const timer = setTimeout(() => {
         navigateToBufferScreen();
       }, 3000);
@@ -154,29 +131,25 @@ export function MatrixLoading() {
     }
   }, [loadingComplete, showAccessGranted, hasNavigated]);
 
-  // Fallback navigation if we get stuck
   useEffect(() => {
     const failsafeTimer = setTimeout(() => {
       if (!hasNavigated) {
         navigateToLogin();
       }
-    }, 10000); // 10 second failsafe
+    }, 10000);
     
     return () => clearTimeout(failsafeTimer);
   }, [hasNavigated]);
 
-  // Safe navigation functions
   const navigateToBufferScreen = () => {
     if (hasNavigated) return;
     
     try {
       setHasNavigated(true);
-      // Set another marker to confirm we've completed matrix loading
       localStorage.setItem('matrixLoadingComplete', 'true');
       navigate('/black-screen-buffer');
     } catch (navError) {
       console.error("Navigation error:", navError);
-      // Force redirect as fallback
       window.location.href = '/black-screen-buffer';
     }
   };
@@ -186,12 +159,10 @@ export function MatrixLoading() {
     
     try {
       setHasNavigated(true);
-      // Set another marker to confirm we've completed matrix loading
       localStorage.setItem('matrixLoadingComplete', 'true');
       navigate('/login');
     } catch (navError) {
       console.error("Navigation error:", navError);
-      // Force redirect as fallback
       window.location.href = '/login';
     }
   };
@@ -206,7 +177,7 @@ export function MatrixLoading() {
             className="flex-1 overflow-y-auto mb-4 scrollbar-hide min-h-[80vh]"
             style={{ 
               overflowX: 'hidden',
-              height: 'calc(100vh - 180px)', // Fixed height to prevent layout shifts
+              height: 'calc(100vh - 180px)',
               maxHeight: 'calc(100vh - 180px)'
             }}
           >
@@ -270,7 +241,6 @@ export function MatrixLoading() {
         </motion.div>
       )}
 
-      {/* Emergency button that appears after loading is complete if we're stuck */}
       {progress >= 100 && !hasNavigated && (
         <button 
           onClick={navigateToLogin}
