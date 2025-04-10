@@ -73,6 +73,8 @@ export function MatrixLoading() {
   useEffect(() => {
     // Set visited flag when matrix loading starts
     sessionStorage.setItem("visited", "true");
+    // Update the timestamp
+    localStorage.setItem('lastRenderTime', Date.now().toString());
     
     const interval = setInterval(() => {
       setProgress(prev => {

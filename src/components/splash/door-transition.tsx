@@ -8,6 +8,9 @@ export function DoorTransition() {
   const [doorOpen, setDoorOpen] = useState(false);
   
   useEffect(() => {
+    // Set visited flag when door transition starts (extra safety)
+    sessionStorage.setItem("visited", "true");
+    
     // Start door opening animation after 1 second
     const doorTimer = setTimeout(() => {
       setDoorOpen(true);

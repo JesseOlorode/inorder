@@ -13,7 +13,10 @@ export function SplashScreen() {
   }, []);
   
   const handleEnter = () => {
+    // Set visited flag to prevent automatic redirect back to splash
     sessionStorage.setItem("visited", "true");
+    // Also update lastRenderTime to prevent refresh detection from triggering
+    localStorage.setItem('lastRenderTime', Date.now().toString());
     navigate('/matrix-loading');
   };
 
