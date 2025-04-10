@@ -67,14 +67,16 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
     // Run the refresh check when component mounts
     handlePageRefresh();
     
-    // Normal navigation logic (non-refresh case)
+    // Modified navigation logic to fix loop issue
+    // Only redirect to splash if we're not already on a valid post-splash path
+    const validPostSplashPaths = ["/matrix-loading", "/login", "/login-loading", "/dashboard"];
     if (
       location.pathname !== "/" && 
       location.pathname !== "/index" && 
-      location.pathname !== "/matrix-loading" && 
+      !validPostSplashPaths.includes(location.pathname) &&
       sessionStorage.getItem("visited") !== "true"
     ) {
-      // Redirect to splash screen if not visited
+      // Redirect to splash screen if not visited and not on a valid path
       navigate("/");
     }
     

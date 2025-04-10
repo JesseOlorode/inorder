@@ -9,7 +9,8 @@ export function SplashScreen() {
   
   // Clear session storage when splash screen loads
   useEffect(() => {
-    sessionStorage.removeItem("visited");
+    // Remove this line to prevent clearing the visited flag when returning to splash
+    // sessionStorage.removeItem("visited");
   }, []);
   
   const handleEnter = () => {
