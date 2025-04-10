@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal, User, Check, Trash } from "lucide-react";
 import { format, addDays, subDays } from "date-fns";
@@ -214,12 +213,11 @@ export function CalendarContent() {
         </div>
       </div>
 
-      {/* Motivational message - moved directly under the tasks */}
-      <div className="mt-[370px] bg-neutral-800 rounded-lg p-4 text-center">
+      {/* Motivational message - positioned further down the page */}
+      <div className="mt-[420px] bg-neutral-800 rounded-lg p-4 text-center">
         <h3 className="text-sm font-bold">One step at a time. You'll get there.</h3>
         <p className="text-xs text-neutral-400 mt-1">Break down large tasks into smaller, manageable steps for better progress.</p>
       </div>
     </div>
   );
 }
-
