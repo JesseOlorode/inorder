@@ -37,8 +37,11 @@ export function FavoritesContent() {
   }, []);
 
   const removeFromFavorites = (taskId: number) => {
+    // Filter out the task to be removed
     const updatedFavorites = favoriteTasks.filter(task => task.id !== taskId);
     setFavoriteTasks(updatedFavorites);
+    
+    // Update localStorage with the updated favorites list
     localStorage.setItem('favoriteTasks', JSON.stringify(updatedFavorites));
     
     const task = favoriteTasks.find(task => task.id === taskId);

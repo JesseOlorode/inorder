@@ -98,10 +98,23 @@ export function TaskManagementContent() {
       toast(`${task.title} ${task.favorite ? 'removed from' : 'added to'} favorites`);
     }
 
-    // Store in localStorage for persistence
-    localStorage.setItem('favoriteTasks', JSON.stringify(
-      updatedTasks.filter(task => task.favorite)
-    ));
+    // Load existing favorites from localStorage
+    const savedFavorites = localStorage.getItem('favoriteTasks');
+    let favorites: Task[] = savedFavorites ? JSON.parse(savedFavorites) : [];
+    
+    // If the task is now a favorite, add it to favorites if not already present
+    if (!task?.favorite) {
+      const taskToAdd = updatedTasks.find(t => t.id === taskId);
+      if (taskToAdd && !favorites.some(fav => fav.id === taskId)) {
+        favorites.push(taskToAdd);
+      }
+    } else {
+      // If the task is no longer a favorite, remove it from favorites
+      favorites = favorites.filter(fav => fav.id !== taskId);
+    }
+    
+    // Update localStorage with the updated favorites list
+    localStorage.setItem('favoriteTasks', JSON.stringify(favorites));
   };
 
   return (
