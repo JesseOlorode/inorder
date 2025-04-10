@@ -1,10 +1,17 @@
 
-import { Home, Search, Heart, Plus, User } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Home, Search, Heart, Plus, User, ShoppingCart, Receipt, Smartphone, Calendar } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@/contexts/theme-context";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 
 export function AppBottomNav() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { theme } = useTheme();
   
   const isActive = (path: string) => {
@@ -22,12 +29,34 @@ export function AppBottomNav() {
           <Search size={24} />
           <span className="text-xs mt-1">Search</span>
         </Link>
-        <Link to="/create-task" className="flex flex-col items-center">
-          <div className="bg-[#00A16C] rounded-full p-3 -mt-6 shadow-md">
-            <Plus size={24} className="text-white" />
-          </div>
-          <span className="text-xs mt-1 text-gray-400">Add</span>
-        </Link>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex flex-col items-center">
+            <div className="bg-[#00A16C] rounded-full p-3 -mt-6 shadow-md">
+              <Plus size={24} className="text-white" />
+            </div>
+            <span className="text-xs mt-1 text-gray-400">Add</span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center" className="mb-16 bg-white">
+            <DropdownMenuItem onClick={() => navigate("/create-task")}>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>Add Task</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/grocery-add")}>
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              <span>Add Grocery</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/grocery-receipt")}>
+              <Receipt className="mr-2 h-4 w-4" />
+              <span>Scan Receipt</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/devices")}>
+              <Smartphone className="mr-2 h-4 w-4" />
+              <span>Manage Devices</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        
         <Link to="/favorites" className={`flex flex-col items-center p-2 ${isActive("/favorites") ? "text-[#00A16C]" : "text-gray-400"}`}>
           <Heart size={24} />
           <span className="text-xs mt-1">Favorites</span>
