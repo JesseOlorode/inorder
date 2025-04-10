@@ -1,9 +1,17 @@
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoreHorizontal, User, Check, Trash } from "lucide-react";
 import { format, addDays, subDays } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 
 export function CalendarContent() {
+  const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(16); // Default to current day
   const currentMonth = format(currentDate, "MMMM yyyy");
@@ -30,12 +38,12 @@ export function CalendarContent() {
   
   // Mock tasks for the current day - will change based on selected date
   const [todayTasks, setTodayTasks] = useState([
-    { id: 1, time: "9:00 AM", title: "Team meeting", color: "bg-blue-500" },
-    { id: 2, time: "10:30 AM", title: "Client call", color: "bg-purple-500" },
-    { id: 3, time: "12:00 PM", title: "Lunch break", color: "bg-orange-500" },
-    { id: 4, time: "2:30 PM", title: "Project review", color: "bg-green-500" },
-    { id: 5, time: "4:00 PM", title: "Team check-in", color: "bg-blue-500" },
-    { id: 6, time: "5:30 PM", title: "End of day", color: "bg-red-500" },
+    { id: 1, time: "9:00 AM", title: "Team meeting", color: "bg-blue-500", completed: false },
+    { id: 2, time: "10:30 AM", title: "Client call", color: "bg-purple-500", completed: false },
+    { id: 3, time: "12:00 PM", title: "Lunch break", color: "bg-orange-500", completed: false },
+    { id: 4, time: "2:30 PM", title: "Project review", color: "bg-green-500", completed: false },
+    { id: 5, time: "4:00 PM", title: "Team check-in", color: "bg-blue-500", completed: false },
+    { id: 6, time: "5:30 PM", title: "End of day", color: "bg-red-500", completed: false },
   ]);
   
   // Navigate to previous week
@@ -66,15 +74,31 @@ export function CalendarContent() {
     // For demo purposes, we're just changing the time prefix to show interactivity
     const taskPrefix = `${newCalendarDays[index].date}:`;
     const updatedTasks = [
-      { id: 1, time: `${taskPrefix}00 AM`, title: "Team meeting", color: "bg-blue-500" },
-      { id: 2, time: `${taskPrefix}30 AM`, title: "Client call", color: "bg-purple-500" },
-      { id: 3, time: `${taskPrefix}00 PM`, title: "Lunch break", color: "bg-orange-500" },
-      { id: 4, time: `${taskPrefix}30 PM`, title: "Project review", color: "bg-green-500" },
-      { id: 5, time: `${taskPrefix}00 PM`, title: "Team check-in", color: "bg-blue-500" },
-      { id: 6, time: `${taskPrefix}30 PM`, title: "End of day", color: "bg-red-500" },
+      { id: 1, time: `${taskPrefix}00 AM`, title: "Team meeting", color: "bg-blue-500", completed: false },
+      { id: 2, time: `${taskPrefix}30 AM`, title: "Client call", color: "bg-purple-500", completed: false },
+      { id: 3, time: `${taskPrefix}00 PM`, title: "Lunch break", color: "bg-orange-500", completed: false },
+      { id: 4, time: `${taskPrefix}30 PM`, title: "Project review", color: "bg-green-500", completed: false },
+      { id: 5, time: `${taskPrefix}00 PM`, title: "Team check-in", color: "bg-blue-500", completed: false },
+      { id: 6, time: `${taskPrefix}30 PM`, title: "End of day", color: "bg-red-500", completed: false },
     ];
     
     setTodayTasks(updatedTasks);
+  };
+
+  // Handle task completion
+  const completeTask = (taskId) => {
+    const updatedTasks = todayTasks.map(task => 
+      task.id === taskId ? {...task, completed: true} : task
+    );
+    setTodayTasks(updatedTasks);
+    
+    // Navigate to the task complete screen
+    navigate("/task-complete");
+  };
+  
+  // Handle task deletion
+  const deleteTask = (taskId) => {
+    setTodayTasks(todayTasks.filter(task => task.id !== taskId));
   };
 
   return (
@@ -148,16 +172,37 @@ export function CalendarContent() {
         {todayTasks.map((task, index) => (
           <div
             key={task.id}
-            className={`absolute left-[50px] right-0 ${task.color} rounded-lg p-2 w-[85%]`}
+            className={`absolute left-[50px] right-0 ${task.color} rounded-lg p-2 w-[85%] ${task.completed ? "opacity-50" : ""}`}
             style={{ top: `${index * 70}px` }}
           >
             <div className="flex justify-between items-center">
               <span className="text-xs font-medium">{task.time}</span>
-              <button>
-                <MoreHorizontal size={14} />
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="focus:outline-none">
+                  <div className="hover:bg-black/20 rounded-full p-1 transition-colors">
+                    <MoreHorizontal size={14} />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-neutral-800 border border-neutral-700">
+                  <DropdownMenuItem 
+                    onClick={() => completeTask(task.id)}
+                    className="focus:bg-neutral-700 focus:text-white"
+                    disabled={task.completed}
+                  >
+                    <Check className="mr-2 h-4 w-4" />
+                    <span>Complete Task</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => deleteTask(task.id)}
+                    className="focus:bg-neutral-700 focus:text-white"
+                  >
+                    <Trash className="mr-2 h-4 w-4" />
+                    <span>Delete Task</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
-            <h3 className="text-sm font-bold">{task.title}</h3>
+            <h3 className={`text-sm font-bold ${task.completed ? "line-through" : ""}`}>{task.title}</h3>
           </div>
         ))}
 
