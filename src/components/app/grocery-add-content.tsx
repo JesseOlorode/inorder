@@ -47,27 +47,27 @@ export function GroceryAddContent() {
   
   return (
     <div className="py-4 pb-20">
-      <h1 className="text-xl font-semibold mb-6 text-white">Add New Item</h1>
+      <h1 className="text-xl font-semibold mb-6 text-[#1A1F2C]">Add New Item</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="name" className="text-white">Item Name</Label>
+          <Label htmlFor="name" className="text-[#1A1F2C]">Item Name</Label>
           <Input
             id="name"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
             placeholder="Enter item name"
-            className="bg-[#252A37] border-[#3A3F4B] text-white"
+            className="bg-white border-[#3A3F4B] text-[#1A1F2C]"
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="category" className="text-white">Category</Label>
+          <Label htmlFor="category" className="text-[#1A1F2C]">Category</Label>
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="bg-[#252A37] border-[#3A3F4B] text-white">
+            <SelectTrigger className="bg-white border-[#3A3F4B] text-[#1A1F2C]">
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
-            <SelectContent className="bg-[#252A37] border-[#3A3F4B] text-white">
+            <SelectContent className="bg-white border-[#3A3F4B] text-[#1A1F2C]">
               {categories.map((cat) => (
                 <SelectItem key={cat} value={cat}>{cat}</SelectItem>
               ))}
@@ -76,9 +76,9 @@ export function GroceryAddContent() {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="price" className="text-white">Price</Label>
+          <Label htmlFor="price" className="text-[#1A1F2C]">Price</Label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">$</span>
+            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">$</span>
             <Input
               id="price"
               value={price}
@@ -87,15 +87,15 @@ export function GroceryAddContent() {
               type="number"
               step="0.01"
               min="0"
-              className="bg-[#252A37] border-[#3A3F4B] text-white pl-8"
+              className="bg-white border-[#3A3F4B] text-[#1A1F2C] pl-8"
             />
           </div>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="expiry" className="text-white">Expiry (Days)</Label>
+          <Label htmlFor="expiry" className="text-[#1A1F2C]">Expiry (Days)</Label>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" size={16} />
             <Input
               id="expiry"
               value={expiryDays}
@@ -103,12 +103,12 @@ export function GroceryAddContent() {
               placeholder="Days until expiry"
               type="number"
               min="1"
-              className="bg-[#252A37] border-[#3A3F4B] text-white pl-10"
+              className="bg-white border-[#3A3F4B] text-[#1A1F2C] pl-10"
             />
           </div>
         </div>
         
-        <Card className="bg-[#1A1F2C] border-dashed border-2 border-[#3A3F4B] rounded-lg p-6 flex flex-col items-center justify-center">
+        <Card className="bg-white border-dashed border-2 border-[#3A3F4B] rounded-lg p-6 flex flex-col items-center justify-center">
           <div className="text-[#00A16C] mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
@@ -116,8 +116,8 @@ export function GroceryAddContent() {
               <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
             </svg>
           </div>
-          <p className="text-gray-400 text-center">Add product image (optional)</p>
-          <Button variant="outline" className="mt-3 bg-transparent border-[#3A3F4B] text-white hover:bg-[#252A37]">
+          <p className="text-gray-600 text-center">Add product image (optional)</p>
+          <Button variant="outline" className="mt-3 bg-transparent border-[#3A3F4B] text-[#1A1F2C] hover:bg-gray-100">
             Upload Image
           </Button>
         </Card>
@@ -132,7 +132,7 @@ export function GroceryAddContent() {
         <Button 
           type="button" 
           variant="outline" 
-          className="w-full bg-transparent border-[#3A3F4B] text-white hover:bg-[#252A37]"
+          className="w-full bg-transparent border-[#3A3F4B] text-[#1A1F2C] hover:bg-gray-100"
           onClick={() => navigate("/grocery-management")}
         >
           Cancel

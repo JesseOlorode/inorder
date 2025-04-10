@@ -13,7 +13,7 @@ export function AppLayout({ children, className }: AppLayoutProps) {
   const [showNav, setShowNav] = useState(true);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#1A1F2C] text-white">
+    <div className="flex flex-col min-h-screen bg-[#F1F0FB] text-[#1A1F2C]">
       {showNav && <AppNavbar />}
       <main className={cn("flex-1 max-w-md mx-auto w-full px-4 pb-24", className)}>
         {children}
