@@ -22,6 +22,12 @@ import Weather from "./pages/Weather";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
+// Import new pages
+import WiFi from "./pages/WiFi";
+import Statistics from "./pages/Statistics";
+import Sound from "./pages/Sound";
+import Alerts from "./pages/Alerts";
+import Devices from "./pages/Devices";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +55,12 @@ const App = () => (
           <Route path="/weather" element={<Weather />} />
           <Route path="/search" element={<Search />} />
           <Route path="/favorites" element={<Favorites />} />
+          {/* New Routes */}
+          <Route path="/wifi" element={<WiFi />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/sound" element={<Sound />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/devices" element={<Devices />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

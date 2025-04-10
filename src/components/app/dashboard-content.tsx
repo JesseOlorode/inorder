@@ -33,10 +33,12 @@ export function DashboardContent() {
             </div>
           </Card>
         </Link>
-        <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white">
-          <div className="text-xl font-bold">60%</div>
-          <div className="text-xs text-gray-400">Productivity</div>
-        </Card>
+        <Link to="/statistics">
+          <Card className="bg-[#252A37] border-none p-3 rounded-lg text-white hover:bg-[#2c3241] transition-colors">
+            <div className="text-xl font-bold">60%</div>
+            <div className="text-xs text-gray-400">Productivity</div>
+          </Card>
+        </Link>
       </div>
 
       {/* Grocery Management Section */}
@@ -97,32 +99,49 @@ export function DashboardContent() {
       <div>
         <h2 className="text-sm font-medium mb-3">Quick Access</h2>
         <div className="grid grid-cols-4 gap-4">
-          <QuickAccessItem icon={<Wifi />} label="Wi-Fi" />
-          <QuickAccessItem icon={<BarChart2 />} label="Statistics" />
-          <QuickAccessItem icon={<Volume2 />} label="Sound" />
-          <QuickAccessItem icon={<BellRing />} label="Alerts" />
+          <Link to="/wifi">
+            <QuickAccessItem icon={<Wifi />} label="Wi-Fi" />
+          </Link>
+          <Link to="/statistics">
+            <QuickAccessItem icon={<BarChart2 />} label="Statistics" />
+          </Link>
+          <Link to="/sound">
+            <QuickAccessItem icon={<Volume2 />} label="Sound" />
+          </Link>
+          <Link to="/alerts">
+            <QuickAccessItem icon={<BellRing />} label="Alerts" />
+          </Link>
         </div>
       </div>
 
       {/* Devices Section */}
       <div>
-        <h2 className="text-sm font-medium mb-3">Devices</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-medium">Devices</h2>
+          <Link to="/devices" className="text-xs text-[#00A16C]">See All</Link>
+        </div>
         <div className="grid grid-cols-3 gap-4">
-          <DeviceItem 
-            icon={<Home className="text-white" />} 
-            label="Speaker" 
-            status="Connected" 
-          />
-          <DeviceItem 
-            icon={<MessageSquare className="text-white" />} 
-            label="Smart TV" 
-            status="Disconnected" 
-          />
-          <DeviceItem 
-            icon={<Mic className="text-white" />} 
-            label="Air Purifier" 
-            status="Connected" 
-          />
+          <Link to="/devices">
+            <DeviceItem 
+              icon={<Home className="text-white" />} 
+              label="Speaker" 
+              status="Connected" 
+            />
+          </Link>
+          <Link to="/devices">
+            <DeviceItem 
+              icon={<MessageSquare className="text-white" />} 
+              label="Smart TV" 
+              status="Disconnected" 
+            />
+          </Link>
+          <Link to="/devices">
+            <DeviceItem 
+              icon={<Mic className="text-white" />} 
+              label="Air Purifier" 
+              status="Connected" 
+            />
+          </Link>
         </div>
       </div>
 
@@ -130,7 +149,7 @@ export function DashboardContent() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-medium">Today's Tasks</h2>
-          <button className="text-xs text-[#00A16C]">See All</button>
+          <Link to="/task-management" className="text-xs text-[#00A16C]">See All</Link>
         </div>
         <div className="space-y-3">
           <TaskItem 
@@ -156,7 +175,7 @@ export function DashboardContent() {
 
 function QuickAccessItem({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center hover:scale-105 transition-transform">
       <div className="bg-[#252A37] rounded-full p-3 mb-1 text-white">
         {icon}
       </div>
@@ -167,7 +186,7 @@ function QuickAccessItem({ icon, label }: { icon: React.ReactNode; label: string
 
 function DeviceItem({ icon, label, status }: { icon: React.ReactNode; label: string; status: string }) {
   return (
-    <div className="bg-[#252A37] rounded-lg p-3 flex flex-col items-center text-white">
+    <div className="bg-[#252A37] rounded-lg p-3 flex flex-col items-center text-white hover:bg-[#2c3241] transition-colors">
       <div className="bg-[#00A16C] rounded-full p-2 mb-2">
         {icon}
       </div>
