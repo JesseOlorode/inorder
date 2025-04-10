@@ -25,7 +25,7 @@ export function SplashScreen() {
         transition={{ duration: 1 }}
         className="text-center"
       >
-        <div className="text-[#00FF41] font-mono tracking-widest text-sm mb-2 opacity-80"
+        <div className="text-white font-mono tracking-widest text-sm mb-2 opacity-80"
              style={{ fontFamily: "'Courier New', monospace", letterSpacing: '0.3em' }}>
           KEEP YOUR LIFE
         </div>
