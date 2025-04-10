@@ -276,7 +276,7 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
         )}
       </div>
       <div className="p-3">
-        <h3 className="text-sm font-medium">{name}</h3>
+        <h3 className="text-sm font-medium text-white">{name}</h3>
         
         <div className="mt-2 mb-2">
           <div className="flex items-center justify-between text-xs mb-1">
