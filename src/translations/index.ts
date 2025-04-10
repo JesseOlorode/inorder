@@ -1,4 +1,3 @@
-
 export const translations = {
   english: {
     // Navbar
@@ -50,7 +49,7 @@ export const translations = {
     loggedOut: "Logged out successfully",
     logoutDescription: "You have been logged out of your account",
     appInfoTitle: "About App",
-    appInfoDescription: "TaskMaster v1.2.0 - Your ultimate productivity companion.",
+    appInfoDescription: "InOrder v1.2.0 - Your ultimate productivity companion.",
     termsTitle: "Terms & Conditions",
     termsDescription: "The full terms and conditions would appear in a modal here.",
     privacyTitle: "Privacy Policy",
@@ -108,7 +107,7 @@ export const translations = {
     loggedOut: "Sesión cerrada exitosamente",
     logoutDescription: "Has cerrado sesión de tu cuenta",
     appInfoTitle: "Acerca de la App",
-    appInfoDescription: "TaskMaster v1.2.0 - Tu compañero definitivo de productividad.",
+    appInfoDescription: "InOrder v1.2.0 - Tu compañero definitivo de productividad.",
     termsTitle: "Términos y Condiciones",
     termsDescription: "Los términos y condiciones completos aparecerían aquí.",
     privacyTitle: "Política de Privacidad",
@@ -166,7 +165,7 @@ export const translations = {
     loggedOut: "Déconnecté avec succès",
     logoutDescription: "Vous avez été déconnecté de votre compte",
     appInfoTitle: "À Propos de l'App",
-    appInfoDescription: "TaskMaster v1.2.0 - Votre compagnon ultime de productivité.",
+    appInfoDescription: "InOrder v1.2.0 - Votre compagnon ultime de productivité.",
     termsTitle: "Conditions Générales",
     termsDescription: "Les conditions générales complètes apparaîtraient ici.",
     privacyTitle: "Politique de Confidentialité",
@@ -224,7 +223,7 @@ export const translations = {
     loggedOut: "Erfolgreich abgemeldet",
     logoutDescription: "Sie wurden von Ihrem Konto abgemeldet",
     appInfoTitle: "Über die App",
-    appInfoDescription: "TaskMaster v1.2.0 - Ihr ultimativer Produktivitätsbegleiter.",
+    appInfoDescription: "InOrder v1.2.0 - Ihr ultimativer Produktivitätsbegleiter.",
     termsTitle: "Allgemeine Geschäftsbedingungen",
     termsDescription: "Die vollständigen AGB würden hier erscheinen.",
     privacyTitle: "Datenschutzrichtlinie",
@@ -282,7 +281,7 @@ export const translations = {
     loggedOut: "成功退出登录",
     logoutDescription: "您已退出登录",
     appInfoTitle: "关于应用",
-    appInfoDescription: "TaskMaster v1.2.0 - 您的终极生产力伴侣。",
+    appInfoDescription: "InOrder v1.2.0 - 您的终极生产力伴侣。",
     termsTitle: "条款和条件",
     termsDescription: "完整的条款和条件将会显示在这里。",
     privacyTitle: "隐私政策",
