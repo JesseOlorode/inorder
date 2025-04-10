@@ -34,10 +34,16 @@ export function LoginForm() {
     <>
       <div className="text-center mb-5">
         <div className="flex justify-center items-center mb-2">
-          <div className="relative inline-block">
-            <div className="text-[#00C853] text-8xl font-medium">I</div>
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-black overflow-hidden">
-              <div className="text-[#00C853] text-8xl font-medium">I</div>
+          <div className="relative h-32 w-12">
+            {/* Full green "I" in the background */}
+            <div className="absolute inset-0 text-[#00C853] text-8xl font-medium flex items-center justify-center">
+              I
+            </div>
+            {/* Black overlay covering top half */}
+            <div className="absolute inset-0 h-1/2 bg-black" />
+            {/* Top half green "I" that shows through the clip */}
+            <div className="absolute inset-0 h-1/2 overflow-hidden text-[#00C853] text-8xl font-medium flex items-center justify-center" style={{ clipPath: 'inset(0 0 50% 0)' }}>
+              I
             </div>
           </div>
         </div>
