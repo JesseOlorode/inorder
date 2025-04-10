@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { 
@@ -7,15 +7,27 @@ import {
   CloudDrizzle, 
   CloudLightning, 
   CloudRain, 
-  CloudSnow, 
+  CloudSnow,
+  Globe,
+  Search,
   Sun, 
   Wind 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function WeatherMapContent() {
   const [selectedView, setSelectedView] = useState<"map" | "details">("map");
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<string | null>(null);
+  const globeRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
+  const lastMousePosRef = useRef({ x: 0, y: 0 });
+  const rotationRef = useRef({ x: 0, y: 0 });
+  const autoRotateRef = useRef(true);
 
   useEffect(() => {
     // Simulate loading of weather data
@@ -26,6 +38,99 @@ export function WeatherMapContent() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!globeRef.current || isLoading) return;
+
+    const startDrag = (e: MouseEvent | TouchEvent) => {
+      isDraggingRef.current = true;
+      autoRotateRef.current = false;
+      
+      if (e instanceof MouseEvent) {
+        lastMousePosRef.current = { x: e.clientX, y: e.clientY };
+      } else {
+        const touch = e.touches[0];
+        lastMousePosRef.current = { x: touch.clientX, y: touch.clientY };
+      }
+    };
+
+    const onDrag = (e: MouseEvent | TouchEvent) => {
+      if (!isDraggingRef.current) return;
+      
+      let clientX: number, clientY: number;
+      
+      if (e instanceof MouseEvent) {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      } else {
+        const touch = e.touches[0];
+        clientX = touch.clientX;
+        clientY = touch.clientY;
+      }
+      
+      const deltaX = clientX - lastMousePosRef.current.x;
+      const deltaY = clientY - lastMousePosRef.current.y;
+      
+      rotationRef.current.y += deltaX * 0.005;
+      rotationRef.current.x = Math.max(-0.5, Math.min(0.5, rotationRef.current.x + deltaY * 0.005));
+      
+      lastMousePosRef.current = { x: clientX, y: clientY };
+    };
+
+    const endDrag = () => {
+      isDraggingRef.current = false;
+      
+      // Resume auto-rotation after a brief pause
+      setTimeout(() => {
+        autoRotateRef.current = true;
+      }, 2000);
+    };
+
+    const animate = () => {
+      if (autoRotateRef.current && !isDraggingRef.current) {
+        rotationRef.current.y += 0.005; // Auto-rotate speed
+      }
+      
+      if (globeRef.current) {
+        globeRef.current.style.transform = `rotateX(${rotationRef.current.x * 30}deg) rotateY(${rotationRef.current.y * 360}deg)`;
+      }
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    // Start animation
+    animationRef.current = requestAnimationFrame(animate);
+
+    // Add event listeners for globe interaction
+    const globe = globeRef.current;
+    globe.addEventListener('mousedown', startDrag);
+    globe.addEventListener('touchstart', startDrag);
+    window.addEventListener('mousemove', onDrag);
+    window.addEventListener('touchmove', onDrag);
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      
+      globe.removeEventListener('mousedown', startDrag);
+      globe.removeEventListener('touchstart', startDrag);
+      window.removeEventListener('mousemove', onDrag);
+      window.removeEventListener('touchmove', onDrag);
+      window.removeEventListener('mouseup', endDrag);
+      window.removeEventListener('touchend', endDrag);
+    };
+  }, [isLoading]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Simulate weather data fetch for the searched city
+      setSearchResults(searchQuery);
+    }
+  };
+
   return (
     <div className="space-y-6 pt-4">
       <div className="flex justify-between items-center">
@@ -35,8 +140,9 @@ export function WeatherMapContent() {
             variant={selectedView === "map" ? "default" : "outline"} 
             size="sm"
             onClick={() => setSelectedView("map")}
-            className="bg-[#00A16C] hover:bg-[#008a5c] text-white"
+            className="bg-[#00A16C] hover:bg-[#008a5c] text-white flex items-center gap-1"
           >
+            <Globe size={16} />
             Map View
           </Button>
           <Button 
@@ -59,16 +165,88 @@ export function WeatherMapContent() {
             </div>
           ) : (
             <>
-              <div className="absolute inset-0 overflow-hidden">
-                <WorldMapVisualization />
+              <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
+                {searchResults ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
+                    <h2 className="text-xl font-bold mb-2">{searchResults}</h2>
+                    <div className="flex items-center justify-center space-x-2 mb-4">
+                      <Sun className="text-yellow-400 h-10 w-10" />
+                      <span className="text-3xl font-bold">28°C</span>
+                    </div>
+                    <p className="text-gray-300 mb-4">Sunny with clear skies</p>
+                    <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
+                      <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
+                        <p className="text-gray-400 text-xs">Humidity</p>
+                        <p className="text-lg font-medium">45%</p>
+                      </div>
+                      <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
+                        <p className="text-gray-400 text-xs">Wind</p>
+                        <p className="text-lg font-medium">8 km/h</p>
+                      </div>
+                      <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
+                        <p className="text-gray-400 text-xs">Pressure</p>
+                        <p className="text-lg font-medium">1013 hPa</p>
+                      </div>
+                      <div className="bg-[#1A1F2C]/80 p-2 rounded-lg">
+                        <p className="text-gray-400 text-xs">UV Index</p>
+                        <p className="text-lg font-medium">High</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="mt-4"
+                      onClick={() => setSearchResults(null)}
+                    >
+                      Back to Globe
+                    </Button>
+                  </div>
+                ) : (
+                  <div 
+                    ref={globeRef} 
+                    className="relative w-56 h-56 cursor-grab active:cursor-grabbing transition-transform will-change-transform"
+                    style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+                  >
+                    <InteractiveGlobe />
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-yellow-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10">
+                          <div className="absolute w-5 h-5 bg-yellow-400/30 rounded-full animate-ping -ml-1 -mt-1"></div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>New York: 24°C, Sunny</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-blue-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10">
+                          <div className="absolute w-5 h-5 bg-blue-400/30 rounded-full animate-ping -ml-1 -mt-1"></div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>London: 18°C, Rainy</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                )}
               </div>
-              <div className="absolute bottom-4 left-4 right-4 bg-[#1A1F2C]/80 backdrop-blur-sm p-3 rounded-lg">
-                <div className="text-sm">
-                  <span className="font-semibold">Global Weather Patterns</span>
-                  <p className="text-xs text-gray-400 mt-1">
-                    Interact with the map to view real-time weather conditions around the world.
-                  </p>
-                </div>
+              <div className="absolute bottom-4 left-4 right-4">
+                <form onSubmit={handleSearch} className="relative">
+                  <Input
+                    placeholder="Search for a city..."
+                    className="bg-[#1A1F2C]/80 border-none text-white pr-10 h-10"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <Button 
+                    type="submit" 
+                    size="sm" 
+                    className="absolute right-1 top-1 h-8 bg-[#00A16C] hover:bg-[#008a5c]"
+                  >
+                    <Search size={16} />
+                  </Button>
+                </form>
               </div>
             </>
           )}
@@ -143,6 +321,41 @@ function WeatherDetail({
         </div>
       </div>
     </Card>
+  );
+}
+
+function InteractiveGlobe() {
+  return (
+    <>
+      {/* Base globe with continents */}
+      <div className="absolute inset-0 rounded-full bg-[#33658A] shadow-inner flex items-center justify-center overflow-hidden">
+        {/* North America */}
+        <div className="absolute w-20 h-12 bg-[#2F4858] rounded-lg transform -translate-x-3 -translate-y-5 rotate-12"></div>
+        
+        {/* South America */}
+        <div className="absolute w-10 h-16 bg-[#2F4858] rounded-lg transform translate-x-3 translate-y-8 rotate-12"></div>
+        
+        {/* Africa & Europe */}
+        <div className="absolute w-14 h-20 bg-[#2F4858] rounded-lg transform translate-x-8 -translate-y-2 -rotate-12"></div>
+        
+        {/* Asia */}
+        <div className="absolute w-16 h-14 bg-[#2F4858] rounded-lg transform translate-x-16 -translate-y-12 rotate-6"></div>
+        
+        {/* Australia */}
+        <div className="absolute w-10 h-8 bg-[#2F4858] rounded-lg transform translate-x-20 translate-y-16 rotate-12"></div>
+        
+        {/* Antarctica */}
+        <div className="absolute w-14 h-6 bg-[#2F4858] rounded-lg transform -translate-y-24 rotate-180"></div>
+
+        {/* Cloud overlays */}
+        <div className="absolute w-8 h-4 bg-white opacity-30 rounded-full blur-sm transform -translate-x-10 -translate-y-16"></div>
+        <div className="absolute w-12 h-5 bg-white opacity-30 rounded-full blur-sm transform translate-x-15 translate-y-10"></div>
+        <div className="absolute w-10 h-4 bg-white opacity-30 rounded-full blur-sm transform translate-x-5 -translate-y-5"></div>
+      </div>
+      
+      {/* Glow effect */}
+      <div className="absolute inset-0 rounded-full bg-[#4ECDC4] opacity-10 blur-md"></div>
+    </>
   );
 }
 
