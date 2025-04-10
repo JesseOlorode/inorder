@@ -1,3 +1,4 @@
+
 export const translations = {
   english: {
     // Navbar
@@ -606,4 +607,21 @@ export const translations = {
     
     ## DATENSPEICHERUNG
     
-    Wir werden Ihre persönlichen
+    Wir werden Ihre persönlichen Informationen nur so lange aufbewahren, wie es für die in dieser Datenschutzrichtlinie festgelegten Zwecke erforderlich ist.
+    
+    ## ÄNDERUNGEN UNSERER DATENSCHUTZRICHTLINIE
+    
+    Wir können unsere Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Wenn wir wesentliche Änderungen vornehmen, werden wir Sie in der App darüber informieren, beispielsweise durch eine Pop-up-Benachrichtigung oder andere geeignete Mittel.
+    
+    ## DATENSCHUTZ VON KINDERN
+    
+    Unsere App ist nicht für Kinder unter 13 Jahren bestimmt, und wir sammeln wissentlich keine persönlichen Informationen von Kindern unter 13 Jahren.
+    
+    ## KONTAKTINFORMATIONEN
+    
+    Um Fragen zu stellen oder Kommentare zu dieser Datenschutzrichtlinie und unseren Datenschutzpraktiken abzugeben, kontaktieren Sie uns unter: privacy@olorodecorp.com
+    
+    Zuletzt aktualisiert: 10. April 2025
+    `,
+  },
+};
