@@ -19,14 +19,14 @@ export function GroceryManagementContent() {
           id: 1, 
           name: "Chocolate", 
           price: "$3.99", 
-          image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 45
         },
         { 
           id: 2, 
           name: "Chocolate Cookies", 
           price: "$4.99", 
-          image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 12
         },
       ]
@@ -39,7 +39,7 @@ export function GroceryManagementContent() {
           id: 3, 
           name: "Coconut Croissant", 
           price: "$5.99", 
-          image: "https://images.unsplash.com/photo-1547047803-fa4a5137c45f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1547047803-fa4a5137c45f?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 3
         },
       ]
@@ -52,7 +52,7 @@ export function GroceryManagementContent() {
           id: 4, 
           name: "Pumpkin Latte", 
           price: "$6.99", 
-          image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 60
         },
       ]
@@ -65,7 +65,7 @@ export function GroceryManagementContent() {
           id: 5, 
           name: "Chia Pudding", 
           price: "$3.49", 
-          image: "https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 5
         },
       ]
@@ -78,7 +78,7 @@ export function GroceryManagementContent() {
           id: 6, 
           name: "Chocolate Cookies", 
           price: "$2.99", 
-          image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=1965&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 20
         },
       ]
@@ -193,10 +193,28 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
     return "bg-[#00A16C]";
   };
 
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className="bg-[#252A37] rounded-lg overflow-hidden">
       <div className="h-28 overflow-hidden">
-        <img src={image} alt={name} className="w-full h-full object-cover" />
+        {!imageError ? (
+          <img 
+            src={image} 
+            alt={name} 
+            className="w-full h-full object-cover" 
+            onError={handleImageError}
+            loading="lazy"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-700">
+            <span className="text-gray-400 text-xs">Image unavailable</span>
+          </div>
+        )}
       </div>
       <div className="p-3">
         <h3 className="text-sm font-medium">{name}</h3>
