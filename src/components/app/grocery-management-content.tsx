@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Edit, Plus, Receipt, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,7 @@ export function GroceryManagementContent() {
           id: 2, 
           name: "Chocolate Cookies", 
           price: "$4.99", 
-          image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 12
         },
       ]
@@ -39,7 +38,7 @@ export function GroceryManagementContent() {
           id: 3, 
           name: "Coconut Croissant", 
           price: "$5.99", 
-          image: "https://images.unsplash.com/photo-1547047803-fa4a5137c45f?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 3
         },
       ]
@@ -52,7 +51,7 @@ export function GroceryManagementContent() {
           id: 4, 
           name: "Pumpkin Latte", 
           price: "$6.99", 
-          image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 60
         },
       ]
@@ -78,7 +77,7 @@ export function GroceryManagementContent() {
           id: 6, 
           name: "Chocolate Cookies", 
           price: "$2.99", 
-          image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
           expiryDays: 20
         },
       ]
