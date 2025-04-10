@@ -35,16 +35,24 @@ export function LoginForm() {
       <div className="text-center mb-5">
         <div className="flex justify-center items-center mb-2">
           <div className="relative h-36 w-14">
+            {/* Top dash */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-1.5 bg-[#00C853]"></div>
+            
             {/* Full green "I" in the background */}
-            <div className="absolute inset-0 text-[#00C853] text-9xl font-bold flex items-center justify-center">
+            <div className="absolute inset-0 text-[#00C853] text-9xl font-bold flex items-center justify-center pt-1">
               I
             </div>
+            
             {/* Black overlay covering top half */}
             <div className="absolute inset-0 h-1/2 bg-black" />
+            
             {/* Top half green "I" that shows through the clip */}
-            <div className="absolute inset-0 h-1/2 overflow-hidden text-[#00C853] text-9xl font-bold flex items-center justify-center" style={{ clipPath: 'inset(0 0 50% 0)' }}>
+            <div className="absolute inset-0 h-1/2 overflow-hidden text-[#00C853] text-9xl font-bold flex items-center justify-center pt-1" style={{ clipPath: 'inset(0 0 50% 0)' }}>
               I
             </div>
+            
+            {/* Bottom dash */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-10 h-1.5 bg-[#00C853]"></div>
           </div>
         </div>
         <div className="text-white text-3xl font-medium">InOrder</div>
