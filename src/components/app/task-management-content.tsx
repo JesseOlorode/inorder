@@ -121,14 +121,16 @@ export function TaskManagementContent() {
   };
 
   return (
-    <div className="py-4">
+    <div className={`py-4 ${theme === "dark" ? "font-inter-dark" : "font-inter-light"}`}>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl">Manage your life with ease with our task management tool</h1>
+        <h1 className={`text-2xl ${theme === "dark" ? "font-medium" : "font-semibold"}`}>
+          Manage your life with ease with our task management tool
+        </h1>
       </div>
       
       {/* Tasks section */}
       <div className="mb-8">
-        <h2 className="text-lg font-medium mb-4">Your Tasks</h2>
+        <h2 className={`text-lg ${theme === "dark" ? "font-medium" : "font-semibold"} mb-4`}>Your Tasks</h2>
         <div className="space-y-3">
           {tasks.map(task => (
             <ContextMenu key={task.id}>
@@ -138,6 +140,7 @@ export function TaskManagementContent() {
                   rounded-lg p-4 flex items-center justify-between 
                   ${task.completed ? "opacity-50" : ""}
                   ${theme === "dark" ? "text-white" : "text-[#1A1F2C]"}
+                  transition-all duration-200
                 `}>
                   <div className="flex items-center gap-3">
                     <div className={`h-4 w-4 rounded-full ${
@@ -150,7 +153,7 @@ export function TaskManagementContent() {
                             : "bg-orange-500"
                     }`}></div>
                     <div>
-                      <h3 className={`font-medium ${task.completed ? "line-through" : ""}`}>
+                      <h3 className={`${theme === "dark" ? "font-normal" : "font-medium"} ${task.completed ? "line-through" : ""}`}>
                         {task.title}
                       </h3>
                       <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
@@ -242,11 +245,11 @@ export function TaskManagementContent() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Title</FormLabel>
+                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Task Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter task title"
-                    className="bg-white text-black border-none"
+                    className={`bg-white text-black border-none ${theme === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500"}`}
                     {...field}
                   />
                 </FormControl>
@@ -259,7 +262,7 @@ export function TaskManagementContent() {
             name="dueDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Due Date</FormLabel>
+                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Due Date</FormLabel>
                 <FormControl>
                   <Input
                     type="date"
@@ -276,11 +279,11 @@ export function TaskManagementContent() {
             name="notes"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Notes</FormLabel>
+                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Notes</FormLabel>
                 <FormControl>
                   <div className="bg-white rounded-md border">
                     <textarea
-                      className="w-full min-h-[100px] bg-transparent p-3 text-black outline-none"
+                      className={`w-full min-h-[100px] bg-transparent p-3 text-black outline-none ${theme === "dark" ? "placeholder:text-gray-400" : "placeholder:text-gray-500"}`}
                       placeholder="Add notes"
                       {...field}
                     />
@@ -295,7 +298,7 @@ export function TaskManagementContent() {
             name="category"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel className={theme === "dark" ? "font-light" : "font-medium"}>Category</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -329,14 +332,14 @@ export function TaskManagementContent() {
                     className="border-gray-400 data-[state=checked]:bg-[#00A16C] data-[state=checked]:border-[#00A16C]"
                   />
                 </FormControl>
-                <FormLabel className="text-sm">Remind me about this task</FormLabel>
+                <FormLabel className={`text-sm ${theme === "dark" ? "font-light" : "font-medium"}`}>Remind me about this task</FormLabel>
               </FormItem>
             )}
           />
           
           <Button
             type="submit"
-            className="w-full bg-[#00A16C] text-white font-medium py-6 rounded"
+            className={`w-full bg-[#00A16C] text-white ${theme === "dark" ? "font-medium" : "font-semibold"} py-6 rounded`}
           >
             Add Task
           </Button>
