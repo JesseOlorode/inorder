@@ -204,7 +204,7 @@ export function WeatherMapContent() {
                 ) : (
                   <div 
                     ref={globeRef} 
-                    className="relative w-56 h-56 cursor-grab active:cursor-grabbing transition-transform will-change-transform"
+                    className="relative w-72 h-72 cursor-grab active:cursor-grabbing transition-transform will-change-transform"
                     style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
                   >
                     <InteractiveGlobe />
@@ -327,34 +327,87 @@ function WeatherDetail({
 function InteractiveGlobe() {
   return (
     <>
-      {/* Base globe with continents */}
-      <div className="absolute inset-0 rounded-full bg-[#33658A] shadow-inner flex items-center justify-center overflow-hidden">
-        {/* North America */}
-        <div className="absolute w-20 h-12 bg-[#2F4858] rounded-lg transform -translate-x-3 -translate-y-5 rotate-12"></div>
+      {/* Base globe with 3D effect and atmosphere */}
+      <div className="absolute inset-0 rounded-full bg-[#33658A] shadow-inner flex items-center justify-center overflow-hidden"
+           style={{ 
+             boxShadow: "inset 0 0 30px rgba(0,0,0,0.5), 0 0 30px rgba(73, 182, 235, 0.3)"
+           }}>
         
-        {/* South America */}
-        <div className="absolute w-10 h-16 bg-[#2F4858] rounded-lg transform translate-x-3 translate-y-8 rotate-12"></div>
+        {/* Oceans base with gradient for depth */}
+        <div className="absolute inset-0 rounded-full bg-gradient-radial from-[#4497c9] to-[#1a3b5a]"></div>
         
-        {/* Africa & Europe */}
-        <div className="absolute w-14 h-20 bg-[#2F4858] rounded-lg transform translate-x-8 -translate-y-2 -rotate-12"></div>
+        {/* Atmosphere glow */}
+        <div className="absolute inset-0 rounded-full opacity-20"
+             style={{
+               background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, rgba(73, 182, 235, 0) 70%)"
+             }}></div>
         
-        {/* Asia */}
-        <div className="absolute w-16 h-14 bg-[#2F4858] rounded-lg transform translate-x-16 -translate-y-12 rotate-6"></div>
+        {/* North America with 3D elevation */}
+        <div className="absolute w-20 h-12 bg-[#2F4858] rounded-lg transform -translate-x-3 -translate-y-5 rotate-12"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)", 
+               background: "linear-gradient(135deg, #3a5a6c 0%, #2F4858 100%)"
+             }}></div>
         
-        {/* Australia */}
-        <div className="absolute w-10 h-8 bg-[#2F4858] rounded-lg transform translate-x-20 translate-y-16 rotate-12"></div>
+        {/* South America with 3D elevation */}
+        <div className="absolute w-10 h-16 bg-[#2F4858] rounded-lg transform translate-x-3 translate-y-8 rotate-12"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+               background: "linear-gradient(135deg, #3a5a6c 0%, #2F4858 100%)"
+             }}></div>
         
-        {/* Antarctica */}
-        <div className="absolute w-14 h-6 bg-[#2F4858] rounded-lg transform -translate-y-24 rotate-180"></div>
+        {/* Africa & Europe with 3D elevation */}
+        <div className="absolute w-14 h-20 bg-[#2F4858] rounded-lg transform translate-x-8 -translate-y-2 -rotate-12"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+               background: "linear-gradient(135deg, #3a5a6c 0%, #2F4858 100%)" 
+             }}></div>
+        
+        {/* Asia with 3D elevation */}
+        <div className="absolute w-16 h-14 bg-[#2F4858] rounded-lg transform translate-x-16 -translate-y-12 rotate-6"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+               background: "linear-gradient(135deg, #3a5a6c 0%, #2F4858 100%)"
+             }}></div>
+        
+        {/* Australia with 3D elevation */}
+        <div className="absolute w-10 h-8 bg-[#2F4858] rounded-lg transform translate-x-20 translate-y-16 rotate-12"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+               background: "linear-gradient(135deg, #3a5a6c 0%, #2F4858 100%)"
+             }}></div>
+        
+        {/* Antarctica with 3D elevation */}
+        <div className="absolute w-14 h-6 bg-[#2F4858] rounded-lg transform -translate-y-24 rotate-180"
+             style={{ 
+               boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+               background: "linear-gradient(135deg, #42677b 0%, #2F4858 100%)"
+             }}></div>
 
-        {/* Cloud overlays */}
-        <div className="absolute w-8 h-4 bg-white opacity-30 rounded-full blur-sm transform -translate-x-10 -translate-y-16"></div>
-        <div className="absolute w-12 h-5 bg-white opacity-30 rounded-full blur-sm transform translate-x-15 translate-y-10"></div>
-        <div className="absolute w-10 h-4 bg-white opacity-30 rounded-full blur-sm transform translate-x-5 -translate-y-5"></div>
+        {/* Cloud layers with different opacities and blurs for depth */}
+        <div className="absolute w-12 h-5 bg-white opacity-40 rounded-full blur-sm transform -translate-x-12 -translate-y-18"
+             style={{ filter: "blur(4px)" }}></div>
+        <div className="absolute w-16 h-6 bg-white opacity-30 rounded-full blur-sm transform translate-x-15 translate-y-12"
+             style={{ filter: "blur(3px)" }}></div>
+        <div className="absolute w-14 h-5 bg-white opacity-35 rounded-full blur-sm transform translate-x-5 -translate-y-7"
+             style={{ filter: "blur(3.5px)" }}></div>
+        
+        {/* Additional cloud system for more realism */}
+        <div className="absolute w-18 h-7 bg-white opacity-25 rounded-full blur-sm transform -translate-x-18 translate-y-16"
+             style={{ filter: "blur(5px)" }}></div>
+        
+        {/* Highlights for 3D effect */}
+        <div className="absolute top-0 left-0 w-full h-1/2 bg-white opacity-10 rounded-t-full"></div>
       </div>
       
-      {/* Glow effect */}
-      <div className="absolute inset-0 rounded-full bg-[#4ECDC4] opacity-10 blur-md"></div>
+      {/* Outer glow effect */}
+      <div className="absolute inset-0 rounded-full opacity-20"
+           style={{ 
+             boxShadow: "0 0 20px 5px rgba(73, 182, 235, 0.4), 0 0 40px 10px rgba(73, 182, 235, 0.1)"
+           }}></div>
+      
+      {/* Additional atmospheric haze */}
+      <div className="absolute inset-0 rounded-full bg-[#4ECDC4] opacity-5 blur-md"></div>
     </>
   );
 }
