@@ -1,4 +1,3 @@
-
 export const translations = {
   english: {
     // Navbar
@@ -96,10 +95,6 @@ export const translations = {
     ## MODIFICATIONS TO TERMS OF SERVICE
     
     We reserve the right to revise these terms of service at any time without notice. By using this application, you are agreeing to be bound by the current version of these terms of service.
-    
-    ## CONTACT INFORMATION
-    
-    Questions about the Terms of Service should be sent to us at legal@olorodecorp.com.
     
     Last updated: April 10, 2025
     `,
@@ -242,10 +237,6 @@ export const translations = {
     
     Nos reservamos el derecho de revisar estos términos de servicio en cualquier momento sin previo aviso. Al utilizar esta aplicación, acepta estar sujeto a la versión actual de estos términos de servicio.
     
-    ## INFORMACIÓN DE CONTACTO
-    
-    Las preguntas sobre los Términos de Servicio deben enviarse a legal@olorodecorp.com.
-    
     Última actualización: 10 de abril de 2025
     `,
     
@@ -303,11 +294,11 @@ export const translations = {
     
     ## PRIVACIDAD DE LOS NIÑOS
     
-    Nuestra Aplicación no está destinada a niños menores de 13 años, y no recopilamos conscientemente información personal de niños menores de 13 años.
+    Nuestra Aplicación no está destinada a niños menores de 13 años, y no recopilamos conscientemente información personal de niños menores de 13.
     
     ## INFORMACIÓN DE CONTACTO
     
-    Para hacer preguntas o comentarios sobre esta política de privacidad y nuestras prácticas de privacidad, contáctenos en: privacy@olorodecorp.com
+    Para hacer preguntas o comentarios sobre esta política de privacidad y nuestras prácticas de privacidad, contactenos en: privacy@olorodecorp.com
     
     Última actualización: 10 de abril de 2025
     `,
@@ -364,9 +355,9 @@ export const translations = {
     appInfoTitle: "À Propos de l'App",
     appInfoDescription: "InOrder v1.2.0 - Votre compagnon ultime de productivité.",
     termsTitle: "Conditions Générales",
-    termsDescription: "Les conditions générales complètes apparaîtraient ici.",
+    termsDescription: "Les conditions générales complètes apparaîtront ici.",
     privacyTitle: "Politique de Confidentialité",
-    privacyDescription: "La politique de confidentialité apparaîtrait ici.",
+    privacyDescription: "La politique de confidentialité apparaîtra ici.",
     sharingTitle: "Partage",
     sharingDescription: "Lien copié dans le presse-papiers !",
     
@@ -382,7 +373,7 @@ export const translations = {
     
     Veuillez lire attentivement ces Conditions de Service avant d'accéder à notre application ou de l'utiliser. En accédant à une partie quelconque de l'application ou en l'utilisant, vous acceptez d'être lié par ces Conditions de Service. Si vous n'acceptez pas toutes les conditions générales de cet accord, vous ne pouvez pas accéder à l'application ni utiliser ses services.
     
-    ## DROITS DE PROPRIÉTÉ INTELLECTUELLE
+    ## DROITS DE PROPRIÉTÉ INTELECTUELLE
     
     Cette application et l'ensemble de son contenu, de ses fonctionnalités et de ses fonctions (y compris, mais sans s'y limiter, toutes les informations, logiciels, textes, affichages, images, vidéos et audio, ainsi que la conception, la sélection et l'agencement de ceux-ci) sont la propriété d'Olorode Corporations LLC, de ses concédants de licence ou d'autres fournisseurs de ce matériel et sont protégés par les lois américaines et internationales sur les droits d'auteur, les marques de commerce, les brevets, les secrets commerciaux et autres droits de propriété intellectuelle ou droits de propriété.
     
@@ -397,10 +388,6 @@ export const translations = {
     ## MODIFICATIONS DES CONDITIONS DE SERVICE
     
     Nous nous réservons le droit de réviser ces conditions de service à tout moment sans préavis. En utilisant cette application, vous acceptez d'être lié par la version actuelle de ces conditions de service.
-    
-    ## INFORMATIONS DE CONTACT
-    
-    Les questions concernant les Conditions de Service doivent nous être envoyées à l'adresse legal@olorodecorp.com.
     
     Dernière mise à jour : 10 avril 2025
     `,
@@ -420,9 +407,9 @@ export const translations = {
     privacyPolicyText: `
     # POLITIQUE DE CONFIDENTIALITÉ
 
-    ## INTRODUCTION
+    ## INTRODUCCIÓN
     
-    Olorode Corporations LLC ("nous", "notre" ou "nos") respecte votre vie privée et s'engage à la protéger en se conformant à cette politique de confidentialité. Cette politique décrit les types d'informations que nous pouvons collecter auprès de vous ou que vous pouvez fournir lorsque vous utilisez l'application InOrder ("Application") et nos pratiques de collecte, d'utilisation, de maintenance, de protection et de divulgation de ces informations.
+    Olorode Corporations LLC ("nous", "nous" ou "nos") respecte votre vie privée et s'engage à la protéger en se conformant à cette politique de confidentialité. Cette politique décrit les types d'informations que nous pouvons collecter auprès de vous ou que vous pouvez fournir lorsque vous utilisez l'application InOrder ("Application") et nos pratiques de collecte, d'utilisation, de maintenance, de protection et de divulgation de ces informations.
     
     ## INFORMATIONS QUE NOUS COLLECTONS
     
@@ -441,7 +428,7 @@ export const translations = {
     1. Pour vous présenter notre Application et son contenu.
     2. Pour vous fournir des informations, des produits ou des services que vous nous demandez.
     3. Pour remplir tout autre objectif pour lequel vous la fournissez.
-    4. Pour respecter nos obligations et faire valoir nos droits.
+    4. Pour respecter nos obligations et faire valer nos droits.
     5. Pour améliorer notre Application et l'expérience utilisateur.
     6. De toute autre manière que nous pouvons décrire lorsque vous fournissez les informations.
     
@@ -463,7 +450,7 @@ export const translations = {
     
     ## INFORMATIONS DE CONTACT
     
-    Pour poser des questions ou commenter cette politique de confidentialité et nos pratiques en matière de confidentialité, contactez-nous à : privacy@olorodecorp.com
+    Pour poser des questions ou commenter cette politique de confidentialité et nos pratiques en matière de confidentialité, contactez-nous en : privacy@olorodecorp.com
     
     Dernière mise à jour : 10 avril 2025
     `,
@@ -554,10 +541,6 @@ export const translations = {
     
     Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit ohne Vorankündigung zu überarbeiten. Durch die Nutzung dieser Anwendung erklären Sie sich mit der aktuellen Version dieser Nutzungsbedingungen einverstanden.
     
-    ## KONTAKTINFORMATIONEN
-    
-    Fragen zu den Nutzungsbedingungen sollten an uns unter legal@olorodecorp.com gesendet werden.
-    
     Zuletzt aktualisiert: 10. April 2025
     `,
     
@@ -566,10 +549,10 @@ export const translations = {
     shareTitle: "Schau dir die InOrder App an!",
     shareText: "Ich benutze die InOrder App und sie ist großartig, um organisiert zu bleiben!",
     instagramShareTitle: "Instagram",
-    instagramShareDescription: "Link in die Zwischenablage kopiert. Öffnen Sie Instagram und fügen Sie ihn in Ihre Story oder Nachricht ein.",
+    instagramShareDescription: "Lien in die Zwischenablage kopiert. Öffnen Sie Instagram und fügen Sie ihn in Ihre Story oder Nachricht ein.",
     messageShareTitle: "Nachrichten",
-    messageShareDescription: "Link in die Zwischenablage kopiert. Öffnen Sie Nachrichten und fügen Sie ihn an Ihre Freunde ein.",
-    linkCopiedTitle: "Link Kopiert",
+    messageShareDescription: "Lien in die Zwischenablage kopiert. Öffnen Sie Nachrichten und fügen Sie ihn an Ihre Freunde ein.",
+    linkCopiedTitle: "Lien Kopiert",
     linkCopiedDescription: "Der App-Link wurde in Ihre Zwischenablage kopiert.",
     
     // Privacy Policy
