@@ -4,6 +4,7 @@ import { ChevronRight, Moon, Key, Globe, Info, FileText, Share2, LogOut } from "
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/contexts/theme-context";
+import { useLanguage } from "@/contexts/language-context";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -37,6 +38,7 @@ import {
 
 export function ProfileContent() {
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
   
   // State for dialogs
@@ -45,8 +47,8 @@ export function ProfileContent() {
   
   const handleLogout = () => {
     toast({
-      title: "Logged out successfully",
-      description: "You have been logged out of your account",
+      title: t("loggedOut"),
+      description: t("logoutDescription"),
     });
     // In a real app, we would clear auth state here
     setTimeout(() => navigate("/login"), 1500);
@@ -63,8 +65,8 @@ export function ProfileContent() {
       });
     } else {
       toast({
-        title: "Sharing",
-        description: "Link copied to clipboard!",
+        title: t("sharingTitle"),
+        description: t("sharingDescription"),
       });
       navigator.clipboard.writeText(window.location.origin);
     }
@@ -84,7 +86,7 @@ export function ProfileContent() {
     if (data.newPassword !== data.confirmPassword) {
       toast({
         title: "Error",
-        description: "New passwords don't match",
+        description: t("passwordsDontMatch"),
         variant: "destructive",
       });
       return;
@@ -93,28 +95,29 @@ export function ProfileContent() {
     // Here you would normally call an API to change the password
     console.log("Password change data:", data);
     toast({
-      title: "Password Changed",
-      description: "Your password has been updated successfully",
+      title: t("passwordChanged"),
+      description: t("passwordUpdated"),
     });
     setPasswordDialogOpen(false);
     passwordForm.reset();
   };
 
   // Language selection
-  const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const [selectedLanguage, setSelectedLanguage] = useState(language);
   const languages = [
     { value: "english", label: "English" },
-    { value: "spanish", label: "Spanish" },
-    { value: "french", label: "French" },
-    { value: "german", label: "German" },
-    { value: "chinese", label: "Chinese" },
+    { value: "spanish", label: "Español" },
+    { value: "french", label: "Français" },
+    { value: "german", label: "Deutsch" },
+    { value: "chinese", label: "中文" },
   ];
 
   const handleLanguageChange = (value) => {
     setSelectedLanguage(value);
+    setLanguage(value);
     toast({
-      title: "Language Changed",
-      description: `Language has been set to ${languages.find(lang => lang.value === value)?.label}`,
+      title: t("languageChanged"),
+      description: `${t("language")} ${languages.find(lang => lang.value === value)?.label}`,
     });
     setLanguageDialogOpen(false);
   };
@@ -132,13 +135,13 @@ export function ProfileContent() {
 
       {/* Account Settings */}
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
-        <h2 className="text-sm font-medium p-4 pb-2">Account Settings</h2>
+        <h2 className="text-sm font-medium p-4 pb-2">{t("accountSettings")}</h2>
         
         <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingSwitch
             icon={<Moon size={18} />}
-            label="Mode"
-            description={theme === 'dark' ? "Dark mode" : "Light mode"}
+            label={t("mode")}
+            description={theme === 'dark' ? t("darkMode") : t("lightMode")}
             checked={theme === "dark"}
             onCheckedChange={toggleTheme}
           />
@@ -147,7 +150,7 @@ export function ProfileContent() {
         <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<Key size={18} />}
-            label="Change Password"
+            label={t("changePassword")}
             onClick={() => setPasswordDialogOpen(true)}
           />
         </div>
@@ -155,7 +158,7 @@ export function ProfileContent() {
         <div>
           <ProfileSettingLink
             icon={<Globe size={18} />}
-            label="Language"
+            label={t("language")}
             onClick={() => setLanguageDialogOpen(true)}
           />
         </div>
@@ -163,16 +166,16 @@ export function ProfileContent() {
 
       {/* Preferences */}
       <div className={`${theme === 'dark' ? 'bg-[#252A37]' : 'bg-white'} rounded-lg overflow-hidden`}>
-        <h2 className="text-sm font-medium p-4 pb-2">Preferences</h2>
+        <h2 className="text-sm font-medium p-4 pb-2">{t("preferences")}</h2>
         
         <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<Info size={18} />}
-            label="About App"
+            label={t("aboutApp")}
             onClick={() => {
               toast({
-                title: "About App",
-                description: "TaskMaster v1.2.0 - Your ultimate productivity companion.",
+                title: t("appInfoTitle"),
+                description: t("appInfoDescription"),
               });
             }}
           />
@@ -181,11 +184,11 @@ export function ProfileContent() {
         <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<FileText size={18} />}
-            label="Terms & Conditions"
+            label={t("termsConditions")}
             onClick={() => {
               toast({
-                title: "Terms & Conditions",
-                description: "The full terms and conditions would appear in a modal here.",
+                title: t("termsTitle"),
+                description: t("termsDescription"),
               });
             }}
           />
@@ -194,11 +197,11 @@ export function ProfileContent() {
         <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
           <ProfileSettingLink
             icon={<FileText size={18} />}
-            label="Privacy Policy"
+            label={t("privacyPolicy")}
             onClick={() => {
               toast({
-                title: "Privacy Policy",
-                description: "The privacy policy would appear in a modal here.",
+                title: t("privacyTitle"),
+                description: t("privacyDescription"),
               });
             }}
           />
@@ -207,7 +210,7 @@ export function ProfileContent() {
         <div>
           <ProfileSettingLink
             icon={<Share2 size={18} />}
-            label="Share This App"
+            label={t("shareThisApp")}
             onClick={handleShare}
           />
         </div>
@@ -219,16 +222,16 @@ export function ProfileContent() {
         onClick={handleLogout}
       >
         <LogOut size={18} />
-        <span>Logout</span>
+        <span>{t("logout")}</span>
       </Button>
 
       {/* Password Change Dialog */}
       <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
         <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
           <DialogHeader>
-            <DialogTitle>Change Password</DialogTitle>
+            <DialogTitle>{t("changePassword")}</DialogTitle>
             <DialogDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}>
-              Update your password to keep your account secure.
+              {t("updatePassword")}
             </DialogDescription>
           </DialogHeader>
           
@@ -239,11 +242,11 @@ export function ProfileContent() {
                 name="currentPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Password</FormLabel>
+                    <FormLabel>{t("currentPassword")}</FormLabel>
                     <FormControl>
                       <Input 
                         type="password" 
-                        placeholder="Enter current password" 
+                        placeholder={t("currentPassword")} 
                         {...field} 
                         className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
                       />
@@ -258,11 +261,11 @@ export function ProfileContent() {
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>New Password</FormLabel>
+                    <FormLabel>{t("newPassword")}</FormLabel>
                     <FormControl>
                       <Input 
                         type="password" 
-                        placeholder="Enter new password" 
+                        placeholder={t("newPassword")} 
                         {...field} 
                         className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
                       />
@@ -277,11 +280,11 @@ export function ProfileContent() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm New Password</FormLabel>
+                    <FormLabel>{t("confirmPassword")}</FormLabel>
                     <FormControl>
                       <Input 
                         type="password" 
-                        placeholder="Confirm new password" 
+                        placeholder={t("confirmPassword")} 
                         {...field} 
                         className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''} 
                       />
@@ -298,10 +301,10 @@ export function ProfileContent() {
                   onClick={() => setPasswordDialogOpen(false)}
                   className={theme === 'dark' ? 'border-gray-700' : ''}
                 >
-                  Cancel
+                  {t("cancel")}
                 </Button>
                 <Button type="submit" className="bg-[#00C853] hover:bg-[#00B04C] text-black">
-                  Save Changes
+                  {t("saveChanges")}
                 </Button>
               </DialogFooter>
             </form>
@@ -313,9 +316,9 @@ export function ProfileContent() {
       <Dialog open={languageDialogOpen} onOpenChange={setLanguageDialogOpen}>
         <DialogContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'}>
           <DialogHeader>
-            <DialogTitle>Select Language</DialogTitle>
+            <DialogTitle>{t("selectLanguage")}</DialogTitle>
             <DialogDescription className={theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}>
-              Choose your preferred language for the app.
+              {t("chooseLanguage")}
             </DialogDescription>
           </DialogHeader>
           
@@ -325,7 +328,7 @@ export function ProfileContent() {
               onValueChange={handleLanguageChange}
             >
               <SelectTrigger className={theme === 'dark' ? 'bg-[#1A1F2C] border-gray-700' : ''}>
-                <SelectValue placeholder="Select language" />
+                <SelectValue placeholder={t("selectLanguage")} />
               </SelectTrigger>
               <SelectContent className={theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : ''}>
                 {languages.map((lang) => (
@@ -348,7 +351,7 @@ export function ProfileContent() {
               onClick={() => setLanguageDialogOpen(false)}
               className={theme === 'dark' ? 'border-gray-700' : ''}
             >
-              Cancel
+              {t("cancel")}
             </Button>
           </DialogFooter>
         </DialogContent>

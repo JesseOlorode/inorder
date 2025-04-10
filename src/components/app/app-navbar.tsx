@@ -2,29 +2,31 @@
 import { ArrowLeft, Bell, MoreVertical, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/contexts/theme-context";
+import { useLanguage } from "@/contexts/language-context";
 
 export function AppNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useTheme();
+  const { t } = useLanguage();
   
   // Get page title based on current route
   const getPageTitle = () => {
     const path = location.pathname;
-    if (path.includes("profile")) return "Profile";
-    if (path.includes("create-task")) return "Task Management";
-    if (path.includes("task-management")) return "Task Management";
-    if (path.includes("grocery")) return "Smart Grocery Management";
-    if (path.includes("calendar")) return "Today's Task";
-    if (path.includes("weather")) return "Weather";
-    if (path.includes("search")) return "Search";
-    if (path.includes("favorites")) return "Favorites";
-    if (path.includes("wifi")) return "WiFi Settings";
-    if (path.includes("statistics")) return "Statistics";
-    if (path.includes("sound")) return "Sound Settings";
-    if (path.includes("alerts")) return "Alerts";
-    if (path.includes("devices")) return "Devices";
-    return "Dashboard";
+    if (path.includes("profile")) return t("profile");
+    if (path.includes("create-task")) return t("taskManagement");
+    if (path.includes("task-management")) return t("taskManagement");
+    if (path.includes("grocery")) return t("groceryManagement");
+    if (path.includes("calendar")) return t("todaysTask");
+    if (path.includes("weather")) return t("weather");
+    if (path.includes("search")) return t("search");
+    if (path.includes("favorites")) return t("favorites");
+    if (path.includes("wifi")) return t("wifiSettings");
+    if (path.includes("statistics")) return t("statistics");
+    if (path.includes("sound")) return t("soundSettings");
+    if (path.includes("alerts")) return t("alerts");
+    if (path.includes("devices")) return t("devices");
+    return t("dashboard");
   };
 
   // Handle navigation for header buttons
