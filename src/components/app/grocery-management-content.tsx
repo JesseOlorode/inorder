@@ -13,6 +13,7 @@ export function GroceryManagementContent() {
     {
       id: 1,
       name: "Chocolates",
+      category: "snacks",
       items: [
         { 
           id: 1, 
@@ -33,6 +34,7 @@ export function GroceryManagementContent() {
     {
       id: 2,
       name: "Croissant",
+      category: "bakery",
       items: [
         { 
           id: 3, 
@@ -46,6 +48,7 @@ export function GroceryManagementContent() {
     {
       id: 3,
       name: "Protein Bar",
+      category: "snacks",
       items: [
         { 
           id: 4, 
@@ -59,6 +62,7 @@ export function GroceryManagementContent() {
     {
       id: 4,
       name: "Chia Pudding",
+      category: "dairy",
       items: [
         { 
           id: 5, 
@@ -72,6 +76,7 @@ export function GroceryManagementContent() {
     {
       id: 5,
       name: "Cookies",
+      category: "snacks",
       items: [
         { 
           id: 6, 
@@ -82,11 +87,56 @@ export function GroceryManagementContent() {
         },
       ]
     },
+    {
+      id: 6,
+      name: "Fresh Fruits",
+      category: "fruits",
+      items: [
+        { 
+          id: 7, 
+          name: "Organic Apples", 
+          price: "$4.99", 
+          image: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          expiryDays: 14
+        },
+        { 
+          id: 8, 
+          name: "Bananas", 
+          price: "$2.49", 
+          image: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          expiryDays: 7
+        },
+      ]
+    },
+    {
+      id: 7,
+      name: "Fresh Vegetables",
+      category: "vegetables",
+      items: [
+        { 
+          id: 9, 
+          name: "Broccoli", 
+          price: "$3.29", 
+          image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          expiryDays: 10
+        },
+        { 
+          id: 10, 
+          name: "Carrots", 
+          price: "$1.99", 
+          image: "https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+          expiryDays: 21
+        },
+      ]
+    },
   ];
+
+  const filteredCategories = activeTab === "all" 
+    ? groceryCategories 
+    : groceryCategories.filter(category => category.category === activeTab);
 
   return (
     <div className="py-4 pb-20">
-      {/* Quick Actions */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <ActionCard 
           icon={<Edit size={18} className="text-white" />} 
@@ -105,7 +155,6 @@ export function GroceryManagementContent() {
         />
       </div>
 
-      {/* Search Bar */}
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
         <input
@@ -115,7 +164,6 @@ export function GroceryManagementContent() {
         />
       </div>
       
-      {/* Filter Pills */}
       <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
         <Button 
           variant="outline" 
@@ -152,26 +200,38 @@ export function GroceryManagementContent() {
         >
           Snacks
         </Button>
+        <Button 
+          variant="outline" 
+          className={`${activeTab === "bakery" ? "bg-[#00A16C] text-white" : "bg-[#252A37] text-white"} rounded-full text-xs px-4 whitespace-nowrap`}
+          onClick={() => setActiveTab("bakery")}
+        >
+          Bakery
+        </Button>
       </div>
       
-      {/* Grocery Categories and Items */}
       <div className="space-y-8">
-        {groceryCategories.map((category) => (
-          <div key={category.id}>
-            <h2 className="text-lg font-medium mb-4">{category.name}</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {category.items.map((item) => (
-                <GroceryItem 
-                  key={item.id}
-                  name={item.name}
-                  price={item.price}
-                  image={item.image}
-                  expiryDays={item.expiryDays}
-                />
-              ))}
+        {filteredCategories.length > 0 ? (
+          filteredCategories.map((category) => (
+            <div key={category.id}>
+              <h2 className="text-lg font-medium mb-4">{category.name}</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {category.items.map((item) => (
+                  <GroceryItem 
+                    key={item.id}
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    expiryDays={item.expiryDays}
+                  />
+                ))}
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="text-center py-8 text-gray-400">
+            No items found in this category
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
