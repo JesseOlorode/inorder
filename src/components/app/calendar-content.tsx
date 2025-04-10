@@ -1,32 +1,81 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal, User } from "lucide-react";
-import { format } from "date-fns";
+import { format, addDays, subDays } from "date-fns";
 
 export function CalendarContent() {
-  const [currentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(16); // Default to current day
   const currentMonth = format(currentDate, "MMMM yyyy");
   
-  // Mock tasks for the current day
-  const todayTasks = [
+  // Generate calendar days based on current date
+  const generateCalendarDays = () => {
+    const days = [];
+    const startDate = subDays(currentDate, 3);
+    
+    for (let i = 0; i < 7; i++) {
+      const date = addDays(startDate, i);
+      days.push({
+        date: format(date, "d"),
+        day: format(date, "EEE"),
+        isActive: i === 3, // Default active is the middle day
+        fullDate: date
+      });
+    }
+    
+    return days;
+  };
+  
+  const [calendarDays, setCalendarDays] = useState(generateCalendarDays());
+  
+  // Mock tasks for the current day - will change based on selected date
+  const [todayTasks, setTodayTasks] = useState([
     { id: 1, time: "9:00 AM", title: "Team meeting", color: "bg-blue-500" },
     { id: 2, time: "10:30 AM", title: "Client call", color: "bg-purple-500" },
     { id: 3, time: "12:00 PM", title: "Lunch break", color: "bg-orange-500" },
     { id: 4, time: "2:30 PM", title: "Project review", color: "bg-green-500" },
     { id: 5, time: "4:00 PM", title: "Team check-in", color: "bg-blue-500" },
     { id: 6, time: "5:30 PM", title: "End of day", color: "bg-red-500" },
-  ];
+  ]);
   
-  // Mock calendar days
-  const calendarDays = [
-    { date: 14, day: "Mon" },
-    { date: 15, day: "Tue" },
-    { date: 16, day: "Wed" },
-    { date: 17, day: "Thu", isActive: true },
-    { date: 18, day: "Fri" },
-    { date: 19, day: "Sat" },
-    { date: 20, day: "Sun" },
-  ];
+  // Navigate to previous week
+  const goToPreviousWeek = () => {
+    const newDate = subDays(currentDate, 7);
+    setCurrentDate(newDate);
+    setCalendarDays(generateCalendarDays());
+  };
+  
+  // Navigate to next week
+  const goToNextWeek = () => {
+    const newDate = addDays(currentDate, 7);
+    setCurrentDate(newDate);
+    setCalendarDays(generateCalendarDays());
+  };
+  
+  // Handle day selection
+  const handleDayClick = (index) => {
+    const newCalendarDays = calendarDays.map((day, i) => ({
+      ...day,
+      isActive: i === index
+    }));
+    
+    setCalendarDays(newCalendarDays);
+    setSelectedDay(parseInt(newCalendarDays[index].date));
+    
+    // Update tasks based on selected day
+    // For demo purposes, we're just changing the time prefix to show interactivity
+    const taskPrefix = `${newCalendarDays[index].date}:`;
+    const updatedTasks = [
+      { id: 1, time: `${taskPrefix}00 AM`, title: "Team meeting", color: "bg-blue-500" },
+      { id: 2, time: `${taskPrefix}30 AM`, title: "Client call", color: "bg-purple-500" },
+      { id: 3, time: `${taskPrefix}00 PM`, title: "Lunch break", color: "bg-orange-500" },
+      { id: 4, time: `${taskPrefix}30 PM`, title: "Project review", color: "bg-green-500" },
+      { id: 5, time: `${taskPrefix}00 PM`, title: "Team check-in", color: "bg-blue-500" },
+      { id: 6, time: `${taskPrefix}30 PM`, title: "End of day", color: "bg-red-500" },
+    ];
+    
+    setTodayTasks(updatedTasks);
+  };
 
   return (
     <div className="bg-black min-h-screen text-white p-4">
@@ -49,10 +98,18 @@ export function CalendarContent() {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-medium">{currentMonth}</h2>
         <div className="flex gap-1">
-          <button className="bg-neutral-800 rounded-full p-1">
+          <button 
+            className="bg-neutral-800 rounded-full p-1"
+            onClick={goToPreviousWeek}
+            aria-label="Previous week"
+          >
             <ChevronLeft size={16} />
           </button>
-          <button className="bg-neutral-800 rounded-full p-1">
+          <button 
+            className="bg-neutral-800 rounded-full p-1"
+            onClick={goToNextWeek}
+            aria-label="Next week"
+          >
             <ChevronRight size={16} />
           </button>
         </div>
@@ -61,17 +118,18 @@ export function CalendarContent() {
       {/* Date Picker */}
       <div className="flex justify-between gap-2 mb-6 overflow-x-auto py-2">
         {calendarDays.map((day, index) => (
-          <div
+          <button
             key={index}
-            className={`flex flex-col items-center rounded-lg px-3 py-2 min-w-[38px] ${
+            onClick={() => handleDayClick(index)}
+            className={`flex flex-col items-center rounded-lg px-3 py-2 min-w-[38px] transition-colors ${
               day.isActive 
                 ? "bg-[#00A16C] text-white" 
-                : "bg-neutral-800 text-white"
+                : "bg-neutral-800 text-white hover:bg-neutral-700"
             }`}
           >
             <span className="text-xs font-medium">{day.day}</span>
             <span className="text-lg font-bold">{day.date}</span>
-          </div>
+          </button>
         ))}
       </div>
       
@@ -86,60 +144,22 @@ export function CalendarContent() {
           <div>5:00 PM</div>
         </div>
 
-        {/* Task at 9:00 AM */}
-        <div className="absolute top-[0px] left-[50px] right-0 bg-blue-500 rounded-lg p-2 w-[85%]">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-medium">9:00 AM - 10:00 AM</span>
-            <button>
-              <MoreHorizontal size={14} />
-            </button>
+        {/* Dynamic Tasks */}
+        {todayTasks.map((task, index) => (
+          <div
+            key={task.id}
+            className={`absolute left-[50px] right-0 ${task.color} rounded-lg p-2 w-[85%]`}
+            style={{ top: `${index * 70}px` }}
+          >
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-medium">{task.time}</span>
+              <button>
+                <MoreHorizontal size={14} />
+              </button>
+            </div>
+            <h3 className="text-sm font-bold">{task.title}</h3>
           </div>
-          <h3 className="text-sm font-bold">Team Meeting</h3>
-        </div>
-
-        {/* Task at 10:30 AM */}
-        <div className="absolute top-[70px] left-[50px] right-0 bg-purple-500 rounded-lg p-2 w-[85%]">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-medium">10:30 AM - 11:30 AM</span>
-            <button>
-              <MoreHorizontal size={14} />
-            </button>
-          </div>
-          <h3 className="text-sm font-bold">Client Call</h3>
-        </div>
-
-        {/* Task at 1:00 PM */}
-        <div className="absolute top-[140px] left-[50px] right-0 bg-orange-500 rounded-lg p-2 w-[85%]">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-medium">1:00 PM - 2:00 PM</span>
-            <button>
-              <MoreHorizontal size={14} />
-            </button>
-          </div>
-          <h3 className="text-sm font-bold">Lunch Break</h3>
-        </div>
-
-        {/* Task at 3:00 PM */}
-        <div className="absolute top-[210px] left-[50px] right-0 bg-green-500 rounded-lg p-2 w-[85%]">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-medium">3:00 PM - 4:00 PM</span>
-            <button>
-              <MoreHorizontal size={14} />
-            </button>
-          </div>
-          <h3 className="text-sm font-bold">Project Review</h3>
-        </div>
-
-        {/* Task at 5:00 PM */}
-        <div className="absolute top-[280px] left-[50px] right-0 bg-red-500 rounded-lg p-2 w-[85%]">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-medium">5:00 PM - 6:00 PM</span>
-            <button>
-              <MoreHorizontal size={14} />
-            </button>
-          </div>
-          <h3 className="text-sm font-bold">End of Day</h3>
-        </div>
+        ))}
 
         {/* Vertical time line */}
         <div className="absolute top-0 left-[40px] bottom-0 w-px bg-neutral-800 h-[350px]">
