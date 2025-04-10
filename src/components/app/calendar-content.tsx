@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal, User, Check, Trash } from "lucide-react";
 import { format, addDays, subDays } from "date-fns";
@@ -9,7 +10,6 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
-import { useNavigate } from "react-router-dom";
 
 export function CalendarContent() {
   const navigate = useNavigate();
