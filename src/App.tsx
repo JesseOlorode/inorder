@@ -65,11 +65,11 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<SplashScreen />} />
-              <Route path="/index" element={<Navigate to="/" replace />} />
-              <Route path="/matrix-loading" element={<MatrixLoading />} />
-              <Route element={<RouteGuard><></></RouteGuard>}>
+            <RouteGuard>
+              <Routes>
+                <Route path="/" element={<SplashScreen />} />
+                <Route path="/index" element={<Navigate to="/" replace />} />
+                <Route path="/matrix-loading" element={<MatrixLoading />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/login-loading" element={<LoginLoading />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -92,8 +92,8 @@ const App = () => (
                 <Route path="/alerts" element={<Alerts />} />
                 <Route path="/devices" element={<Devices />} />
                 <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
+              </Routes>
+            </RouteGuard>
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>
