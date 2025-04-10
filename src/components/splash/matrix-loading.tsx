@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Progress } from "@/components/ui/progress";
@@ -104,7 +105,7 @@ export function MatrixLoading() {
     return () => clearInterval(interval);
   }, [hasNavigated]);
   
-  // Progress bar and navigation - SLOWED DOWN
+  // Progress bar and navigation - ENSURE FULL COMPLETION
   useEffect(() => {
     try {
       // This is CRITICAL: Ensure the visited flag is set when matrix loading starts
@@ -115,19 +116,21 @@ export function MatrixLoading() {
       
       const interval = setInterval(() => {
         setProgress(prev => {
-          if (prev >= 100) {
+          // Only set loading complete when we actually reach 100
+          if (prev >= 99.5) {
             clearInterval(interval);
-            // Mark loading as complete
+            // Mark loading as complete ONLY when we've actually reached 100%
+            setProgress(100);
             setLoadingComplete(true);
             // Show "Access Granted" message before navigating
             setShowAccessGranted(true);
             
             return 100;
           }
-          // Slow down progress increment (from +1 to +0.5)
+          // Slow down progress increment
           return prev + 0.5;
         });
-      }, 100); // Increased from 50ms to 100ms
+      }, 100);
       
       return () => clearInterval(interval);
     } catch (error) {
@@ -139,10 +142,10 @@ export function MatrixLoading() {
     }
   }, []);
 
-  // Navigation effect - with longer delay
+  // Navigation effect - ONLY after fully reaching 100%
   useEffect(() => {
     if (loadingComplete && showAccessGranted && !hasNavigated) {
-      // Navigate to black screen buffer instead of login - increased from 2000ms to 3000ms
+      // Ensure the "ACCESS GRANTED" message stays visible for a moment
       const timer = setTimeout(() => {
         navigateToBufferScreen();
       }, 3000);
@@ -151,18 +154,18 @@ export function MatrixLoading() {
     }
   }, [loadingComplete, showAccessGranted, hasNavigated]);
 
-  // Fallback navigation if we get stuck - increased from 6000ms to 10000ms
+  // Fallback navigation if we get stuck
   useEffect(() => {
     const failsafeTimer = setTimeout(() => {
       if (!hasNavigated) {
         navigateToLogin();
       }
-    }, 10000); // 10 second failsafe (increased from 6s)
+    }, 10000); // 10 second failsafe
     
     return () => clearTimeout(failsafeTimer);
   }, [hasNavigated]);
 
-  // Safe navigation function to prevent duplicate navigations
+  // Safe navigation functions
   const navigateToBufferScreen = () => {
     if (hasNavigated) return;
     
@@ -267,7 +270,7 @@ export function MatrixLoading() {
         </motion.div>
       )}
 
-      {/* Invisible emergency button that appears after 8 seconds if we're stuck */}
+      {/* Emergency button that appears after loading is complete if we're stuck */}
       {progress >= 100 && !hasNavigated && (
         <button 
           onClick={navigateToLogin}
