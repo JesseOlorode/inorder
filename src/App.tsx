@@ -50,11 +50,15 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
       
       // If there's no timestamp or it's been more than 2 seconds, consider it a page refresh
       if (!lastRenderTime || (currentTime - parseInt(lastRenderTime, 10)) > 2000) {
-        // Clear visited flag on refresh
-        sessionStorage.removeItem("visited");
+        // Clear visited flag on refresh for better user experience
+        // but ONLY if not on a post-splash page
+        const validPostSplashPaths = ["/matrix-loading", "/login", "/login-loading", "/dashboard"];
+        if (!validPostSplashPaths.includes(location.pathname)) {
+          sessionStorage.removeItem("visited");
+        }
         
-        // If not already on splash screen, redirect there
-        if (location.pathname !== "/") {
+        // If not already on splash screen, redirect there on full refresh
+        if (location.pathname !== "/" && !validPostSplashPaths.includes(location.pathname)) {
           navigate("/");
           return;
         }
@@ -70,6 +74,10 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
     // Modified navigation logic to fix loop issue
     // Only redirect to splash if we're not already on a valid post-splash path
     const validPostSplashPaths = ["/matrix-loading", "/login", "/login-loading", "/dashboard"];
+    
+    // Only redirect to splash if:
+    // 1. Not already on splash or valid post-splash path
+    // 2. AND the visited flag is not set
     if (
       location.pathname !== "/" && 
       location.pathname !== "/index" && 

@@ -7,17 +7,13 @@ import { motion } from "framer-motion";
 export function SplashScreen() {
   const navigate = useNavigate();
   
-  // Clear session storage when splash screen loads
-  useEffect(() => {
-    // Remove this line to prevent clearing the visited flag when returning to splash
-    // sessionStorage.removeItem("visited");
-  }, []);
-  
+  // Make sure visited flag is set correctly when Enter is clicked
   const handleEnter = () => {
     // Set visited flag to prevent automatic redirect back to splash
     sessionStorage.setItem("visited", "true");
-    // Also update lastRenderTime to prevent refresh detection from triggering
+    // Update lastRenderTime to prevent refresh detection from triggering
     localStorage.setItem('lastRenderTime', Date.now().toString());
+    // Navigate to matrix loading screen
     navigate('/matrix-loading');
   };
 

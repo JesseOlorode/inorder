@@ -69,9 +69,9 @@ export function MatrixLoading() {
     return () => clearInterval(interval);
   }, [matrixText.length]);
   
-  // Progress bar
+  // Progress bar and navigation
   useEffect(() => {
-    // Set visited flag when matrix loading starts
+    // This is CRITICAL: Ensure the visited flag is set when matrix loading starts
     sessionStorage.setItem("visited", "true");
     // Update the timestamp
     localStorage.setItem('lastRenderTime', Date.now().toString());
@@ -81,7 +81,8 @@ export function MatrixLoading() {
         if (prev >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            navigate('/login'); // Changed to navigate directly to login
+            // Force redirect to login page after animation completes
+            navigate('/login');
           }, 500);
           return 100;
         }
