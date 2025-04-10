@@ -33,14 +33,9 @@ export function LoginForm() {
   return (
     <>
       <div className="text-center mb-5">
-        <div className="flex justify-center items-center mb-2">
-          <div className="flex">
-            <div className="text-[#00C853] text-7xl font-medium mr-2">I</div>
-            <div className="text-white text-7xl font-medium">n</div>
-          </div>
-          <div className="text-white text-5xl font-medium ml-2">Order</div>
-        </div>
-        <div className="text-sm text-gray-400">Time is a precious commodity</div>
+        <div className="text-[#00C853] text-8xl font-medium mb-2">I</div>
+        <div className="text-white text-3xl font-medium">InOrder</div>
+        <div className="text-sm text-gray-400 mt-2">Time is a precious commodity</div>
       </div>
 
       <Form {...form}>
