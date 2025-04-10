@@ -75,19 +75,19 @@ export function CalendarContent() {
         ))}
       </div>
       
-      {/* Time Labels */}
-      <div className="space-y-6 mb-10">
-        {["8:00 AM", "9:00 AM", "10:00 AM", "12:00 PM", "1:00 PM", "3:00 PM", "5:00 PM"].map((time, index) => (
-          <div key={index} className="text-xs text-neutral-400 font-medium">
-            {time}
-          </div>
-        ))}
-      </div>
-
-      {/* Task Cards */}
+      {/* Task Timeline */}
       <div className="relative">
+        {/* Time Labels */}
+        <div className="absolute top-0 left-0 space-y-[70px] text-xs text-neutral-400 font-medium">
+          <div>9:00 AM</div>
+          <div>10:30 AM</div>
+          <div>1:00 PM</div>
+          <div>3:00 PM</div>
+          <div>5:00 PM</div>
+        </div>
+
         {/* Task at 9:00 AM */}
-        <div className="absolute top-[30px] left-[50px] right-0 bg-blue-500 rounded-lg p-2 w-[85%]">
+        <div className="absolute top-[0px] left-[50px] right-0 bg-blue-500 rounded-lg p-2 w-[85%]">
           <div className="flex justify-between items-center">
             <span className="text-xs font-medium">9:00 AM - 10:00 AM</span>
             <button>
@@ -98,7 +98,7 @@ export function CalendarContent() {
         </div>
 
         {/* Task at 10:30 AM */}
-        <div className="absolute top-[100px] left-[50px] right-0 bg-purple-500 rounded-lg p-2 w-[85%]">
+        <div className="absolute top-[70px] left-[50px] right-0 bg-purple-500 rounded-lg p-2 w-[85%]">
           <div className="flex justify-between items-center">
             <span className="text-xs font-medium">10:30 AM - 11:30 AM</span>
             <button>
@@ -109,7 +109,7 @@ export function CalendarContent() {
         </div>
 
         {/* Task at 1:00 PM */}
-        <div className="absolute top-[230px] left-[50px] right-0 bg-orange-500 rounded-lg p-2 w-[85%]">
+        <div className="absolute top-[140px] left-[50px] right-0 bg-orange-500 rounded-lg p-2 w-[85%]">
           <div className="flex justify-between items-center">
             <span className="text-xs font-medium">1:00 PM - 2:00 PM</span>
             <button>
@@ -120,7 +120,7 @@ export function CalendarContent() {
         </div>
 
         {/* Task at 3:00 PM */}
-        <div className="absolute top-[300px] left-[50px] right-0 bg-green-500 rounded-lg p-2 w-[85%]">
+        <div className="absolute top-[210px] left-[50px] right-0 bg-green-500 rounded-lg p-2 w-[85%]">
           <div className="flex justify-between items-center">
             <span className="text-xs font-medium">3:00 PM - 4:00 PM</span>
             <button>
@@ -131,7 +131,7 @@ export function CalendarContent() {
         </div>
 
         {/* Task at 5:00 PM */}
-        <div className="absolute top-[370px] left-[50px] right-0 bg-red-500 rounded-lg p-2 w-[85%]">
+        <div className="absolute top-[280px] left-[50px] right-0 bg-red-500 rounded-lg p-2 w-[85%]">
           <div className="flex justify-between items-center">
             <span className="text-xs font-medium">5:00 PM - 6:00 PM</span>
             <button>
@@ -142,15 +142,15 @@ export function CalendarContent() {
         </div>
 
         {/* Vertical time line */}
-        <div className="absolute top-0 left-[40px] bottom-0 w-px bg-neutral-800 h-[400px]">
-          {[0, 70, 140, 210, 280, 350].map((position, index) => (
+        <div className="absolute top-0 left-[40px] bottom-0 w-px bg-neutral-800 h-[350px]">
+          {[0, 70, 140, 210, 280].map((position, index) => (
             <div key={index} className="absolute -left-1 w-2 h-2 rounded-full bg-neutral-800" style={{ top: position + 'px' }}></div>
           ))}
         </div>
       </div>
 
       {/* Bottom message */}
-      <div className="mt-[440px] bg-neutral-800 rounded-lg p-4 text-center">
+      <div className="mt-[370px] bg-neutral-800 rounded-lg p-4 text-center">
         <h3 className="text-sm font-bold">One step at a time. You'll get there.</h3>
         <p className="text-xs text-neutral-400 mt-1">Break down large tasks into smaller, manageable steps for better progress.</p>
       </div>
