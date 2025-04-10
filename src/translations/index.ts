@@ -56,6 +56,41 @@ export const translations = {
     privacyDescription: "The privacy policy would appear in a modal here.",
     sharingTitle: "Sharing",
     sharingDescription: "Link copied to clipboard!",
+    
+    // Terms and Conditions
+    termsAndConditionsText: `
+    # TERMS AND CONDITIONS
+
+    ## OVERVIEW
+    
+    This website and application (InOrder) is operated by Olorode Corporations LLC. Throughout the site, the terms "we", "us" and "our" refer to Olorode Corporations LLC. Olorode Corporations LLC offers this application, including all information, tools, and services available from this application to you, the user, conditioned upon your acceptance of all terms, conditions, policies, and notices stated here.
+    
+    By accessing or using our application, you engage in our "Service" and agree to be bound by the following terms and conditions ("Terms of Service", "Terms"), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the application.
+    
+    Please read these Terms of Service carefully before accessing or using our application. By accessing or using any part of the application, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the application or use any services.
+    
+    ## INTELLECTUAL PROPERTY RIGHTS
+    
+    This application and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by Olorode Corporations LLC, its licensors, or other providers of such material and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
+    
+    You are strictly prohibited from:
+    1. Copying, redistributing, reproducing, downloading, or otherwise using any part of this application for commercial purposes without our prior written consent
+    2. Attempting to reverse engineer any portion of the application
+    3. Removing or altering any copyright, trademark, or other proprietary rights notices
+    4. Transferring any materials from the application to any other person or "mirror" the materials on any other server
+    
+    Any use of the application not expressly permitted by these Terms of Service is a breach of these Terms and may violate copyright, trademark, and other laws.
+    
+    ## MODIFICATIONS TO TERMS OF SERVICE
+    
+    We reserve the right to revise these terms of service at any time without notice. By using this application, you are agreeing to be bound by the current version of these terms of service.
+    
+    ## CONTACT INFORMATION
+    
+    Questions about the Terms of Service should be sent to us at legal@olorodecorp.com.
+    
+    Last updated: April 10, 2025
+    `,
   },
   spanish: {
     // Navbar
@@ -114,6 +149,41 @@ export const translations = {
     privacyDescription: "La política de privacidad aparecería aquí.",
     sharingTitle: "Compartiendo",
     sharingDescription: "¡Enlace copiado al portapapeles!",
+    
+    // Terms and Conditions
+    termsAndConditionsText: `
+    # TÉRMINOS Y CONDICIONES
+
+    ## DESCRIPCIÓN GENERAL
+    
+    Este sitio web y aplicación (InOrder) es operado por Olorode Corporations LLC. A lo largo del sitio, los términos "nosotros", "nos" y "nuestro" se refieren a Olorode Corporations LLC. Olorode Corporations LLC ofrece esta aplicación, incluida toda la información, herramientas y servicios disponibles, a condition que usted acepte todos los términos, condiciones, políticas y avisos establecidos aquí.
+    
+    Al acceder o utilizar nuestra aplicación, participa en nuestro "Servicio" y acepta estar sujeto a los siguientes términos y condiciones ("Términos de Servicio", "Términos"), incluidos los términos y condiciones adicionales y las políticas a las que se hace referencia aquí y/o disponibles por hipervínculo. Estos Términos de Servicio se aplican a todos los usuarios de la aplicación.
+    
+    Lea estos Términos de Servicio cuidadosamente antes de acceder o utilizar nuestra aplicación. Al acceder o utilizar cualquier parte de la aplicación, acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con todos los términos y condiciones de este acuerdo, no puede acceder a la aplicación ni utilizar ningún servicio.
+    
+    ## DERECHOS DE PROPIEDAD INTELECTUAL
+    
+    Esta aplicación y todo su contenido, características y funcionalidad (incluidos, entre otros, toda la información, software, texto, pantallas, imágenes, video y audio, y el diseño, selección y disposición de los mismos) son propiedad de Olorode Corporations LLC, sus licenciantes u otros proveedores de dicho material y están protegidos por las leyes de derechos de autor, marcas comerciales, patentes, secretos comerciales y otros derechos de propiedad intelectual o derechos de propiedad de los Estados Unidos e internacionales.
+    
+    Está estrictamente prohibido:
+    1. Copiar, redistribuir, reproducir, descargar o utilizar de otra manera cualquier parte de esta aplicación con fines comerciales sin nuestro consentimiento previo por escrito
+    2. Intentar realizar ingeniería inversa de cualquier parte de la aplicación
+    3. Eliminar o alterar cualquier aviso de derechos de autor, marcas comerciales u otros derechos de propiedad
+    4. Transferir cualquier material de la aplicación a cualquier otra persona o "reflejar" los materiales en cualquier otro servidor
+    
+    Cualquier uso de la aplicación no expresamente permitido por estos Términos de Servicio constituye una violación de estos Términos y puede violar los derechos de autor, marcas comerciales y otras leyes.
+    
+    ## MODIFICACIONES A LOS TÉRMINOS DE SERVICIO
+    
+    Nos reservamos el derecho de revisar estos términos de servicio en cualquier momento sin previo aviso. Al utilizar esta aplicación, acepta estar sujeto a la versión actual de estos términos de servicio.
+    
+    ## INFORMACIÓN DE CONTACTO
+    
+    Las preguntas sobre los Términos de Servicio deben enviarse a legal@olorodecorp.com.
+    
+    Última actualización: 10 de abril de 2025
+    `,
   },
   french: {
     // Navbar
@@ -172,6 +242,41 @@ export const translations = {
     privacyDescription: "La politique de confidentialité apparaîtrait ici.",
     sharingTitle: "Partage",
     sharingDescription: "Lien copié dans le presse-papiers !",
+    
+    // Terms and Conditions
+    termsAndConditionsText: `
+    # CONDITIONS GÉNÉRALES
+
+    ## APERÇU
+    
+    Ce site web et cette application (InOrder) sont exploités par Olorode Corporations LLC. Sur l'ensemble du site, les termes "nous", "notre" et "nos" font référence à Olorode Corporations LLC. Olorode Corporations LLC vous propose cette application, y compris toutes les informations, outils et services disponibles, à condition que vous acceptiez tous les termes, conditions, politiques et avis énoncés ici.
+    
+    En accédant à notre application ou en l'utilisant, vous vous engagez dans notre "Service" et acceptez d'être lié par les conditions générales suivantes ("Conditions de Service", "Conditions"), y compris les conditions générales supplémentaires et les politiques mentionnées ici et/ou disponibles par lien hypertexte. Ces Conditions de Service s'appliquent à tous les utilisateurs de l'application.
+    
+    Veuillez lire attentivement ces Conditions de Service avant d'accéder à notre application ou de l'utiliser. En accédant à une partie quelconque de l'application ou en l'utilisant, vous acceptez d'être lié par ces Conditions de Service. Si vous n'acceptez pas toutes les conditions générales de cet accord, vous ne pouvez pas accéder à l'application ni utiliser ses services.
+    
+    ## DROITS DE PROPRIÉTÉ INTELLECTUELLE
+    
+    Cette application et l'ensemble de son contenu, de ses fonctionnalités et de ses fonctions (y compris, mais sans s'y limiter, toutes les informations, logiciels, textes, affichages, images, vidéos et audio, ainsi que la conception, la sélection et l'agencement de ceux-ci) sont la propriété d'Olorode Corporations LLC, de ses concédants de licence ou d'autres fournisseurs de ce matériel et sont protégés par les lois américaines et internationales sur les droits d'auteur, les marques de commerce, les brevets, les secrets commerciaux et autres droits de propriété intellectuelle ou droits de propriété.
+    
+    Il vous est strictement interdit de :
+    1. Copier, redistribuer, reproduire, télécharger ou utiliser d'une autre manière une partie quelconque de cette application à des fins commerciales sans notre consentement écrit préalable
+    2. Tenter de faire de l'ingénierie inverse sur une partie quelconque de l'application
+    3. Supprimer ou modifier les avis de droits d'auteur, de marques de commerce ou d'autres droits de propriété
+    4. Transférer tout matériel de l'application à toute autre personne ou "refléter" le matériel sur tout autre serveur
+    
+    Toute utilisation de l'application non expressément autorisée par ces Conditions de Service constitue une violation de ces Conditions et peut violer les droits d'auteur, des marques de commerce et d'autres lois.
+    
+    ## MODIFICATIONS DES CONDITIONS DE SERVICE
+    
+    Nous nous réservons le droit de réviser ces conditions de service à tout moment sans préavis. En utilisant cette application, vous acceptez d'être lié par la version actuelle de ces conditions de service.
+    
+    ## INFORMATIONS DE CONTACT
+    
+    Les questions concernant les Conditions de Service doivent nous être envoyées à l'adresse legal@olorodecorp.com.
+    
+    Dernière mise à jour : 10 avril 2025
+    `,
   },
   german: {
     // Navbar
@@ -230,6 +335,41 @@ export const translations = {
     privacyDescription: "Die Datenschutzrichtlinie würde hier erscheinen.",
     sharingTitle: "Teilen",
     sharingDescription: "Link in die Zwischenablage kopiert!",
+    
+    // Terms and Conditions
+    termsAndConditionsText: `
+    # ALLGEMEINE GESCHÄFTSBEDINGUNGEN
+
+    ## ÜBERBLICK
+    
+    Diese Website und Anwendung (InOrder) wird von Olorode Corporations LLC betrieben. Die Begriffe "wir", "uns" und "unser" beziehen sich auf Olorode Corporations LLC. Olorode Corporations LLC bietet Ihnen, dem Nutzer, diese Anwendung, einschließlich aller Informationen, Tools und Dienste, die über diese Anwendung verfügbar sind, unter der Bedingung, dass Sie alle hier genannten Bedingungen, Konditionen, Richtlinien und Hinweise akzeptieren.
+    
+    Durch den Zugriff auf oder die Nutzung unserer Anwendung nehmen Sie an unserem "Dienst" teil und erklären sich mit den folgenden Bedingungen ("Nutzungsbedingungen", "Bedingungen") einverstanden, einschließlich der zusätzlichen Bedingungen und Richtlinien, auf die hier verwiesen wird und/oder die über Hyperlinks verfügbar sind. Diese Nutzungsbedingungen gelten für alle Nutzer der Anwendung.
+    
+    Bitte lesen Sie diese Nutzungsbedingungen sorgfältig durch, bevor Sie auf unsere Anwendung zugreifen oder diese nutzen. Durch den Zugriff auf oder die Nutzung eines Teils der Anwendung erklären Sie sich mit diesen Nutzungsbedingungen einverstanden. Wenn Sie nicht mit allen Bedingungen dieser Vereinbarung einverstanden sind, dürfen Sie nicht auf die Anwendung zugreifen oder Dienste nutzen.
+    
+    ## RECHTE AN GEISTIGEM EIGENTUM
+    
+    Diese Anwendung und ihr gesamter Inhalt, ihre Funktionen und Funktionalität (einschließlich, aber nicht beschränkt auf alle Informationen, Software, Texte, Anzeigen, Bilder, Videos und Audio sowie das Design, die Auswahl und die Anordnung davon) sind Eigentum von Olorode Corporations LLC, seinen Lizenzgebern oder anderen Anbietern solcher Materialien und sind durch US-amerikanische und internationale Urheberrechte, Marken, Patente, Geschäftsgeheimnisse und andere geistige Eigentumsrechte oder Eigentumsrechte geschützt.
+    
+    Es ist Ihnen streng untersagt:
+    1. Teile dieser Anwendung ohne unsere vorherige schriftliche Zustimmung für kommerzielle Zwecke zu kopieren, weiterzugeben, zu reproduzieren, herunterzuladen oder anderweitig zu nutzen
+    2. Versuche, einen Teil der Anwendung zurückzuentwickeln
+    3. Copyright-, Marken- oder andere Eigentumsrechtshinweise zu entfernen oder zu verändern
+    4. Materialien aus der Anwendung an andere Personen zu übertragen oder die Materialien auf einem anderen Server zu "spiegeln"
+    
+    Jede Nutzung der Anwendung, die nicht ausdrücklich durch diese Nutzungsbedingungen gestattet ist, stellt einen Verstoß gegen diese Bedingungen dar und kann gegen Urheberrechte, Markenrechte und andere Gesetze verstoßen.
+    
+    ## ÄNDERUNGEN DER NUTZUNGSBEDINGUNGEN
+    
+    Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit ohne Vorankündigung zu überarbeiten. Durch die Nutzung dieser Anwendung erklären Sie sich mit der aktuellen Version dieser Nutzungsbedingungen einverstanden.
+    
+    ## KONTAKTINFORMATIONEN
+    
+    Fragen zu den Nutzungsbedingungen sollten an uns unter legal@olorodecorp.com gesendet werden.
+    
+    Zuletzt aktualisiert: 10. April 2025
+    `,
   },
   chinese: {
     // Navbar
@@ -288,5 +428,40 @@ export const translations = {
     privacyDescription: "隐私政策将会显示在这里。",
     sharingTitle: "分享",
     sharingDescription: "链接已复制到剪贴板！",
+    
+    // Terms and Conditions
+    termsAndConditionsText: `
+    # 条款和条件
+
+    ## 概述
+    
+    本网站和应用程序（InOrder）由Olorode Corporations LLC运营。在整个网站中，"我们"、"我们的"和"我们的"是指Olorode Corporations LLC。Olorode Corporations LLC向您（用户）提供此应用程序，包括从此应用程序提供的所有信息、工具和服务，条件是您接受此处声明的所有条款、条件、政策和通知。
+    
+    通过访问或使用我们的应用程序，您参与我们的"服务"，并同意受以下条款和条件（"服务条款"，"条款"）的约束，包括此处引用和/或通过超链接提供的那些附加条款和条件以及政策。这些服务条款适用于应用程序的所有用户。
+    
+    请在访问或使用我们的应用程序之前仔细阅读这些服务条款。通过访问或使用应用程序的任何部分，您同意受这些服务条款的约束。如果您不同意本协议的所有条款和条件，则您可能无法访问应用程序或使用任何服务。
+    
+    ## 知识产权
+    
+    本应用程序及其全部内容、功能和功能（包括但不限于所有信息、软件、文本、显示、图像、视频和音频，以及其设计、选择和安排）均为Olorode Corporations LLC、其许可方或此类材料的其他提供者所有，并受美国和国际版权、商标、专利、商业秘密和其他知识产权或专有权利法律的保护。
+    
+    严禁您：
+    1. 未经我们事先书面同意，出于商业目的复制、重新分发、复制、下载或以其他方式使用本应用程序的任何部分
+    2. 尝试对应用程序的任何部分进行逆向工程
+    3. 删除或更改任何版权、商标或其他专有权利通知
+    4. 将应用程序中的任何材料传输给任何其他人或在任何其他服务器上"镜像"材料
+    
+    任何未经这些服务条款明确允许的���用程序使用都是违反这些条款的行为，可能违反版权、商标和其他法律。
+    
+    ## 服务条款的修改
+    
+    我们保留随时修改这些服务条款的权利，恕不另行通知。通过使用本应用程序，您同意受这些服务条款的当前版本的约束。
+    
+    ## 联系信息
+    
+    有关服务条款的问题应发送至legal@olorodecorp.com。
+    
+    最后更新日期：2025年4月10日
+    `,
   }
 };

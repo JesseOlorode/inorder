@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function ProfileContent() {
   const { theme, toggleTheme } = useTheme();
@@ -44,6 +45,7 @@ export function ProfileContent() {
   // State for dialogs
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const [languageDialogOpen, setLanguageDialogOpen] = useState(false);
+  const [termsDialogOpen, setTermsDialogOpen] = useState(false);
   
   const handleLogout = () => {
     toast({
@@ -185,12 +187,7 @@ export function ProfileContent() {
           <ProfileSettingLink
             icon={<FileText size={18} />}
             label={t("termsConditions")}
-            onClick={() => {
-              toast({
-                title: t("termsTitle"),
-                description: t("termsDescription"),
-              });
-            }}
+            onClick={() => setTermsDialogOpen(true)}
           />
         </div>
         
@@ -352,6 +349,36 @@ export function ProfileContent() {
               className={theme === 'dark' ? 'border-gray-700' : ''}
             >
               {t("cancel")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Terms and Conditions Dialog */}
+      <Dialog open={termsDialogOpen} onOpenChange={setTermsDialogOpen}>
+        <DialogContent className={`${theme === 'dark' ? 'bg-[#252A37] text-white border-gray-700' : 'bg-white'} max-w-3xl max-h-[80vh]`}>
+          <DialogHeader>
+            <DialogTitle>{t("termsConditions")}</DialogTitle>
+          </DialogHeader>
+          
+          <ScrollArea className="mt-2 h-[60vh] pr-4 pb-4">
+            <div className={`prose ${theme === 'dark' ? 'prose-invert' : ''} max-w-none`}>
+              <div dangerouslySetInnerHTML={{ 
+                __html: t("termsAndConditionsText")
+                  .replace(/# (.*)/g, '<h1 class="text-xl font-bold my-4">$1</h1>')
+                  .replace(/## (.*)/g, '<h2 class="text-lg font-semibold my-3">$1</h2>')
+                  .replace(/\n\n/g, '<p class="my-2"></p>')
+                  .replace(/\n/g, '<br />')
+              }} />
+            </div>
+          </ScrollArea>
+          
+          <DialogFooter className="mt-4">
+            <Button 
+              onClick={() => setTermsDialogOpen(false)} 
+              className="bg-[#00C853] hover:bg-[#00B04C] text-black font-medium"
+            >
+              I Accept
             </Button>
           </DialogFooter>
         </DialogContent>
