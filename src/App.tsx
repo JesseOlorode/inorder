@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,7 +39,29 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   
   useEffect(() => {
-    // Check if the user is on a page other than splash or matrix, and hasn't visited
+    // Check if this is a page refresh by looking at performance navigation type
+    const isPageRefresh = window.performance && 
+      window.performance.navigation && 
+      window.performance.navigation.type === 1;
+      
+    // Alternative method for newer browsers
+    const isPageRefreshNew = sessionStorage.getItem("app_loaded") !== "true";
+    
+    // Set a flag that we've loaded the app
+    sessionStorage.setItem("app_loaded", "true");
+    
+    // If it's a refresh or new session and we're not on splash or matrix loading
+    if ((isPageRefresh || isPageRefreshNew) && 
+        location.pathname !== "/" && 
+        location.pathname !== "/matrix-loading") {
+      // Clear visited flag
+      sessionStorage.removeItem("visited");
+      // Redirect to splash screen
+      navigate("/");
+      return;
+    }
+    
+    // Normal navigation checks (keep the existing behavior)
     if (
       location.pathname !== "/" && 
       location.pathname !== "/index" && 
