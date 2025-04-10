@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Progress } from "@/components/ui/progress";
@@ -38,14 +37,43 @@ export function MatrixLoading() {
     "const socket = new WebSocket('wss://server.example.com');"
   ];
   
-  // Generate coding-like text
+  // Generate enough matrix text to fill the screen
   useEffect(() => {
     try {
       // Only generate text if we're still on the loading page (not navigated away)
       if (hasNavigated) return;
       
+      // Generate a lot more matrix text to fill the screen
+      const generateInitialMatrixText = () => {
+        // Create initial set of matrix text to fill screen
+        const initialTexts = [];
+        for (let i = 0; i < 30; i++) {
+          let text = '';
+          const useSnippet = Math.random() > 0.3;
+          
+          if (useSnippet && codingSnippets.length > 0) {
+            const snippetIndex = Math.floor(Math.random() * codingSnippets.length);
+            text = codingSnippets[snippetIndex];
+          } else {
+            const codePatterns = [
+              "const ", "let ", "function ", "if(", "return ", "await ", "async ", 
+              "import ", "export ", "class ", "interface ", "type ", "for(", "while("
+            ];
+            const startPattern = codePatterns[Math.floor(Math.random() * codePatterns.length)];
+            text = startPattern + Math.random().toString(36).substring(2, 10) + ";";
+          }
+          
+          initialTexts.push(text);
+        }
+        return initialTexts;
+      };
+      
+      // Set initial texts that fill the screen
+      setMatrixText(generateInitialMatrixText());
+      
+      // Then keep adding more
       const interval = setInterval(() => {
-        if (matrixText.length < 50) {
+        if (matrixText.length < 100) { // Increase max number of lines
           // Randomly select a code snippet or generate a new one
           const useSnippet = Math.random() > 0.3;
           
@@ -154,12 +182,13 @@ export function MatrixLoading() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-[#00FF41] font-mono p-4 relative">
+    <div className="flex flex-col min-h-screen h-full bg-black text-[#00FF41] font-mono p-4 relative">
       {!showAccessGranted ? (
         <>
           <div 
             ref={containerRef}
-            className="flex-1 overflow-y-auto mb-4 scrollbar-hide"
+            className="flex-1 overflow-y-auto mb-4 scrollbar-hide min-h-[80vh]"
+            style={{ overflowX: 'hidden' }}
           >
             <div className="text-center pb-4 text-xl">Initializing System</div>
             {matrixText.map((text, index) => (
@@ -169,7 +198,7 @@ export function MatrixLoading() {
             ))}
           </div>
           
-          <div className="mb-4">
+          <div className="sticky bottom-0 left-0 right-0 mb-4 bg-black py-2">
             <div className="text-xs mb-2">System Initialization: {progress}%</div>
             <Progress 
               value={progress} 
