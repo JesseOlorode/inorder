@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -7,7 +7,13 @@ import { motion } from "framer-motion";
 export function SplashScreen() {
   const navigate = useNavigate();
   
+  // Clear session storage when splash screen loads
+  useEffect(() => {
+    sessionStorage.removeItem("visited");
+  }, []);
+  
   const handleEnter = () => {
+    sessionStorage.setItem("visited", "true");
     navigate('/matrix-loading');
   };
 

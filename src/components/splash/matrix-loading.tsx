@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
 
 export function MatrixLoading() {
   const [progress, setProgress] = useState(0);

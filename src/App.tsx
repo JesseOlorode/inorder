@@ -41,12 +41,9 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
   
   useEffect(() => {
     // If the user refreshes on any page other than the splash screen, redirect to splash
-    if (location.pathname !== "/" && location.pathname !== "/index" && sessionStorage.getItem("visited") !== "true") {
+    if (location.pathname !== "/" && location.pathname !== "/index" && location.pathname !== "/matrix-loading" && sessionStorage.getItem("visited") !== "true") {
       navigate("/");
     }
-    
-    // Set visited flag in sessionStorage
-    sessionStorage.setItem("visited", "true");
   }, [navigate, location]);
   
   return <>{children}</>;
