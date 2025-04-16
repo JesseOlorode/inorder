@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -110,6 +109,7 @@ export function DevicesContent() {
   
   const [dialogType, setDialogType] = useState<"details" | "controls" | "settings" | "info" | null>(null);
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
   const { toast } = useToast();
 
   const togglePower = (id: number) => {
@@ -173,13 +173,24 @@ export function DevicesContent() {
       return device;
     }));
     
-    // Update the selected device too
     setSelectedDevice({...selectedDevice, volume});
     
     toast({
       title: `${selectedDevice.name} volume adjusted`,
       description: `Volume set to ${volume}%`,
     });
+  };
+
+  const checkForUpdates = () => {
+    setIsChecking(true);
+    
+    setTimeout(() => {
+      setIsChecking(false);
+      toast({
+        title: "Update Check Complete",
+        description: "Your device software is up to date",
+      });
+    }, 2000);
   };
 
   return (
@@ -375,8 +386,21 @@ export function DevicesContent() {
               <span>Auto-Update</span>
               <Switch defaultChecked />
             </div>
-            <Button variant="outline" className="w-full bg-[#1A1F2C] text-white border-none mt-4">
-              <RefreshCw size={16} className="mr-2" /> Check for Updates
+            <Button 
+              variant="outline" 
+              className="w-full bg-[#1A1F2C] text-white border-none mt-4"
+              onClick={checkForUpdates}
+              disabled={isChecking}
+            >
+              {isChecking ? (
+                <>
+                  <RefreshCw size={16} className="mr-2 animate-spin" /> Checking...
+                </>
+              ) : (
+                <>
+                  <RefreshCw size={16} className="mr-2" /> Check for Updates
+                </>
+              )}
             </Button>
           </div>
           <DialogFooter>
