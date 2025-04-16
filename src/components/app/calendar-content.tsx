@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal, User, Check, Trash, X } from "lucide-react";
 import { format, addDays, subDays } from "date-fns";
@@ -8,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button"; // Added missing Button import
 import { getRandomMotivationalMessage } from "@/utils/motivational-messages";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 
@@ -76,12 +78,18 @@ export function CalendarContent() {
     
     const taskPrefix = `${newCalendarDays[index].date}:`;
     const updatedTasks = [
-      { id: 1, time: `${taskPrefix}00 AM`, title: "Team meeting", color: "bg-blue-500", completed: false },
-      { id: 2, time: `${taskPrefix}30 AM`, title: "Client call", color: "bg-purple-500", completed: false },
-      { id: 3, time: `${taskPrefix}00 PM`, title: "Lunch break", color: "bg-orange-500", completed: false },
-      { id: 4, time: `${taskPrefix}30 PM`, title: "Project review", color: "bg-green-500", completed: false },
-      { id: 5, time: `${taskPrefix}00 PM`, title: "Team check-in", color: "bg-blue-500", completed: false },
-      { id: 6, time: `${taskPrefix}30 PM`, title: "End of day", color: "bg-red-500", completed: false },
+      { id: 1, time: `${taskPrefix}00 AM`, title: "Team meeting", color: "bg-blue-500", completed: false, 
+        description: "Weekly team sync meeting to discuss project progress, blockers, and next steps." },
+      { id: 2, time: `${taskPrefix}30 AM`, title: "Client call", color: "bg-purple-500", completed: false, 
+        description: "Discuss project requirements with the client. Prepare presentation and progress report." },
+      { id: 3, time: `${taskPrefix}00 PM`, title: "Lunch break", color: "bg-orange-500", completed: false, 
+        description: "Take a break and enjoy your lunch. Remember to step away from your desk." },
+      { id: 4, time: `${taskPrefix}30 PM`, title: "Project review", color: "bg-green-500", completed: false, 
+        description: "Internal review of the current project milestones. Prepare documentation and demo." },
+      { id: 5, time: `${taskPrefix}00 PM`, title: "Team check-in", color: "bg-blue-500", completed: false, 
+        description: "Quick check-in with team members to ensure everyone is on track for the day's deliverables." },
+      { id: 6, time: `${taskPrefix}30 PM`, title: "End of day", color: "bg-red-500", completed: false, 
+        description: "Wrap up your work for the day. Update task status and prepare your to-do list for tomorrow." },
     ];
     
     setTodayTasks(updatedTasks);
