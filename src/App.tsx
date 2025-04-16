@@ -52,14 +52,15 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
       // If there's no timestamp or it's been more than 2 seconds, consider it a page refresh
       if (!lastRenderTime || (currentTime - parseInt(lastRenderTime, 10)) > 2000) {
         // Clear visited flag on refresh for better user experience
-        // but ONLY if not on a post-splash page
+        // but ONLY if not on a post-splash page and user hasn't visited already
         const validPostSplashPaths = ["/matrix-loading", "/login", "/login-loading", "/dashboard"];
-        if (!validPostSplashPaths.includes(location.pathname)) {
+        
+        if (!validPostSplashPaths.includes(location.pathname) && sessionStorage.getItem("visited") !== "true") {
           sessionStorage.removeItem("visited");
         }
         
-        // If not already on splash screen, redirect there on full refresh
-        if (location.pathname !== "/" && !validPostSplashPaths.includes(location.pathname)) {
+        // If not already on splash screen AND not visited before, redirect there on full refresh
+        if (location.pathname !== "/" && !validPostSplashPaths.includes(location.pathname) && sessionStorage.getItem("visited") !== "true") {
           navigate("/");
           return;
         }
@@ -72,19 +73,20 @@ const RouteGuard = ({ children }: { children: React.ReactNode }) => {
     // Run the refresh check when component mounts
     handlePageRefresh();
     
-    // Modified navigation logic to fix loop issue
-    // Only redirect to splash if we're not already on a valid post-splash path
-    const validPostSplashPaths = ["/matrix-loading", "/login", "/login-loading", "/dashboard"];
+    // Modified navigation logic to prevent redirecting to splash when clicking bottom nav
+    // Define all valid app routes that should NOT redirect to splash
+    const validAppPaths = [
+      "/", "/matrix-loading", "/login", "/login-loading", "/dashboard",
+      "/profile", "/create-task", "/task-management", "/grocery-management",
+      "/grocery-edit", "/grocery-add", "/grocery-receipt", "/task-complete",
+      "/calendar", "/weather", "/search", "/favorites", "/wifi", 
+      "/statistics", "/sound", "/alerts", "/devices"
+    ];
     
     // Only redirect to splash if:
-    // 1. Not already on splash or valid post-splash path
+    // 1. Not on a valid app path
     // 2. AND the visited flag is not set
-    if (
-      location.pathname !== "/" && 
-      location.pathname !== "/index" && 
-      !validPostSplashPaths.includes(location.pathname) &&
-      sessionStorage.getItem("visited") !== "true"
-    ) {
+    if (!validAppPaths.includes(location.pathname) && sessionStorage.getItem("visited") !== "true") {
       // Redirect to splash screen if not visited and not on a valid path
       navigate("/");
     }
