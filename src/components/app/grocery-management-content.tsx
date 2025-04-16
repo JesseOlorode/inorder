@@ -299,13 +299,6 @@ function GroceryItem({ name, price, image, expiryDays }: { name: string; price: 
             />
           </Progress>
         </div>
-        
-        <div className="flex items-center justify-between mt-2">
-          <span className="text-sm text-[#00A16C]">{price}</span>
-          <button className="bg-[#00A16C] text-xs text-white px-3 py-1 rounded-full">
-            Add
-          </button>
-        </div>
       </div>
     </div>
   );

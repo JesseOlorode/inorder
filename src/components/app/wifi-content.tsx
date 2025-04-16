@@ -2,9 +2,18 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Wifi, WifiOff } from "lucide-react";
+import { Wifi, WifiOff, Plus, Lock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export function WiFiContent() {
   const [wifiEnabled, setWifiEnabled] = useState(true);
@@ -14,6 +23,9 @@ export function WiFiContent() {
     { id: 3, name: "Public WiFi", secured: false, strength: "Low", connected: false },
     { id: 4, name: "Office Network", secured: true, strength: "High", connected: false },
   ]);
+  const [addNetworkOpen, setAddNetworkOpen] = useState(false);
+  const [newNetworkName, setNewNetworkName] = useState("");
+  const [newNetworkPassword, setNewNetworkPassword] = useState("");
   const { toast } = useToast();
 
   const toggleWifi = () => {
@@ -39,6 +51,38 @@ export function WiFiContent() {
     });
   };
 
+  const addNetwork = () => {
+    if (!newNetworkName.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a network name",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Add the new network
+    const newId = Math.max(...availableNetworks.map(n => n.id)) + 1;
+    const newNetwork = {
+      id: newId,
+      name: newNetworkName,
+      secured: newNetworkPassword.length > 0,
+      strength: "Medium",
+      connected: false
+    };
+    
+    setAvailableNetworks([...availableNetworks, newNetwork]);
+    toast({
+      title: "Network Added",
+      description: `'${newNetworkName}' has been added to your networks`
+    });
+    
+    // Reset and close
+    setNewNetworkName("");
+    setNewNetworkPassword("");
+    setAddNetworkOpen(false);
+  };
+
   return (
     <div className="space-y-6 pt-4">
       <div className="flex items-center justify-between">
@@ -51,7 +95,17 @@ export function WiFiContent() {
 
       {wifiEnabled ? (
         <div className="space-y-4">
-          <h2 className="text-sm font-medium">Available Networks</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-sm font-medium">Available Networks</h2>
+            <Button 
+              onClick={() => setAddNetworkOpen(true)}
+              size="sm" 
+              className="bg-[#00A16C] hover:bg-[#00A16C]/90 h-8 px-3"
+            >
+              <Plus size={16} className="mr-1" /> Add Network
+            </Button>
+          </div>
+          
           <div className="space-y-3">
             {availableNetworks.map((network) => (
               <Card key={network.id} className="bg-[#252A37] border-none p-4 rounded-lg text-white">
@@ -96,6 +150,53 @@ export function WiFiContent() {
           </Button>
         </div>
       )}
+      
+      {/* Add Network Dialog */}
+      <Dialog open={addNetworkOpen} onOpenChange={setAddNetworkOpen}>
+        <DialogContent className="bg-[#252A37] text-white border-[#1A1F2C]">
+          <DialogHeader>
+            <DialogTitle>Add WiFi Network</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label htmlFor="network-name" className="text-sm font-medium">Network Name (SSID)</label>
+              <Input 
+                id="network-name"
+                value={newNetworkName}
+                onChange={(e) => setNewNetworkName(e.target.value)}
+                placeholder="Enter network name"
+                className="bg-[#1A1F2C] border-[#3A3F4C] text-white"
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="network-password" className="text-sm font-medium">Password</label>
+              <Input 
+                id="network-password"
+                type="password"
+                value={newNetworkPassword}
+                onChange={(e) => setNewNetworkPassword(e.target.value)}
+                placeholder="Enter password (leave empty for open networks)"
+                className="bg-[#1A1F2C] border-[#3A3F4C] text-white"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => setAddNetworkOpen(false)}
+              className="bg-[#1A1F2C] hover:bg-[#23293A] text-white border-none"
+            >
+              Cancel
+            </Button>
+            <Button 
+              onClick={addNetwork}
+              className="bg-[#00A16C] hover:bg-[#00A16C]/90"
+            >
+              Add Network
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
