@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Link, useNavigate } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
+import { UserPlus } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters"),
@@ -27,6 +29,10 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    toast({
+      title: "Login successful",
+      description: "Welcome back to InOrder",
+    });
     navigate("/dashboard");
   }
 
@@ -104,8 +110,18 @@ export function LoginForm() {
           </Button>
 
           <div className="text-center text-xs mt-4 text-gray-400">
-            Don't have an account? <Link to="/" className="text-[#00C853] hover:underline">Sign up</Link>
+            Don't have an account?
           </div>
+          
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => navigate("/")}
+            className="w-full border-[#00C853] text-[#00C853] font-medium rounded text-base hover:bg-[#00C853]/10 flex items-center justify-center gap-2"
+          >
+            <UserPlus size={18} />
+            Sign Up
+          </Button>
         </form>
       </Form>
     </>
